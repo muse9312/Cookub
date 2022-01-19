@@ -28,6 +28,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime birth;
     private String field;
+    private String profile; //프로필 사진
     private String grade;   //수준
     private int career;     //경력년수
     private String workPlace;
