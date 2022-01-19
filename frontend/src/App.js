@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
+import Navigation from './component/Navigation';
+import About from './veiw/About';
+import Board from './veiw/Board';
+import Login from './veiw/Login';
+import Main from './veiw/Main';
+import MyPage from './veiw/MyPage';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Navigation/>
+    <Routes>
+      <Route path="/main" exact={true} element={<Main/>}/>
+      <Route path="/login" exact={true} element={<Login/>}/>
+      <Route path="/about" element={<About/>}/>
+      <Route path="/board" element={<Board />}/>
+      <Route path="/mypage" element={<MyPage />}/>
+    </Routes>
+  </BrowserRouter>
   );
 }
 
 export default App;
+ 
