@@ -1,6 +1,6 @@
-package com.cookub.backend.model;
+package com.cookub.backend.entity;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue
@@ -24,8 +28,8 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime birth;
     private String field;
-    private String career;
-    private int workingYears;
+    private String grade;   //수준
+    private int career;     //경력년수
     private String workPlace;
     private String workNation;
     @CreationTimestamp
