@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import style from './App.module.css';
-=======
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
->>>>>>> SW
 import Navigation from './component/Navigation';
 import About from './veiw/About';
 import Board from './veiw/Board';
