@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import './App.css';
+import style from './App.module.css';
 import Navigation from './component/Navigation';
 import About from './veiw/About';
 import Board from './veiw/Board';
@@ -12,7 +12,9 @@ import MyPage from './veiw/MyPage';
 function App() {
   return (
     <BrowserRouter>
-    <Navigation/>
+    <div className={style.nav}>
+      <Navigation />
+    </div>
     <Routes>
       <Route path="/main" exact={true} element={<Main/>}/>
       <Route path="/login" exact={true} element={<Login/>}/>
