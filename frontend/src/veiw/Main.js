@@ -3,7 +3,7 @@ import Navigation from "../component/Navigation"
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import content from '../component/carousel/content'
-import '../assets/css/ex.css'
+import '../assets/css/Main.css'
 
 
 
