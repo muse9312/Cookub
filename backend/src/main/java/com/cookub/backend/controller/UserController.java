@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@RequiredArgsConstructor
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-    private final JwtUtil jwtUtil;
+
 
     @PostMapping("/signUp")
     public User signUp(UserDto userDto){
@@ -30,23 +27,6 @@ public class UserController {
 
     @PostMapping("/signIn")
     public ResultJson signIn(@RequestBody UserDto userDto){
-        System.out.println("2. signIn : "+userDto.getEmail()+", "+userDto.getPassword());
-        ResultJson resultJson = new ResultJson();
-        User userEntity = userRepository.findByEmail(userDto.getEmail());
-        String token = "";
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
-            System.out.println("3. ID 확인 후 token 발급");
-            token = "Bearer "+jwtUtil.generateToken(userEntity);
-            System.out.println("6. 토큰 완성:"+token);
-        } else {
-            resultJson.setCode(ResultCode.LOGIN_FAIL.getCode());
-            resultJson.setMsg(ResultCode.LOGIN_FAIL.getMsg());
-            return resultJson;
-        }
-        resultJson.setCode(ResultCode.SUCCESS.getCode());
-        resultJson.setMsg(ResultCode.SUCCESS.getMsg());
-        resultJson.setToken(token);
-        return resultJson;
+        return userService.signIn(userDto);
     }
 }

@@ -3,6 +3,10 @@ package com.cookub.backend.service;
 import com.cookub.backend.dto.UserDto;
 import com.cookub.backend.entity.User;
 import com.cookub.backend.repository.UserRepository;
+import com.cookub.backend.util.JwtUtil;
+import com.cookub.backend.util.ResultCode;
+import com.cookub.backend.util.ResultJson;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
+    private final JwtUtil jwtUtil;
     @Autowired
     private UserRepository userRepository;
     @Override
@@ -44,5 +50,26 @@ public class UserServiceImpl implements UserService{
         }
 
         return null;
+    }
+
+    @Override
+    public ResultJson signIn(UserDto userDto) {
+        ResultJson resultJson = new ResultJson();
+        User userEntity = userRepository.findByEmail(userDto.getEmail());
+        String token = "";
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
+            System.out.println("3. ID 확인 후 token 발급");
+            token = "Bearer "+jwtUtil.generateToken(userEntity);
+            System.out.println("6. 토큰 완성:"+token);
+        } else {
+            resultJson.setCode(ResultCode.LOGIN_FAIL.getCode());
+            resultJson.setMsg(ResultCode.LOGIN_FAIL.getMsg());
+            return resultJson;
+        }
+        resultJson.setCode(ResultCode.SUCCESS.getCode());
+        resultJson.setMsg(ResultCode.SUCCESS.getMsg());
+        resultJson.setToken(token);
+        return resultJson;
     }
 }

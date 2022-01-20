@@ -22,16 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailService userDetailService;
     private final JwtRequestFilter jwtRequestFilter;
 
+    //데이터베이스 인증용 Provider 1
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
-    /**
-     * 데이터베이스 인증용 Provider
-     *
-     * @return
-     */
+    //데이터베이스 인증용 Provider 2
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
