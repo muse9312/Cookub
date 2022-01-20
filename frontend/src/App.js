@@ -18,9 +18,10 @@ function App() {
         <Navigation />
       </div>
       <Routes>
-        <Route path="/main" exact={true} element={<Main />} />
+        <Route path="/" exact={true} element={<Main />} />
         <Route path="/login" exact={true} element={<Login />} />
         <Route path="/about" element={<About />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/board" element={<Board />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
