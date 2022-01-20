@@ -1,19 +1,29 @@
 import React from "react";
-import Navigation from '../component/Navigation'
-import '../assets/css/Login.css'
-import Collage from '../assets/img/carlos-aranda-IYMceGutrbQ-unsplash.jpg'
+
+import '../assets/css/SignUp.css'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 import axios from 'axios'
 
 
-function Login() {
 
-  function hendleClick(e) {
+const Profile = () => {
+
+  function SendHome(e) {
     e.preventDefault();
     window.location.href = "/"
 
   }
+  function SendSignUp(e) {
+    e.preventDefault();
+    window.location.href = "/signup"
 
-  function SendData(e) {
+  }
+
+  function RegData(e) {
     e.preventDefault();
     console.log(e);
     console.log(e.target['0'].value);
@@ -30,7 +40,7 @@ function Login() {
     formData.append("email", email);
     formData.append("pwd", pwd);
 
-    axios({ url: 'http://localhost:8080/???', method: 'post', data: formData }).then(
+    axios({ url: 'http://localhost:8080/user/signIn', method: 'post', data: formData }).then(
       function (res) {
         console.log(res.data);
 
@@ -40,59 +50,101 @@ function Login() {
 
 
   return (
-
-    <> < Navigation />
-      <div id="ls-1">
+    <>
+      < div id="ls-3" >
         <div class="background_1">
 
-          {/* <img src={Collage}></img> */}
-          <div className="container">
-            <div className="L-1">
-              <div className="card">
-                <div className="cardform">
-                  <h1 className="title">Welcome to Cookub!!</h1>
-                  <p className="subtitle">Happy Cooking!!</p>
-                  <br />
-                  <form onSubmit={SendData}>
+          <div class="background_1">
 
-                    {/* Email  */}
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp"></input>
+            {/* <img src={Collage}></img> */}
+            <div className="container">
+              <div className="L-2">
+                <div className="Regcard">
+                  <div className="cardform">
+                    <h1 className="title2">Create your Account</h1>
 
-                    </div>
                     <br />
+                    <form onSubmit={RegData}>
 
-                    {/* Password */}
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="passwd"></input>
-                    </div>
-                    <br />
+                      <Box
+                        component="form"
+                        sx={{
+                          '& > :not(style)': { m: 0.5, width: '30ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                      >
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                        <TextField
+                          id="outlined-password-input"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                        />
+                      </Box>
+
+                      <br />
+                      <div id="Btn-1">
+                        <Stack direction="row" spacing={4}>
+                          <Button variant="outlined" onClick={SendHome}>Submit</Button>
+                          <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
+                        </Stack>
+                      </div>
+                    </form>
+                  </div>
 
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="submit" class="btn btn-primary" onClick={hendleClick} >SignUp</button>
-                  </form>
                 </div>
 
 
               </div>
 
 
+
             </div>
-
-
 
           </div>
 
         </div>
 
       </div>
-
     </>
-
   );
-}
+};
 
-export default Login;
+export default Profile;

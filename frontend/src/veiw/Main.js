@@ -1,7 +1,6 @@
 import React from "react";
 import Navigation from "../component/Navigation"
 import Slider from 'react-animated-slider';
-import 'react-animated-slider/build/horizontal.css';
 import content from '../component/carousel/content'
 import '../assets/css/Main.css'
 
@@ -10,10 +9,10 @@ import '../assets/css/Main.css'
 function Main() {
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
 
       <div id="ls-1">
-        <Slider autoplay={2200}>
+        <Slider id="ls-1" autoplay={2200}>
           {content.map((item, index) => (
             <div
               key={index}
