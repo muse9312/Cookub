@@ -13,6 +13,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,13 +22,28 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/signUp")
-    public User signUp(UserDto userDto){
+    @PostMapping("/auth/signUp")
+    public ResultJson signUp(UserDto userDto){
         return userService.signUp(userDto);
     }
 
-    @PostMapping("/signIn")
+    @PostMapping("/auth/signIn")
     public ResultJson signIn(@RequestBody UserDto userDto){
         return userService.signIn(userDto);
+    }
+
+    @PutMapping("/edit")
+    public ResultJson userEdit(UserDto userDto){
+        return userService.editUser(userDto);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResultJson userDelete(@PathVariable Long userId){
+        return userService.deleteUser(userId);
+    }
+
+    @PostMapping("/userCheck")
+    public ResultJson userCheck(UserDto userDto){
+        return userService.checkUser(userDto);
     }
 }

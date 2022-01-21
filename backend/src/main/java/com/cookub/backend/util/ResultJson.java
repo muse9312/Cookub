@@ -10,5 +10,6 @@ import lombok.Setter;
 public class ResultJson {
     private String code;
     private String msg;
+    private Object result;
     private String token;
 }

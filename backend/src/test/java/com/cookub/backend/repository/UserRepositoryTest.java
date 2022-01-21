@@ -2,6 +2,7 @@ package com.cookub.backend.repository;
 
 import com.cookub.backend.dto.UserDto;
 import com.cookub.backend.entity.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +31,7 @@ class UserRepositoryTest {
                 .profile("/profile/a.jpeg")
                 .field("한중양식")
                 .grade("세미프로")
+                .tel("010-9875-1234")
                 .career(3)
                 .workPlace("가디역")
                 .workNation("캐나다")
@@ -53,5 +55,31 @@ class UserRepositoryTest {
                 .workPlace(userDto.getWorkPlace())
                 .build();
         userRepository.save(userEntity);
+    }
+
+    @Test
+    @DisplayName("ID로 회원정보 찾기")
+    public void findUserInfoById () {
+    //Tip! RED->GREEN->Refactoring
+
+    //given : 무언가가 주어졌을 때,
+
+    //when : 이 상황에
+
+    //then : 이 결과가 나와야한다.
+    //assertThat("결과값").isEqualTo("예상결과값");
+    }
+
+    @Test
+    @DisplayName("ID값으로 회원정보 삭제하기")
+    public void deleteUserInfoById () {
+    //Tip! RED->GREEN->Refactoring
+
+    //given : 무언가가 주어졌을 때,
+
+    //when : 이 상황에
+
+    //then : 이 결과가 나와야한다.
+    //assertThat("결과값").isEqualTo("예상결과값");
     }
 }

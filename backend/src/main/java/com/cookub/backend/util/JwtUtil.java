@@ -54,14 +54,14 @@ public class JwtUtil {
     public String extractUsername(String token) {
         final Claims claims = extractAllClaims(token);
         if (claims == null) return null;
-        else return claims.get("username",String.class);
+        else return claims.get("email",String.class);
     }
 
     public String generateToken(User user) {
         System.out.println("generateToken User의 email : "+user.getEmail());
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", user.getEmail());
-        System.out.println("4. username, email넣으면서 token 생성 중");
+        claims.put("email", user.getEmail());
+        System.out.println("4. email key값에, email넣으면서 token 생성 중");
         return createToken(claims);
     }
 }
