@@ -53,64 +53,51 @@ const Profile = () => {
   }
 
   return (
-    <> < div id="ls-2" > <div class="background_1">
+    <>
+      <div className="login-inner">
+        <div class="background_2">
 
-      <div class="background_1">
+          <h1 className="title1">Welcome to Cookub!</h1>
+          <p className="subtitle">Please input your Account</p>
+          <br />
+          <div className="inputform">
+            <form onSubmit={LoginData}>
+
+              <Box
+                component="form"
+                sx={{
+                  '& > :not(style)': { m: 0.5, width: '30ch' },
+                }}
+                noValidate
+                autoComplete="on"
+              >
+                <TextField name="useremail" label="email" variant="outlined" />
+                <TextField
+                  id="outlined-password-input"
+                  name="password"
+                  label="Password"
+                  type="password"
+                  autoComplete="current-password"
+                />
+              </Box>
 
 
-        <div className="container">
-          <div className="L-1">
-            <div className="card">
-              <div className="cardform">
-                <h1 className="title">Welcome to Cookub!!</h1>
-                <p className="subtitle">Happy Cooking!!</p>
-                <br />
-                <form onSubmit={LoginData}>
 
-                  <Box
-                    component="form"
-                    sx={{
-                      '& > :not(style)': {
-                        m: 0.5,
-                        width: '30ch'
-                      }
-                    }}
-                    noValidate="noValidate"
-                    autoComplete="off">
 
-                    {/* 이메일 입력 */}
-                    <TextField id="useremail" name="useremail" label="Email" variant="outlined" />
 
-                    {/* 패스워드 입력 */}
-                    <TextField
-                      id="password"
-                      name="password"
-                      label="Password"
-                      type="password"
-                      autoComplete="current-password" />
-                  </Box>
-
-                  <br />
-                  <div id="Btn-1">
-                    <Stack direction="row" spacing={3}>
-                      <Button variant="outlined" type="submit" >Login</Button>
-                      <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
-                    </Stack>
-                  </div>
-                </form>
+              <br />
+              <div id="Btn-1">
+                <Stack direction="row" spacing={4}>
+                  <Button variant="outlined" type="submit" >Login</Button>
+                  <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
+                </Stack>
               </div>
-
-            </div>
-
+            </form>
           </div>
 
+
         </div>
-
       </div>
-
-    </div>
-
-    </div>
     </>
   );
 };
