@@ -1,17 +1,19 @@
 package com.cookub.backend.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-
-@Service
 @SpringBootTest
+public class RecipeServiceTest {
 
-public interface RecipeServiceTest {
-    
+    @Autowired
+
+    RecipeService recipeService;
+
     @Test
-    String myRecipe (Model model);
+    void delete() {
+        recipeService.delRecipe(6L);
+    }
 
 }
