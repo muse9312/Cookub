@@ -1,0 +1,51 @@
+package com.cookub.backend.repository;
+
+import java.util.List;
+
+import com.cookub.backend.dto.RecipeDto;
+import com.cookub.backend.entity.Recipe;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+
+public class RecipeRepositoryTest {
+    
+    @Autowired
+    RecipeRepository recipeRepository;
+
+    // 레시피 등록 테스트
+
+    @Test
+    public void getrecipe(){
+        RecipeDto recipeDto = RecipeDto.builder()
+        .keypoint("오전테스트")
+        .isOpenable(true)
+        .level("중")
+        .cookingTime(15)
+        .likeCnt(23)
+        .views(244)
+        .build();
+
+    Recipe reicpeEntity = Recipe.builder()
+        .keypoint(recipeDto.getKeypoint())
+        .isOpenable(recipeDto.isOpenable())
+        .level(recipeDto.getLevel())
+        .cookingTime(recipeDto.getCookingTime())
+        .likeCnt(recipeDto.getLikeCnt())
+        .views(recipeDto.getViews())
+        .build();
+        recipeRepository.save(reicpeEntity);
+    
+    }
+
+    @Test
+    public void getRecipe22(){
+        List<Recipe> list = recipeRepository.findAll();
+        for (Recipe recipe : list) {
+            System.out.println(recipe.getViews());
+        }
+    }
+}
