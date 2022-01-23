@@ -1,20 +1,21 @@
 package com.cookub.backend.service;
 
 
+import java.util.List;
+
 import com.cookub.backend.dto.RecipeDto;
 import com.cookub.backend.entity.Recipe;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 @Service
 public interface RecipeService {
 
-    Recipe getRecipe (RecipeDto recipeDto);
+    Recipe setRecipe (RecipeDto recipeDto);
 
-    String myRecipe (RecipeDto recipeDto);
+    List<Recipe> myRecipe (Long userId);
 
-    String delRecipe (Long userId);
+    String delRecipe (Long recipeId);
 
 }
