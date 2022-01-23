@@ -33,6 +33,7 @@ public class User {
     private int career;     //경력년수
     private String workPlace;
     private String workNation;
+    private String role;
     @CreationTimestamp
     private LocalDateTime createdDate;
 

@@ -6,7 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
 @Getter
 @Setter
 @Builder
@@ -15,7 +14,6 @@ import javax.persistence.*;
 public class ChatRoomDto {
 
     private Long roomId;
-
 
     private Long requesterId;
 
