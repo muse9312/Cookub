@@ -23,4 +23,5 @@ public class BackendApplication {
 //            storageService.deleteAll();
 			storageService.init();
 		};
+	}
 }
