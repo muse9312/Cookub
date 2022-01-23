@@ -1,5 +1,6 @@
 package com.cookub.backend.repository;
 
+<<<<<<< HEAD
 import com.cookub.backend.dto.UserDto;
 import com.cookub.backend.entity.User;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,8 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+=======
+>>>>>>> main
 class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
