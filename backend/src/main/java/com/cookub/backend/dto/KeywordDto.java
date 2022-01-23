@@ -1,0 +1,19 @@
+package com.cookub.backend.dto;
+
+import com.cookub.backend.entity.Recipe;
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class KeywordDto {
+
+    private Long keywordId;
+    private String keywordName;
+
+    private Long recipeId;
+}

@@ -1,11 +1,15 @@
-package com.cookub.backend.model;
+package com.cookub.backend.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatRoom {
     @Id
     @GeneratedValue
