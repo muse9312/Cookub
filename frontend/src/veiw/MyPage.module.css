@@ -1,0 +1,15 @@
+.container{
+  height: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.My_recipes{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, auto));
+  grid-gap: 20px;
+  padding: 40px; 
+  width: 78%;
+  padding-top: 200px;
+}
+
