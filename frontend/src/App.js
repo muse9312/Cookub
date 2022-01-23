@@ -7,13 +7,14 @@ import Login from './veiw/Login';
 import Main from './veiw/Main';
 import MyPage from './veiw/MyPage';
 import SignUp from './veiw/SignUp';
+import BoardDetail from './veiw/BoardDetail';
+
 
 
 
 function App() {
   return (
     <BrowserRouter>
-
       <div className={style.nav}>
         <Navigation />
       </div>
@@ -22,8 +23,9 @@ function App() {
         <Route path="/login" exact={true} element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/board" element={<Board />} />
+        <Route path="/board" exact={true} element={<Board />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/board/detail" exact={true} element={<BoardDetail />} />
       </Routes>
     </BrowserRouter>
 
