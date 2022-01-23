@@ -13,7 +13,7 @@ public interface RecipeService {
 
     Recipe getRecipe (RecipeDto recipeDto);
 
-    String myRecipe (Model model);
+    String myRecipe (RecipeDto recipeDto);
 
     String delRecipe (Long userId);
 
