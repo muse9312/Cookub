@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-<<<<<<< HEAD
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -148,9 +147,5 @@ public class UserServiceImpl implements UserService {
         }
         return resultJson;
     }
-
-=======
-public class UserServiceImpl implements UserService{
->>>>>>> main
 
 }
