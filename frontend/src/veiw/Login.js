@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import '../assets/css/Login.css'
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 
 import axios from 'axios'
 
-const Profile = () => {
+function Login() {
 
   function SendSignUp(e) {
     e.preventDefault();
@@ -18,38 +18,55 @@ const Profile = () => {
 
   function LoginData(e) {
     e.preventDefault();
-    console.log(e);
-    console.log(e.target['0'].value);
-    console.log(e.target['1'].value);
 
+    let data = {
+      email: "email",
+      password: "password"
+    }
     const formData = new FormData();
-    const useremail = e
-      .target['0']
-      .value;
-    const password = e
-      .target['1']
-      .value;
+    // const useremail = e
+    //   .target['0']
+    //   .value;
+    // const password = e
+    //   .target['1']
+    //   .value;
 
-    formData.append("useremail", useremail);
-    formData.append("password", password);
+    // formData.append("useremail", useremail);
+    // formData.append("password", password);
+    // formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
 
-    axios(
-      { url: 'http://localhost:8080/user/signin', method: 'post', data: formData }
-    ).then(function (res) {
-      console.log(res.data);
-      if (res.code == 200) {
-        sessionStorage.setItem("useremail", res.user.email);
-        sessionStorage.setItem("password", res.user.password);
-        console.log(sessionStorage.getItem("useremail"), sessionStorage.getItem("password"));
-        alert(res.msg);
-        // window.location = '/';
-      } else if (res.code == 400) {
-        alert(res.msg);
-        document.getElementById("useremail").value = "";
-        document.getElementById("password").value = "";
-      }
+    axios
+      .post('http://localhost:8080/user/signin', {
+        email: data.email,
+        password: data.password
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
 
-    })
+
+    // console.log(data.useremail);
+    // console.log(data.password);
+    // axios(
+    //   { url: 'http://localhost:8080/user/signin', method: 'post', data: formData }
+    // ).then(function (res) {
+    //   console.log(res.data);
+    //   if (res.code == 200) {
+    //     sessionStorage.setItem("useremail", res.user.email);
+    //     sessionStorage.setItem("password", res.user.password);
+    //     console.log(sessionStorage.getItem("useremail"), sessionStorage.getItem("password"));
+    //     alert(res.msg);
+    //     // window.location = '/';
+    //   } else if (res.code == 400) {
+    //     alert(res.msg);
+    //     document.getElementById("useremail").value = "";
+    //     document.getElementById("password").value = "";
+    //   }
+
+    // })
+
+
+
   }
 
   return (
@@ -71,9 +88,9 @@ const Profile = () => {
                 noValidate
                 autoComplete="on"
               >
-                <TextField name="useremail" label="email" variant="outlined" />
+                <TextField id="email" name="email" label="email" variant="outlined" />
                 <TextField
-                  id="outlined-password-input"
+                  id="password"
                   name="password"
                   label="Password"
                   type="password"
@@ -102,4 +119,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Login;

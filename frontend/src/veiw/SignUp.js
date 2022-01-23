@@ -500,21 +500,25 @@ const Profile = () => {
 
   function RegData(e) {
     e.preventDefault();
-    console.log(e);
-    console.log(e.target['0'].value);
-    console.log(e.target['1'].value);
+    // console.log(e);
+    // console.log(e.target['0'].value);
+    // console.log(e.target['1'].value);
 
     const formData = new FormData();
-    const email = e
-      .target['0']
-      .value;
-    const pwd = e
-      .target['1']
-      .value;
+    // const email = e
+    //   .target['0']
+    //   .value;
+    // const pwd = e
+    //   .target['1']
+    //   .value;
 
-    formData.append("email", email);
-    formData.append("pwd", pwd);
-
+    // formData.append("email", email);
+    // formData.append("pwd", pwd);
+    let data = [{
+      useremail: "useremail",
+      password: "password"
+    }]
+    formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
     axios(
       { url: 'http://localhost:8080/user/signUp', method: 'post', data: formData }
     ).then(function (res) {
@@ -691,9 +695,11 @@ const Profile = () => {
                   width: '30ch'
                 }} />
 
+
               <TextField
-                label="Birth"
-                name="birth"
+                label="Work_place"
+                name="work_place"
+
                 sx={{
                   m: 1,
                   width: '25ch'
