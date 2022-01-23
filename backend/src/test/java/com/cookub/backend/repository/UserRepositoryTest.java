@@ -82,4 +82,19 @@ class UserRepositoryTest {
     //then : 이 결과가 나와야한다.
     //assertThat("결과값").isEqualTo("예상결과값");
     }
+
+    @Test
+    @DisplayName("")
+    public void gitTest () {
+        //Tip! RED->GREEN->Refactoring
+
+        //given : 무언가가 주어졌을 때,
+
+        //when : 이 상황에
+
+        //then : 이 결과가 나와야한다.
+        //assertThat("결과값").isEqualTo("예상결과값");
+        //assertTrue() assertEquals()
+        System.out.println("2022-01-23 Git Test 코드 작성 중!!!");
+    }
 }

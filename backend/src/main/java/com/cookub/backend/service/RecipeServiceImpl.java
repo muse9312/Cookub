@@ -34,12 +34,14 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     // 레시피 리스트 조회
-    @Override
-    public String myRecipe(Model model) {
-        List<Recipe> list = recipeRepository.findAll();
-        model.addAttribute("list", list);
-        return "redirect:/";
-    }
+    // @Override
+    // public String myRecipe(RecipeDto recipeDto) {
+    //     List<Recipe> list = recipeRepository.findAll();
+    //     model.addAttribute("list", list);
+    //     return "redirect:/";
+    // }
+
+    // dasd
 
     
     // 레시피 리스트 삭제 
