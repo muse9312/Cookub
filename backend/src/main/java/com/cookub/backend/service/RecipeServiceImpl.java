@@ -1,15 +1,13 @@
 package com.cookub.backend.service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.cookub.backend.dto.RecipeDto;
 import com.cookub.backend.entity.Recipe;
-import com.cookub.backend.entity.User;
-import com.cookub.backend.repository.RecipeRepository;
 
+import com.cookub.backend.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -43,6 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
         return "redirect:/";
     }
 
+    
     // 레시피 리스트 삭제 
     @Override
     public String delRecipe (Long userId) {

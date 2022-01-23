@@ -30,10 +30,10 @@ public class RecipeController {
     }
 
     //내 레시피 조회
-    @GetMapping("/mypage/{userId}")
-    public Recipe myRecipe(@PathVariable("userId") User userId) {
-        return recipeService.myRecipe(userId);
-    } 
+    // @GetMapping("/mypage/{userId}")
+    // public Recipe myRecipe(@PathVariable("userId") User userId) {
+    //     return recipeService.myRecipe(userId);
+    // } 
 
     // 내 레시피 삭제
     @GetMapping("/mypage/{recipeId}")
