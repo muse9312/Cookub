@@ -4,22 +4,26 @@ import java.util.List;
 
 import com.cookub.backend.dto.RecipeDto;
 import com.cookub.backend.entity.Recipe;
-
+import com.cookub.backend.entity.User;
 import com.cookub.backend.repository.RecipeRepository;
+import com.cookub.backend.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
     @Autowired
-    RecipeRepository recipeRepository;
+    private RecipeRepository recipeRepository;
+
+    @Autowired
+    private UserRepository userRepository; 
 
     // 레시피 조회 
     @Override 
-    public Recipe getRecipe(RecipeDto recipeDto) {
+    public Recipe setRecipe(RecipeDto recipeDto) {
 
         Recipe reicpeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
@@ -34,20 +38,18 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     // 레시피 리스트 조회
-    // @Override
-    // public String myRecipe(RecipeDto recipeDto) {
-    //     List<Recipe> list = recipeRepository.findAll();
-    //     model.addAttribute("list", list);
-    //     return "redirect:/";
-    // }
+    @Override
+    public List<Recipe> myRecipe(Long userId) {
+        User user = userRepository.findById(userId).get();
+        List<Recipe> list = recipeRepository.findByUser(user);
 
-    // dasd
+        return list;
+    }
 
-    
     // 레시피 리스트 삭제 
     @Override
-    public String delRecipe (Long userId) {
-        recipeRepository.deleteById(userId);
+    public String delRecipe(Long recipeId) {
+        recipeRepository.deleteById(recipeId);
         return "redirect:/";
     }
 
