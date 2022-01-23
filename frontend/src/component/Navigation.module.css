@@ -7,15 +7,18 @@
 
 .nav_item{
   text-decoration: none;
+  color:rgb(70, 67, 67);
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 600;
   
 }
 
-.nav_item:not(:last-child){
-  margin-bottom : 25px;
+.nav_item:hover{
+  font-size: 17px;
+  color: black;
 }
+
 
 .footer{
   text-decoration: none;
