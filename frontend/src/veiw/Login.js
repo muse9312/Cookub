@@ -19,34 +19,17 @@ function Login() {
   function LoginData(e) {
     e.preventDefault();
 
-    let data = {
-      email: "email",
-      password: "password"
-    }
-    const formData = new FormData();
-    // const useremail = e
-    //   .target['0']
-    //   .value;
-    // const password = e
-    //   .target['1']
-    //   .value;
-
-    // formData.append("useremail", useremail);
-    // formData.append("password", password);
-    // formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-
-    axios
-      .post('http://localhost:8080/user/signin', {
-        email: data.email,
-        password: data.password
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    // 프로필
+    const file = document.querySelector('[name=file]').files[0];
+    console.log(document.querySelector('[name=file]').value);
+    // 이메일
+    const email = document.querySelector('[name=useremail]').value;
+    console.log(document.querySelector('[name=useremail]').value);
 
 
-    // console.log(data.useremail);
-    // console.log(data.password);
+
+
+
     // axios(
     //   { url: 'http://localhost:8080/user/signin', method: 'post', data: formData }
     // ).then(function (res) {
