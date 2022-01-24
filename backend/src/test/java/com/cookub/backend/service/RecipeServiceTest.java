@@ -16,4 +16,12 @@ public class RecipeServiceTest {
         recipeService.delRecipe(6L);
     }
 
+    @Test
+    public void search() {
+
+        for (int i=0 ; i < recipeService.myRecipe(1L).size() ; i++) {
+            System.out.println(recipeService.myRecipe(1L).get(i));
+        }
+    }
+
 }
