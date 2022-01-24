@@ -21,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
@@ -29,6 +30,7 @@ public class UserController {
 
     @PostMapping("/auth/signUp")
     public ResultJson signUp(UserDto userDto,@RequestParam("file") MultipartFile file){
+        System.out.println(userDto.getBirth());
         userDto.setProfile(file.getOriginalFilename());
         String message = "You successfully uploaded " + file.getOriginalFilename() + "!";
         try {
