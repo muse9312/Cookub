@@ -38,14 +38,6 @@ public class RecipeRepositoryTest {
         .views(recipeDto.getViews())
         .build();
         recipeRepository.save(reicpeEntity);
-    
     }
 
-    @Test
-    public void getRecipe22(){
-        List<Recipe> list = recipeRepository.findAll();
-        for (Recipe recipe : list) {
-            System.out.println(recipe.getViews());
-        }
-    }
 }
