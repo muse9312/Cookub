@@ -27,6 +27,7 @@ public class RecipeDto {
     private int cookingTime;
     private int likeCnt;
     private int views;
+    private String foodImage;
     @CreationTimestamp
     private LocalDateTime writtenDate;
     @UpdateTimestamp
