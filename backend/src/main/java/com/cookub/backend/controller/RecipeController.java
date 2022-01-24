@@ -87,7 +87,7 @@ public class RecipeController {
 
     // 내 레시피 상세 정보 조회
     @GetMapping("/mypage/{recipeId}/find")
-    public List<Recipe> findRecipe(@PathVariable("recipeId") long recipeId) {
+    public Recipe findRecipe(@PathVariable("recipeId") long recipeId) {
         return recipeService.findRecipe(recipeId);
     }
 

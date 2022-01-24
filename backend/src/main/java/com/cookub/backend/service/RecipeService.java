@@ -30,7 +30,7 @@ public interface RecipeService {
 
     List<Recipe> myRecipe (Long userId);
     String delRecipe (Long recipeId);
-    List<Recipe> findRecipe (Long recipeId);
+    Recipe findRecipe (Long recipeId);
 
 
 }

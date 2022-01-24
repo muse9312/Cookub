@@ -151,9 +151,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     // 내 레시피 상세 정보 조회
     @Override
-    public List<Recipe> findRecipe(Long recipeId) {
-        List<Recipe> list = recipeRepository.findById(recipeId);
-        return list;
+    public Recipe findRecipe(Long recipeId) {
+        Recipe recipe = recipeRepository.findById(recipeId).get();
+        return recipe;
     }
 
 }
