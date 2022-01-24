@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +20,7 @@ public class Recipe {
     @GeneratedValue
     @Column(name = "recipe_id")
     private Long recipeId;
+    private String title;
     private String level;
     private String keypoint;
     private boolean isOpenable;
@@ -32,4 +35,12 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "ingredientRecipe")
+    List<Ingredient> ingredients = new ArrayList<>();
+    @OneToMany(mappedBy = "keywordRecipe")
+    List<Keyword> keywordList = new ArrayList<>();
+    @OneToMany(mappedBy = "methodRecipe")
+    List<CookMethod> cookMethods = new ArrayList<>();
+
 }

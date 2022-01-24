@@ -21,5 +21,5 @@ public class CookMethod {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    private Recipe methodRecipe;
 }

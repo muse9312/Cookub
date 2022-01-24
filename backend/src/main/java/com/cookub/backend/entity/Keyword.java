@@ -19,5 +19,5 @@ public class Keyword {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    private Recipe keywordRecipe;
 }
