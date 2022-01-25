@@ -22,7 +22,7 @@ public class RecipeRepositoryTest {
     public void getrecipe(){
         RecipeDto recipeDto = RecipeDto.builder()
         .keypoint("오전테스트")
-        .isOpenable(true)
+        .isOpenable(1)
         .level("중")
         .cookingTime(15)
         .likeCnt(23)
@@ -31,7 +31,7 @@ public class RecipeRepositoryTest {
 
     Recipe reicpeEntity = Recipe.builder()
         .keypoint(recipeDto.getKeypoint())
-        .isOpenable(recipeDto.isOpenable())
+        .isOpenable(recipeDto.getIsOpenable())
         .level(recipeDto.getLevel())
         .cookingTime(recipeDto.getCookingTime())
         .likeCnt(recipeDto.getLikeCnt())

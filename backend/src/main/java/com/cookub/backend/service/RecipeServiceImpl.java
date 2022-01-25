@@ -42,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe setRecipe(RecipeDto recipeDto) {
         Recipe reicpeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
-                .isOpenable(recipeDto.isOpenable())
+                .isOpenable(recipeDto.getIsOpenable())
                 .level(recipeDto.getLevel())
                 .cookingTime(recipeDto.getCookingTime())
                 .likeCnt(recipeDto.getLikeCnt())
@@ -91,7 +91,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe putRecipe(RecipeDto recipeDto) {
         Recipe reicpeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
-                .isOpenable(recipeDto.isOpenable())
+                .isOpenable(recipeDto.getIsOpenable())
                 .level(recipeDto.getLevel())
                 .cookingTime(recipeDto.getCookingTime())
                 .likeCnt(recipeDto.getLikeCnt())
