@@ -535,8 +535,8 @@ const SignUp = () => {
     const tel = document.querySelector('[name=tel]').value;
     console.log(document.querySelector('[name=tel]').value);
     // 생일
-    // const birth = document.querySelector('[name=birth]').value;
-    // console.log(document.querySelector('[name=birth]').value);
+    const birth = document.querySelector('[name=birth]').value;
+    console.log(document.querySelector('[name=birth]').value);
     // 전문분야
     const field = document.querySelector('[name=field]').value;
     console.log(document.querySelector('[name=field]').value);
@@ -558,19 +558,19 @@ const SignUp = () => {
 
     const formData = new FormData();
 
-    // formData.append('file', file);
-    formData.append('useremail', email);
+    formData.append('file', file);
+    formData.append('email', email);
     formData.append('password', password);
     formData.append('username', username);
     formData.append('tel', tel);
-    // formData.append('birth', birth);
+    formData.append('birth', birth);
     formData.append('field', field);
-    formData.append('work_nation', workNation);
+    formData.append('workNation', workNation);
     formData.append('grade', grade);
     formData.append('career', career);
-    formData.append('work_place', workPlace);
+    formData.append('workPlace', workPlace);
     formData.append('file', file);
-    // formData.append('file', FileList);
+
 
 
     axios({
@@ -583,7 +583,7 @@ const SignUp = () => {
     }).then(function (res) {
       console.log(res.data);
 
-      // window.location = '/';
+      window.location = '/login';
 
     })
   }
@@ -746,7 +746,7 @@ const SignUp = () => {
               direction="row"
               justifyContent="center"
               alignItems="center"
-              id="field" >
+            >
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
