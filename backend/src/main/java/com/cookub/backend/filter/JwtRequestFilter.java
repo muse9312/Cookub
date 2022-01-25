@@ -32,7 +32,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         System.out.println("JwtRequestFilter 에서 Path 값 :"+path);
         //아래 경로는 이 필터가 적용되지 않는다.
-        if (path.startsWith("/user/auth")|path.startsWith("/swagger")|path.startsWith("/v2")) {
+        if (path.startsWith("/user/auth")|path.startsWith("/swagger")|path.startsWith("/v2")|path.startsWith("/mypage")|path.startsWith("/test")) {
             System.out.println("1. user 경로 필터 적용 안하고 들어옴");
             filterChain.doFilter(request, response);
             return;

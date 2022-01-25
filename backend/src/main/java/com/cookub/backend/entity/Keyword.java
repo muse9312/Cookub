@@ -1,5 +1,7 @@
 package com.cookub.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,8 +18,8 @@ public class Keyword {
     @Column(name = "keyword_id")
     private Long keywordId;
     private String keywordName;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    private Recipe keywordRecipe;
 }
