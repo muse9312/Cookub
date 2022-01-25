@@ -1,5 +1,7 @@
 package com.cookub.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,7 +25,8 @@ public class Recipe {
     private String title;
     private String level;
     private String keypoint;
-    private boolean isOpenable;
+    @Column(name = "is_openable")
+    private int isOpenable;
     private int cookingTime;
     private int likeCnt;
     private int views;
@@ -35,11 +38,13 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "ingredientRecipe")
     List<Ingredient> ingredients = new ArrayList<>();
+    @JsonManagedReference
     @OneToMany(mappedBy = "keywordRecipe")
     List<Keyword> keywordList = new ArrayList<>();
+    @JsonManagedReference
     @OneToMany(mappedBy = "methodRecipe")
     List<CookMethod> cookMethods = new ArrayList<>();
 

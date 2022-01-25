@@ -23,7 +23,7 @@ public class RecipeDto {
     private Long recipeId;
     private String level;
     private String keypoint;
-    private boolean isOpenable;
+    private int isOpenable;
     private int cookingTime;
     private int likeCnt;
     private int views;

@@ -1,5 +1,7 @@
 package com.cookub.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +20,7 @@ public class CookMethod {
     private int step;
     private String description;
     private String picture;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe methodRecipe;
