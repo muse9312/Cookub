@@ -19,34 +19,36 @@ function Login() {
   function LoginData(e) {
     e.preventDefault();
 
-    // 프로필
-    const file = document.querySelector('[name=file]').files[0];
-    console.log(document.querySelector('[name=file]').value);
-    // 이메일
-    const email = document.querySelector('[name=useremail]').value;
-    console.log(document.querySelector('[name=useremail]').value);
+
+    let data = {
+      email: document.querySelector('[name=useremail]').value,
+      password: document.querySelector('[name=password]').value
+    }
+    axios
+      .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+
+        // if (res.code == 200) {
+        //   sessionStorage.setItem("email", res.user.email);
+        //   sessionStorage.setItem("password", res.user.password);
+        //   console.log(sessionStorage.getItem("email"), sessionStorage.getItem("password"));
+        //   alert(res.msg);
+        //   window.location = '/';
+        // } else if (res.code == 400) {
+        //   alert(res.msg);
+        //   document.getElementById("email").value = "";
+        //   document.getElementById("password").value = "";
+        // }
 
 
+      });
 
 
-
-    // axios(
-    //   { url: 'http://localhost:8080/user/signin', method: 'post', data: formData }
-    // ).then(function (res) {
-    //   console.log(res.data);
-    //   if (res.code == 200) {
-    //     sessionStorage.setItem("useremail", res.user.email);
-    //     sessionStorage.setItem("password", res.user.password);
-    //     console.log(sessionStorage.getItem("useremail"), sessionStorage.getItem("password"));
-    //     alert(res.msg);
-    //     // window.location = '/';
-    //   } else if (res.code == 400) {
-    //     alert(res.msg);
-    //     document.getElementById("useremail").value = "";
-    //     document.getElementById("password").value = "";
-    //   }
-
-    // })
 
 
 
@@ -71,7 +73,7 @@ function Login() {
                 noValidate
                 autoComplete="on"
               >
-                <TextField id="email" name="email" label="email" variant="outlined" />
+                <TextField id="email" name="useremail" label="email" variant="outlined" />
                 <TextField
                   id="password"
                   name="password"

@@ -27,7 +27,7 @@ class UserRepositoryTest {
                 .password("1234")
                 .username("한국표준")
                 .tel("010-1111-2222")
-                .birth(LocalDateTime.of(2022,01,19,0,0))
+                .birth(LocalDate.of(2022,01,19))
                 .profile("/profile/a.jpeg")
                 .field("한중양식")
                 .grade("세미프로")

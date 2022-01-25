@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,7 +24,7 @@ public class UserDto {
     private String username;
     private String tel;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime birth;
+    private LocalDate birth;
     private String field;
     private String grade;   //수준
     private int career;     //경력년수
