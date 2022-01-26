@@ -25,8 +25,8 @@ public class RecipeController {
 
     ///////////////////////등록//////////////////////////
     // 레시피 정보 등록 (recipe)
-    @RequestMapping(value = "/recipe", method = RequestMethod.POST)
-    public Recipe setRecipe(@RequestBody RecipeDto recipeDto) {
+    @RequestMapping(value = "/recipe/{userId}", method = RequestMethod.POST)
+    public Recipe setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
         return recipeService.setRecipe(recipeDto);
     }
 
@@ -43,7 +43,7 @@ public class RecipeController {
     }
 
     // 레시피 정보 등록 ( keyword )
-    @RequestMapping(value = "/mypage/keyword", method = RequestMethod.POST)
+    @RequestMapping(value = "/keyword", method = RequestMethod.POST)
     public Keyword setKeyword(@RequestBody KeywordDto keywordDto) {
         return recipeService.setKeyword(keywordDto);
     }
@@ -74,19 +74,19 @@ public class RecipeController {
     }
 
     // 내 레시피 목록 조회
-    @GetMapping("/{userId}/list")
+    @GetMapping("/recipe/list/{userId}")
     public List<Recipe> myRecipe(@PathVariable("userId") Long userId) {
         return recipeService.myRecipe(userId);
     }
 
     // 내 레시피 삭제
-    @DeleteMapping("/{recipeId}")
+    @DeleteMapping("/recipe/{recipeId}")
     public String recipeDelete(@PathVariable("recipeId") long recipeId) {
         return recipeService.delRecipe(recipeId);
     }
 
     // 내 레시피 상세 정보 조회
-    @GetMapping("/{recipeId}/find")
+    @GetMapping("/recipe/{recipeId}")
     public Recipe findRecipe(@PathVariable("recipeId") long recipeId) {
         return recipeService.findRecipe(recipeId);
     }
