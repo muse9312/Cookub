@@ -32,5 +32,4 @@ public interface RecipeService {
     String delRecipe (Long recipeId);
     Recipe findRecipe (Long recipeId);
 
-
 }

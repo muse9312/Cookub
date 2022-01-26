@@ -35,7 +35,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private KeywordRepository keywordRepository;
 
-
     /////////////////////////////등록////////////////////////////
     // 레시피 등록 (레시피)
     @Override
@@ -154,6 +153,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findRecipe(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
+
     }
 
 }
