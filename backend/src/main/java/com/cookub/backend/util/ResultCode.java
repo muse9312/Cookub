@@ -9,7 +9,7 @@ public enum ResultCode {
     BAD_REQUEST("400","failed"),
     CONFLICT("409", "DB integrtiy broken"),
     LOGIN_FAIL("900", "login fail"),
-    INVALID_TOKEN("901", "invalid token"),
+    INVALID_TOKEN("403", "forbidden"),
     SERVER_ERROR("999", "server error");
 
     private String code;
