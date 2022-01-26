@@ -25,72 +25,70 @@ public class RecipeController {
 
     ///////////////////////등록//////////////////////////
     // 레시피 정보 등록 (recipe)
-    @RequestMapping(value = "/mypage/recipe/pos", method = RequestMethod.POST)
+    @RequestMapping(value = "/recipe", method = RequestMethod.POST)
     public Recipe setRecipe(@RequestBody RecipeDto recipeDto) {
         return recipeService.setRecipe(recipeDto);
     }
 
     // 레시피 정보 등록 ( CookMethod )
-    @RequestMapping(value = "/mypage/cookMethod/pos", method = RequestMethod.POST)
+    @RequestMapping(value = "/cookMethod", method = RequestMethod.POST)
     public CookMethod setRecipe(@RequestBody CookMethodDto cookmethodDto) {
         return recipeService.setMethod(cookmethodDto);
     }
 
     // 레시피 정보 등록 ( Ingredient )
-    @RequestMapping(value = "/mypage/ingredient/pos", method = RequestMethod.POST)
+    @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
     public Ingredient setIngredinet(@RequestBody IngredientDto ingredientDto) {
         return recipeService.setIngredient(ingredientDto);
     }
 
     // 레시피 정보 등록 ( keyword )
-    @RequestMapping(value = "/mypage/keyword/pos", method = RequestMethod.POST)
+    @RequestMapping(value = "/mypage/keyword", method = RequestMethod.POST)
     public Keyword setKeyword(@RequestBody KeywordDto keywordDto) {
         return recipeService.setKeyword(keywordDto);
     }
 
     //////////////////////////////////////////수정///////////////////////////////
     // 레시피 정보 수정 (recipe)
-    @PutMapping("/mypage/recipe/put")
+    @PutMapping("/recipe")
     public Recipe putRecipe(@RequestBody RecipeDto recipeDto) {
-        return recipeService.setRecipe(recipeDto);
+        return recipeService.putRecipe(recipeDto);
     }
 
     // 레시피 정보 수정 ( CookMethod )
-    @PutMapping("/mypage/cookMethod/put")
+    @PutMapping("/cookMethod")
     public CookMethod putRecipe(@RequestBody CookMethodDto cookmethodDto) {
-        return recipeService.setMethod(cookmethodDto);
+        return recipeService.putMethod(cookmethodDto);
     }
 
     // 레시피 정보 수정 ( Ingredient )
-    @PutMapping("/mypage/ingredient/put")
+    @RequestMapping(value = "/ingredient", method = RequestMethod.PUT)
     public Ingredient putIngredinet(@RequestBody IngredientDto ingredientDto) {
-        return recipeService.setIngredient(ingredientDto);
+        return recipeService.putIngredient(ingredientDto);
     }
 
     // 레시피 정보 수정 ( keyword )
-    @PutMapping( "/mypage/keyword/put")
+    @PutMapping( "/keyword")
     public Keyword putKeyword(@RequestBody KeywordDto keywordDto) {
-        return recipeService.setKeyword(keywordDto);
+        return recipeService.putKeyword(keywordDto);
     }
 
     // 내 레시피 목록 조회
-    @GetMapping("/mypage/{userId}/list")
+    @GetMapping("/{userId}/list")
     public List<Recipe> myRecipe(@PathVariable("userId") Long userId) {
         return recipeService.myRecipe(userId);
     }
 
     // 내 레시피 삭제
-    @DeleteMapping("/mypage/{recipeId}/delete")
+    @DeleteMapping("/{recipeId}")
     public String recipeDelete(@PathVariable("recipeId") long recipeId) {
         return recipeService.delRecipe(recipeId);
     }
 
     // 내 레시피 상세 정보 조회
-    @GetMapping("/mypage/{recipeId}/find")
+    @GetMapping("/{recipeId}/find")
     public Recipe findRecipe(@PathVariable("recipeId") long recipeId) {
         return recipeService.findRecipe(recipeId);
     }
-
-    // 내 레시피 상세 정보 수정
 
 }
