@@ -2,11 +2,10 @@ import react from 'react';
 import { Link } from 'react-router-dom';
 import About from '../veiw/About';
 import Board from '../veiw/Board';
-import Login from '../veiw/Login';
 import MyPage from '../veiw/MyPage';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
-import { Button } from 'react-bootstrap';
+
 
 
 
@@ -18,7 +17,7 @@ function Navigation() {
   }
 
   return (
-    <div>
+    <div className={style.nav}>
       <img className={style.logo_img} src={logo} alt="COOKUB" />
       <button className={style.login_button} onClick={SendLogin}>LOGIN</button><br />
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
