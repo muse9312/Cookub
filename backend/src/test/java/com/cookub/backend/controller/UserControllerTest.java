@@ -12,6 +12,4 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
-    
 }

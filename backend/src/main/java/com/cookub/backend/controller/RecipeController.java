@@ -26,8 +26,8 @@ public class RecipeController {
     ///////////////////////등록//////////////////////////
     // 레시피 정보 등록 (recipe)
     @RequestMapping(value = "/recipe/{userId}", method = RequestMethod.POST)
-    public Recipe setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
-        return recipeService.setRecipe(recipeDto,userId);
+    public void setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
+         recipeService.setRecipe(recipeDto, userId);
     }
 
     // 레시피 정보 등록 ( CookMethod )
