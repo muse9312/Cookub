@@ -79,18 +79,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultJson deleteUser(Long userId) {
+    public String deleteUser(Long userId) {
         ResultJson resultJson = new ResultJson();
         Optional<User> optionalUser = userRepository.findById(userId);
+        String result="";
         if (optionalUser.isPresent()) {
-            resultJson.setCode(ResultCode.SUCCESS.getCode());
-            resultJson.setMsg(ResultCode.SUCCESS.getMsg());
             userRepository.delete(optionalUser.get());
+            result="success";
         } else {
-            resultJson.setCode(ResultCode.BAD_REQUEST.getCode());
-            resultJson.setMsg(ResultCode.BAD_REQUEST.getMsg());
+            result="fail";
         }
-        return resultJson;
+        return result;
     }
 
     @Override
