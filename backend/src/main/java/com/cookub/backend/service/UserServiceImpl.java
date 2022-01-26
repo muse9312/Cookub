@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String,Object> signIn(UserDto userDto) {
-        ResultJson resultJson = new ResultJson();
         User userEntity = userRepository.findByEmail(userDto.getEmail());
         String token = "";
         HashMap<String, Object> map = new HashMap<>();

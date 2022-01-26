@@ -38,7 +38,15 @@ public class RecipeServiceImpl implements RecipeService {
     /////////////////////////////등록////////////////////////////
     // 레시피 등록 (레시피)
     @Override
-    public Recipe setRecipe(RecipeDto recipeDto) {
+    public Recipe setRecipe(RecipeDto recipeDto,Long userId) {
+        //        for (CookMethod cookMethod : recipeDto.getCookMethods()) {
+//            cookMethod = cookMethodRepository.save(cookMethod);
+//        }
+//        for (int i = 0; i < recipeDto.getCookMethods().size(); i++) {
+//            CookMethod cookMethod=recipeDto.getCookMethods().get(i);
+//            cookMethod=cookMethodRepository.save(cookMethod);
+//        }
+        User user = userRepository.findById(userId).get();
         Recipe reicpeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
                 .isOpenable(recipeDto.getIsOpenable())
@@ -46,6 +54,8 @@ public class RecipeServiceImpl implements RecipeService {
                 .cookingTime(recipeDto.getCookingTime())
                 .likeCnt(recipeDto.getLikeCnt())
                 .views(recipeDto.getViews())
+                .user(user)
+                .cookMethods(recipeDto.getCookMethods())
                 .build();
         recipeRepository.save(reicpeEntity);
         return null;
@@ -54,6 +64,7 @@ public class RecipeServiceImpl implements RecipeService {
     // 레시피 등록 (방법)
     @Override
     public CookMethod setMethod(CookMethodDto cookMethodDto) {
+
         CookMethod methodEntity = CookMethod.builder()
                 .description(cookMethodDto.getDescription())
                 .picture(cookMethodDto.getPicture())
@@ -88,6 +99,7 @@ public class RecipeServiceImpl implements RecipeService {
     // 레시피 수정 (레시피)
     @Override
     public Recipe putRecipe(RecipeDto recipeDto) {
+
         Recipe reicpeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
                 .isOpenable(recipeDto.getIsOpenable())
@@ -95,6 +107,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .cookingTime(recipeDto.getCookingTime())
                 .likeCnt(recipeDto.getLikeCnt())
                 .views(recipeDto.getViews())
+                .cookMethods(recipeDto.getCookMethods())
                 .build();
         recipeRepository.save(reicpeEntity);
         return null;
