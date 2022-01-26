@@ -10,7 +10,7 @@ import java.util.Map;
 public interface UserService {
     User signUp(UserDto userDto);
     Map<String,Object> signIn(UserDto userDto);
-    ResultJson deleteUser(Long userId);
+    String deleteUser(Long userId);
     User editUser(UserDto userDto);
     User checkUser(UserDto userDto);
 }

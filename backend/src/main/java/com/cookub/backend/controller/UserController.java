@@ -12,6 +12,9 @@ import com.cookub.backend.util.ResultCode;
 import com.cookub.backend.util.ResultJson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +33,7 @@ public class UserController {
     private StorageService storageService;
 
     @PostMapping("/auth/signUp")
-    public Response signUp(UserDto userDto, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<User> signUp(UserDto userDto, @RequestParam("file") MultipartFile file){
         Response response = new Response();
         System.out.println(userDto.getBirth());
         userDto.setProfile(file.getOriginalFilename());
@@ -41,38 +44,43 @@ public class UserController {
             message = "Something happened with file " + file.getOriginalFilename() + ".";
         }
         response.add("data",userService.signUp(userDto));
-        return response;
+        return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.OK);
     }
 
     @PostMapping("/auth/signIn")
-    public Response signIn(@RequestBody UserDto userDto){
+    public ResponseEntity<Map<String,Object>> signIn(@RequestBody UserDto userDto){
         Response response = new Response();
-
+        HttpHeaders headers = new HttpHeaders();
         response.add("data",userService.signIn(userDto));
-        return response;
+        return new ResponseEntity<>(userService.signIn(userDto),headers, HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public Response userEdit(UserDto userDto){
+    public ResponseEntity<User> userEdit(UserDto userDto){
         Response response = new Response();
 
-        response.add("data",userService.editUser(userDto));
-        return response;
+
+        return new ResponseEntity<>(userService.editUser(userDto),null,HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")
-    public Response userDelete(@PathVariable Long userId){
-        Response response = new Response();
-
-        response.add("data",userService.deleteUser(userId));
-        return response;
+    public ResponseEntity userDelete(@PathVariable Long userId){
+        String result = userService.deleteUser(userId);
+        if (result.equals("success")){
+            return new ResponseEntity(null, null, HttpStatus.OK);
+        }else{
+            return new ResponseEntity(null, null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/userCheck")
-    public Response userCheck(UserDto userDto){
-        Response response = new Response();
+    public ResponseEntity<User> userCheck(UserDto userDto){
+        User user = userService.checkUser(userDto);
+        if (user==null){
+            return new ResponseEntity<>(user,null,HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity<>(user,null,HttpStatus.OK);
+        }
 
-        response.add("data",userService.checkUser(userDto));
-        return response;
     }
 }
