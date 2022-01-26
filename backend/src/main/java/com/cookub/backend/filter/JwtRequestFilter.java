@@ -6,6 +6,7 @@ import com.cookub.backend.util.ResultCode;
 import com.cookub.backend.util.ResultJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -76,6 +77,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         response.getWriter().write(objectMapper.writeValueAsString(resultJson));
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json");
+        response.setStatus(403);
         return response;
     }
 }
