@@ -1,0 +1,78 @@
+.todo-row {
+  /* 생성되는 목록 스타일 */
+  display: flex;
+  max-width: 370px;
+  justify-content: space-between;
+  align-items: left;
+  margin: 4px auto;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgb(139, 138, 137) 0%,
+    rgb(194, 191, 190) 100%
+  );
+
+  padding: 16px;
+  border-radius: 5px;
+  
+}
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.list{
+  align-content: flex-start;
+  
+}
+
+
+
+.icons {
+  /* 생성되는 목록전체 스타일 */
+  display: flex;
+  max-width: 370px;
+  margin: 4px auto;
+  background: linear-gradient(
+    90deg,
+    rgb(139, 138, 137) 0%,
+    rgb(194, 191, 190) 100%
+  );
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  
+}
+
+.list_item{
+  /* 입력을 받은 text 스타일 */
+  font-size: 20px;
+  color: #fff;
+}
+
+.gram{
+  /* 재료량기입란 */
+  font-size: 20px;
+  color: rgb(88, 85, 85);
+  border-radius: 3px;
+  width: 60px;
+  height: 28px;
+  margin-right: 10px;
+
+}
+
+.icon{
+  position:absolute;
+  right: 5px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.delete_icon {
+  color: #fff;
+}
+
+.edit_icon {
+  color: #fff;
+}
