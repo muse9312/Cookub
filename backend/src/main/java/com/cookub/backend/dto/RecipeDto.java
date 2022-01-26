@@ -1,13 +1,11 @@
 package com.cookub.backend.dto;
 
-import com.cookub.backend.entity.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,6 +26,6 @@ public class RecipeDto {
     @UpdateTimestamp
     private LocalDateTime updatedDate;
 
-
     private Long userId;
+
 }

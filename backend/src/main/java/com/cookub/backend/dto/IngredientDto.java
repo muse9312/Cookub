@@ -18,4 +18,5 @@ public class IngredientDto {
     private int amount;
 
     private Long recipeId;
+    
 }

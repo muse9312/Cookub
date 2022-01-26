@@ -1,44 +1,58 @@
-#ls-3{
-    width: 80%;
-	margin-left: 290px;
-	height: 100%;
-	position: absolute;
-	overflow: hidden;
-
-	background-color: rgb(240, 242, 245);
-	
-}
-
-.container2{
-	
-	position : center;
-	width: 100%;
-	
-	height: 600px
-}
-
-.L-2{
-	padding-left: 10rem;
-	padding-right: 10rem;
-	height: max(100%);
-	
-}
-
-.Regcard{
-	word-wrap: break-word;
-    background-color: #fff;
-    background-clip: initial;
-    border: 3px solid rgba(0,0,0,.05);
-    border-radius: 0.375rem;
-	height : 800px;
-	box-shadow: rgb(0 0 0 / 30%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 18%) 0rem 0.125rem 0.25rem -0.0625rem;
-	
-}
 
 
 .title2{
 	width: 100%;
 	text-align: center;
 	font-family:'Courier New', Courier, monospace;
+}
+
+.subtitle{
+	width: 100%;
+	text-align:center;
+	font-size: 1rem;
+	letter-spacing: .5px;
+	
+	font-family: "Raleway",serif;
+
+}
+
+.regbackground{
+	
+	
+	
+	opacity: 0.6;
+	
+}
+
+
+.reg-inner{
+    
+    width: 50%;
+	margin-bottom: 4%;
+    margin-top: 4%;
+    margin-left: 31%;
+    background: rgb(255, 255, 255);
+    background-clip: initial;
+    box-shadow: 0px 14px 80px rgb(34 35 58 / 20%);
+    padding: 40px 55px 45px 55px;
+    border-radius: 15px;
+    transition: all 0.3s;
+    opacity: 0.8;
+}
+
+#field{
+	margin-left: 1.5%;
+}
+
+#birth{
+	margin-left: 5%;
+}
+
+#data{
+	margin-left: 1.5%;
+}
+
+#Btn-2{
+	margin-left: 36%;
 }
 

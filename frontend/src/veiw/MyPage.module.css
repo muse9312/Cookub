@@ -2,14 +2,34 @@
   height: 100%;
   display: flex;
   justify-content: right;
+  /* background-color: blueviolet; */
 }
 
 .My_recipes{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(200px, auto));
-  grid-gap: 20px;
   padding: 40px; 
   width: 78%;
-  padding-top: 200px;
+  padding-top: 150px;
+  display: grid;
+  text-align: center;
+  /* background-color: brown; */
 }
+
+.create_recipe_bt{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 40px;
+  border:none;
+  border-radius: 5px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  
+}
+.create_recipe_bt:hover{
+  background-color: rgb(182, 179, 179);
+}
+
 

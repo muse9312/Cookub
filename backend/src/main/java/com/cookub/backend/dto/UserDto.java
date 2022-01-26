@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
 @Builder
@@ -30,6 +29,8 @@ public class UserDto {
     private int career;     //경력년수
     private String workPlace;
     private String workNation;
+    private String profile;
+    private String role;
     @CreationTimestamp
     private LocalDateTime createdDate;
 
