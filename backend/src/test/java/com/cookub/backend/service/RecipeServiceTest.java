@@ -2,7 +2,9 @@ package com.cookub.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.cookub.backend.dto.CookMethodDto;
 import com.cookub.backend.dto.IngredientDto;
 import com.cookub.backend.dto.RecipeDto;
 import com.cookub.backend.entity.CookMethod;
@@ -37,40 +39,29 @@ public class RecipeServiceTest {
     @Autowired
     KeywordRepository keywordRepository;
 
-    @Autowired
-    RecipeDto recipeDto;
+    // @Test
+    // public void delte123123() {
 
-    @Test
-    void delete() {
-        recipeService.delRecipe(6L);
-    }
+    //     List<Ingredient> ingredients = new ArrayList<>();
+    //     List<Keyword> keywordList = new ArrayList<>();
+    //     List<CookMethod> cookMethods = new ArrayList<>();
 
-    @Test
-    public void search() {
+    //     for (CookMethod cookMethod : recipeDto.getCookMethods()) { 
+    //         cookMethodRepository.deleteById(recipeId);
+    //     }
+    //     for (Keyword keyword : recipeDto.getKeywordList()) {
+    //         keywordRepository.deleteById(recipeId);
+    //     }
+    //     for (Ingredient ingredient : recipeDto.getIngredients()) {
+    //         ingredientRepository.deleteById(recipeId);
+    //     }
+    //     recipeRepository.deleteById(recipeId);
+    // }
 
-        for (int i = 0; i < recipeService.myRecipe(1L).size(); i++) {
-            System.out.println(recipeService.myRecipe(1L).get(i));
-        }
-    }
-
-    @Test
-    public void putIngredient1() {
-        IngredientDto ingredientDto = IngredientDto.builder()
-                .ingredientId(1l)
-                .amount(15)
-                .ingredientName("신라면 2 ")
-                .build();
-
-        Ingredient ingredientEntity = Ingredient.builder()
-                .amount(ingredientDto.getAmount())
-                .ingredientName(ingredientDto.getIngredientName())
-                .build();
-        ingredientRepository.save(ingredientEntity);
-    }
+    // }
 
     // @Test
     // public void setTest() {
-
     //     List<Ingredient> ingredients = new ArrayList<>();
     //     List<Keyword> keywordList = new ArrayList<>();
     //     List<CookMethod> cookMethods = new ArrayList<>();
@@ -84,7 +75,6 @@ public class RecipeServiceTest {
     //             .views(53412)
     //             // .cookMethods(recipeDto.getCookMethods())
     //             .build();
-
 
     //     reicpeEntity = recipeRepository.save(reicpeEntity);
 

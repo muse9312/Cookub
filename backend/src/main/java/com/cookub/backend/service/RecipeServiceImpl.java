@@ -121,6 +121,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .build();
         recipeRepository.save(reicpeEntity);
         return null;
+
     }
 
     // 레시피 등록 (방법)
@@ -166,17 +167,24 @@ public class RecipeServiceImpl implements RecipeService {
 
     // 레시피 리스트 삭제
     @Override
-    public String delRecipe(Long recipeId) {
-        recipeRepository.deleteById(recipeId);
-        return "redirect:/";
+    public void delRecipe(Long recipeId) {
+        // for (CookMethod cookMethod : recipeDto.getCookMethods()) {        
+        //     cookMethodRepository.deleteById(recipeId);
+        // }
+        // for (Keyword keyword : recipeDto.getKeywordList()) {
+        //     keywordRepository.deleteById(recipeId);
+        // }
+        // for (Ingredient ingredient : recipeDto.getIngredients()) {
+        //     ingredientRepository.deleteById(recipeId);
+        // }
+        // recipeRepository.deleteById(recipeId);
     }
-
+    
     // 내 레시피 상세 정보 조회
     @Override
     public Recipe findRecipe(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
-
     }
-
+    
 }

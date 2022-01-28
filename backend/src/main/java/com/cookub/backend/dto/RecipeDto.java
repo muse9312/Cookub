@@ -19,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeDto {
+    
     private String title;
     private Long recipeId;
     private String level;

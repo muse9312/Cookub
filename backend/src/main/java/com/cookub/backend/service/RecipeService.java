@@ -29,7 +29,7 @@ public interface RecipeService {
     Keyword putKeyword (KeywordDto keywordDto);
 
     List<Recipe> myRecipe (Long userId);
-    String delRecipe (Long recipeId);
+    void delRecipe ( Long recipeId);
     Recipe findRecipe (Long recipeId);
 
 }
