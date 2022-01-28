@@ -106,3 +106,104 @@
 .footerBt2:hover{
   background-color: rgb(182, 179, 179);
 }
+
+
+/* //////////// 챕터3 Todo 스타일  //////////// */
+.proc_row {
+  /* 생성되는 목록 스타일 */
+  display: flex;
+  max-width: 600px;
+  justify-content: space-between;
+  align-items: left;
+  margin: 4px auto;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgb(139, 138, 137) 0%,
+    rgb(194, 191, 190) 100%
+  );
+
+  padding: 16px;
+  border-radius: 5px;
+}
+
+.proc_input {
+  /* 목록입력란 스타일 */
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid rgb(88, 85, 85);
+  outline: none;
+  width: 320px;
+  background: transparent;
+  color: rgb(88, 85, 85);
+}
+.proc_input::placeholder {
+  color: #ccc5c5;
+}
+.proc_button { 
+  /* 추가버튼 */
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgb(218, 216, 221) 0%,
+    rgb(207, 201, 211) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+}
+.lists{
+  margin-top: 7px;
+  height: 190px;
+  overflow: auto;
+}
+.list_item{
+  /* 입력을 받은 text 스타일 */
+  font-size: 20px;
+  color: #fff;
+}
+.delete_icon {
+  color: #fff;
+}
+.edit_icon {
+  color: #fff;
+}
+
+
+
+/* //////////// 챕터4 스타일  //////////// */
+.container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* background-color: rgb(151, 116, 116); */
+}
+.keypoint{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid rgb(139, 137, 134) ;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  caret-color :rgb(139, 137, 134);
+  font-size: 18px;
+}
+.keypoint:focus{
+  outline: none;
+}
+.item{
+  margin-top: 40px;
+}
+.item:nth-child(1){
+  justify-self: center;
+  align-self: center;
+}
+.item:nth-child(2){
+  justify-self: center;
+  align-self: center;
+}
+
+
+/* 그리드 --> 난이도(5), 파일첨부(4), 조리시간(3), 공개여부(2),키포인트(1)   */
