@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
 
 import '../assets/css/Login.css'
 import Box from '@mui/material/Box';
@@ -6,9 +6,26 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+import Navigation from '../component/Navigation'
+
+
+
+// import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
+
+
 import axios from 'axios'
 
 function Login() {
+
+
+
+
+
+  // const [cookies, setCookie] = useCookies([]);
+
+  const cookies = new Cookies();
+
 
   function SendSignUp(e) {
     e.preventDefault();
@@ -16,46 +33,99 @@ function Login() {
 
   }
 
+
   function LoginData(e) {
     e.preventDefault();
 
 
-    let data = {
-      email: document.querySelector('[name=useremail]').value,
-      password: document.querySelector('[name=password]').value
+    try {
+      let data = {
+        email: document.querySelector('[name=useremail]').value,
+        password: document.querySelector('[name=password]').value
+      }
+
+      axios
+        .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => {
+
+          console.log(res);
+          // console.log("res.data.accessToken : " + res.data.data.data.token);
+          console.log(res.data);
+          console.log("==========================")
+          console.log("token = " + res.data.token);
+          console.log("userId = " + res.data.user.userId);
+          console.log("email = " + res.data.user.email);
+          console.log("username = " + res.data.user.username);
+          console.log("tel = " + res.data.user.tel);
+          console.log("birth = " + res.data.user.birth);
+          console.log("field = " + res.data.user.field);
+          console.log("workNation = " + res.data.user.workNation);
+          console.log("grade = " + res.data.user.grade);
+          console.log("career = " + res.data.user.career);
+          console.log("workPlace = " + res.data.user.workPlace);
+          console.log(res.status);
+
+          // const cookieData = {
+          //   'token': res.data.token,
+          //   'userId': res.data.user.userId,
+          //   'profile': res.data.user.profile,
+          //   'email': res.data.user.email,
+          //   'username': res.data.user.username,
+          //   'tel': res.data.user.tel,
+          //   'birth': res.data.user.birth,
+          //   'field': res.data.user.field,
+          //   'workNation': res.data.user.workNation,
+          //   "grade": res.data.user.grade,
+          //   'career': res.data.user.career,
+          //   'workPlace': res.data.user.workPlace,
+          // }
+          if (res.status.code === 400) {
+            console.log(res.status);
+            alert("인증되지 않는 회원입니다")
+          } else {
+
+
+
+            cookies.set('token', res.data.token, { path: "/" });
+            cookies.set('userId', res.data.user.userId, { path: "/" });
+            cookies.set('profile', res.data.user.profile, { path: "/" });
+            cookies.set('email', res.data.user.email, { path: "/" });
+            cookies.set('username', res.data.user.username, { path: "/" });
+            cookies.set('tel', res.data.user.tel, { path: "/" });
+            cookies.set('birth', res.data.user.birth, { path: "/" });
+            cookies.set('field', res.data.user.field, { path: "/" });
+            cookies.set('workNation', res.data.user.workNation, { path: "/" });
+            cookies.set("grade", res.data.user.grade, { path: "/" });
+            cookies.set('career', res.data.user.career, { path: "/" });
+            cookies.set('workPlace', res.data.user.workPlace, { path: "/" });
+
+            console.log(cookies.get('token'));
+            console.log(cookies.get('grade'));
+
+
+
+
+
+            // window.location = "/"
+          }
+
+
+
+        });
+
+    } catch (error) {
+
     }
-    axios
-      .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-
-        // if (res.code == 200) {
-        //   sessionStorage.setItem("email", res.user.email);
-        //   sessionStorage.setItem("password", res.user.password);
-        //   console.log(sessionStorage.getItem("email"), sessionStorage.getItem("password"));
-        //   alert(res.msg);
-        //   window.location = '/';
-        // } else if (res.code == 400) {
-        //   alert(res.msg);
-        //   document.getElementById("email").value = "";
-        //   document.getElementById("password").value = "";
-        // }
-
-
-      });
-
-
-
-
 
   }
 
   return (
     <>
+      <Navigation />
       <div className="login-inner">
         <div class="background_2">
 
