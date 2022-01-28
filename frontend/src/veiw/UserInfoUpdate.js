@@ -12,6 +12,8 @@ import Input from '@mui/material/Input';
 import Autocomplete from '@mui/material/Autocomplete';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
+import Cookies from 'universal-cookie';
+
 import ReactFileReader from "react-file-reader";
 
 import AvatarInput from "../component/FileUpload/AvatarInput"
@@ -26,6 +28,8 @@ import '../assets/css/SignUp.css'
 import axios from 'axios'
 
 const UserInfoUpdate = () => {
+
+  const cookies = new Cookies();
 
   const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
 
@@ -614,6 +618,8 @@ const UserInfoUpdate = () => {
             </IconButton>
           </label>
 
+
+
           {/* <AvatarInput>
             <img src={file} alt="Avatar Placeholder" />
           </AvatarInput> */}
@@ -650,13 +656,15 @@ const UserInfoUpdate = () => {
             {/* 이메일 */}
             <Grid>
               <TextField
-                label="Email*"
+                label="asds"
                 id="useremail"
                 name="useremail"
                 sx={{
                   m: 1,
                   width: '30ch'
-                }} />
+                }}  >{(cookies.get('profile'))}</TextField>
+
+              <input>{cookies.get('profile')}</input>
 
 
               {/* 비밀번호 */}
