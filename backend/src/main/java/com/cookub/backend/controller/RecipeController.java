@@ -79,11 +79,11 @@ public class RecipeController {
         return recipeService.myRecipe(userId);
     }
 
-    // 내 레시피 삭제
-    @DeleteMapping("/recipe/{recipeId}")
-    public String recipeDelete(@PathVariable("recipeId") long recipeId) {
-        return recipeService.delRecipe(recipeId);
-    }
+    // // 내 레시피 삭제
+    // @DeleteMapping("/recipe/{recipeId}")
+    // public String recipeDelete(@PathVariable("recipeId") long recipeId) {
+    //     return recipeService.delRecipe(recipeId);
+    // }
 
     // 내 레시피 상세 정보 조회
     @GetMapping("/recipe/{recipeId}")
