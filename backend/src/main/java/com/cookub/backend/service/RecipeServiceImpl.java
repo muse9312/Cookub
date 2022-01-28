@@ -1,5 +1,6 @@
 package com.cookub.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cookub.backend.dto.CookMethodDto;
@@ -35,19 +36,13 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private KeywordRepository keywordRepository;
 
-    /////////////////////////////등록////////////////////////////
+    ///////////////////////////// 등록////////////////////////////
     // 레시피 등록 (레시피)
     @Override
-    public Recipe setRecipe(RecipeDto recipeDto,Long userId) {
-        //        for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-//            cookMethod = cookMethodRepository.save(cookMethod);
-//        }
-//        for (int i = 0; i < recipeDto.getCookMethods().size(); i++) {
-//            CookMethod cookMethod=recipeDto.getCookMethods().get(i);
-//            cookMethod=cookMethodRepository.save(cookMethod);
-//        }
+    public void setRecipe(RecipeDto recipeDto, Long userId) {
+
         User user = userRepository.findById(userId).get();
-        Recipe reicpeEntity = Recipe.builder()
+        Recipe recipeEntity = Recipe.builder()
                 .keypoint(recipeDto.getKeypoint())
                 .isOpenable(recipeDto.getIsOpenable())
                 .level(recipeDto.getLevel())
@@ -55,16 +50,31 @@ public class RecipeServiceImpl implements RecipeService {
                 .likeCnt(recipeDto.getLikeCnt())
                 .views(recipeDto.getViews())
                 .user(user)
-                .cookMethods(recipeDto.getCookMethods())
+                // .cookMethods(recipeDto.getCookMethods())
                 .build();
-        recipeRepository.save(reicpeEntity);
-        return null;
+        recipeEntity = recipeRepository.save(recipeEntity);
+
+        for (CookMethod cookMethod : recipeDto.getCookMethods()) {
+            cookMethod.setMethodRecipe(recipeEntity);
+            cookMethodRepository.save(cookMethod);
+        }
+        for (Keyword keyword : recipeDto.getKeywordList()) {
+            keyword.setKeywordRecipe(recipeEntity);
+            keywordRepository.save(keyword);
+        }
+        for (Ingredient ingredient : recipeDto.getIngredients()) {
+            ingredient.setIngredientRecipe(recipeEntity);
+            ingredientRepository.save(ingredient);
+        }
+        // for (int i = 0; i < recipeDto.getCookMethods().size(); i++) {
+        // CookMethod cookMethod=recipeDto.getCookMethods().get(i);
+        // cookMethod=cookMethodRepository.save(cookMethod);
+        // }
     }
 
     // 레시피 등록 (방법)
     @Override
     public CookMethod setMethod(CookMethodDto cookMethodDto) {
-
         CookMethod methodEntity = CookMethod.builder()
                 .description(cookMethodDto.getDescription())
                 .picture(cookMethodDto.getPicture())
@@ -111,6 +121,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .build();
         recipeRepository.save(reicpeEntity);
         return null;
+
     }
 
     // 레시피 등록 (방법)
@@ -156,17 +167,24 @@ public class RecipeServiceImpl implements RecipeService {
 
     // 레시피 리스트 삭제
     @Override
-    public String delRecipe(Long recipeId) {
-        recipeRepository.deleteById(recipeId);
-        return "redirect:/";
+    public void delRecipe(Long recipeId) {
+        // for (CookMethod cookMethod : recipeDto.getCookMethods()) {        
+        //     cookMethodRepository.deleteById(recipeId);
+        // }
+        // for (Keyword keyword : recipeDto.getKeywordList()) {
+        //     keywordRepository.deleteById(recipeId);
+        // }
+        // for (Ingredient ingredient : recipeDto.getIngredients()) {
+        //     ingredientRepository.deleteById(recipeId);
+        // }
+        // recipeRepository.deleteById(recipeId);
     }
-
+    
     // 내 레시피 상세 정보 조회
     @Override
     public Recipe findRecipe(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
-
     }
-
+    
 }
