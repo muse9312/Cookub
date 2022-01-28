@@ -5,10 +5,12 @@ import com.cookub.backend.entity.User;
 import com.cookub.backend.util.ResultJson;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
 public interface UserService {
-    ResultJson signUp(UserDto userDto);
-    ResultJson signIn(UserDto userDto);
+    User signUp(UserDto userDto);
+    Map<String,Object> signIn(UserDto userDto);
     ResultJson deleteUser(Long userId);
-    ResultJson editUser(UserDto userDto);
-    ResultJson checkUser(UserDto userDto);
+    User editUser(UserDto userDto);
+    User checkUser(UserDto userDto);
 }

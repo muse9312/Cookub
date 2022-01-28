@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,8 +27,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public ResultJson signUp(UserDto userDto) {
-        ResultJson resultJson = new ResultJson();
+    public User signUp(UserDto userDto) {
         //id 중복확인
         System.out.println("signUp email 확인 : " + userDto.getEmail());
         User checkUser = userRepository.findByEmail(userDto.getEmail());
@@ -52,37 +53,30 @@ public class UserServiceImpl implements UserService {
                     .tel(userDto.getTel())
                     .build();
             User save = userRepository.save(userEntity);
-            resultJson.setCode(ResultCode.CREATED.getCode());
-            resultJson.setMsg(ResultCode.CREATED.getMsg());
-            resultJson.setResult(save);
-            return resultJson;
+            return save;
         } else {
-            resultJson.setCode(ResultCode.CONFLICT.getCode());
-            resultJson.setMsg(ResultCode.CONFLICT.getMsg());
+            return null;
         }
 
-        return resultJson;
     }
 
     @Override
-    public ResultJson signIn(UserDto userDto) {
+    public Map<String,Object> signIn(UserDto userDto) {
         ResultJson resultJson = new ResultJson();
         User userEntity = userRepository.findByEmail(userDto.getEmail());
         String token = "";
+        HashMap<String, Object> map = new HashMap<>();
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
             System.out.println("3. ID 확인 후 token 발급");
             token = "Bearer " + jwtUtil.generateToken(userEntity);
             System.out.println("6. 토큰 완성:" + token);
+            map.put("token",token);
+            map.put("user",userEntity);
+            return map;
         } else {
-            resultJson.setCode(ResultCode.LOGIN_FAIL.getCode());
-            resultJson.setMsg(ResultCode.LOGIN_FAIL.getMsg());
-            return resultJson;
+            return null;
         }
-        resultJson.setCode(ResultCode.SUCCESS.getCode());
-        resultJson.setMsg(ResultCode.SUCCESS.getMsg());
-        resultJson.setToken(token);
-        return resultJson;
     }
 
     @Override
@@ -101,8 +95,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultJson editUser(UserDto userDto) {
-        ResultJson resultJson = new ResultJson();
+    public User editUser(UserDto userDto) {
         Optional<User> byId = userRepository.findById(userDto.getUserId());
         if (byId.isPresent()) {
             User userEntity = byId.get();
@@ -117,19 +110,15 @@ public class UserServiceImpl implements UserService {
             userEntity.setWorkPlace(userDto.getWorkPlace());
             userEntity.setTel(userDto.getTel());
             userRepository.save(userEntity);
-            resultJson.setCode(ResultCode.CREATED.getCode());
-            resultJson.setMsg(ResultCode.CREATED.getMsg());
-            resultJson.setResult(userEntity);
+            return userEntity;
         } else {
-            resultJson.setCode(ResultCode.BAD_REQUEST.getCode());
-            resultJson.setMsg(ResultCode.BAD_REQUEST.getMsg());
+            return null;
         }
-        return resultJson;
+
     }
 
     @Override
-    public ResultJson checkUser(UserDto userDto) {
-        ResultJson resultJson = new ResultJson();
+    public User checkUser(UserDto userDto) {
 //        String rawPasswd=userDto.getPassword();
 //        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //        String encPassword = passwordEncoder.encode(rawPasswd);
@@ -137,15 +126,11 @@ public class UserServiceImpl implements UserService {
         User userEntity = userRepository.findByEmail(userDto.getEmail());
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
-
-            resultJson.setCode(ResultCode.SUCCESS.getCode());
-            resultJson.setMsg(ResultCode.SUCCESS.getMsg());
-            resultJson.setResult(userEntity);
+            return userEntity;
         } else {
-            resultJson.setCode(ResultCode.BAD_REQUEST.getCode());
-            resultJson.setMsg(ResultCode.BAD_REQUEST.getMsg());
+            return null;
         }
-        return resultJson;
+
     }
 
 }

@@ -1,28 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
-import '../assets/css/SignUp.css'
+// ================================  Data  ====================================
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Grid from "@mui/material/Grid";
+import Input from '@mui/material/Input';
 import Autocomplete from '@mui/material/Autocomplete';
-import Nation from '../component/data/Nation'
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
+import ReactFileReader from "react-file-reader";
+
+import AvatarInput from "../component/FileUpload/AvatarInput"
+
+import '../assets/css/SignUp.css'
+
+// import Nation from '../component/data/Nation'
+
+// Fileupload component
 
 
 import axios from 'axios'
 
-const Profile = () => {
+const SignUp = () => {
+
+  const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
+
+  const handleFiles = (files) => {
+    console.log(files);
+    setFiles(files.base64);
+  };
+
+
+
+  // ================================  Data  ====================================
 
   // 수준
   const grade = [
@@ -463,10 +477,11 @@ const Profile = () => {
     { code: 'ZW', label: 'Zimbabwe', phone: '263' },
   ];
 
+  // ================================  password change notifications  ====================================
 
 
-  const [values, setValues] = React.useState(
-    { amount: '', password: '', weight: '', weightRange: '', showPassword: false }
+  const [values, setValues] = useState(
+    { password: '', showPassword: false }
   );
 
   const handleChange = (prop) => (event) => {
@@ -487,45 +502,94 @@ const Profile = () => {
     event.preventDefault();
   };
 
+  // ================================  Page location  ====================================
+
+
   function SendLogin(e) {
     e.preventDefault();
     window.location.href = "/login"
 
   }
-  function SendSignUp(e) {
-    e.preventDefault();
-    window.location.href = "/signup"
 
-  }
+  // ================================  axios post userInfo  ====================================
+
 
   function RegData(e) {
-    e.preventDefault();
-    // console.log(e);
-    // console.log(e.target['0'].value);
-    // console.log(e.target['1'].value);
+    e.preventDefault(e);
+    console.log(e);
+
+
+    // 프로필
+    const file = document.querySelector('[name=file]').files[0];
+    console.log(document.querySelector('[name=file]').value);
+    // 이메일
+    const email = document.querySelector('[name=useremail]').value;
+    console.log(document.querySelector('[name=useremail]').value);
+    // 페스워드
+    const password = document.querySelector('[name=password]').value;
+    console.log(document.querySelector('[name=password]').value);
+    // 이름
+    const username = document.querySelector('[name=username]').value;
+    console.log(document.querySelector('[name=username]').value);
+    // 전화번호
+    const tel = document.querySelector('[name=tel]').value;
+    console.log(document.querySelector('[name=tel]').value);
+    // 생일
+    const birth = document.querySelector('[name=birth]').value;
+    console.log(document.querySelector('[name=birth]').value);
+    // 전문분야
+    const field = document.querySelector('[name=field]').value;
+    console.log(document.querySelector('[name=field]').value);
+    // 거주국가
+    const workNation = document.querySelector('[name=work_nation]').value;
+    console.log(document.querySelector('[name=work_nation]').value);
+    // 수준
+    const grade = document.querySelector('[name=grade]').value;
+    console.log(document.querySelector('[name=grade]').value);
+    // 경력
+    const career = document.querySelector('[name=career]').value;
+    console.log(document.querySelector('[name=career]').value);
+    // 현재 근무지
+    const workPlace = document.querySelector('[name=work_place]').value;
+    console.log(document.querySelector('[name=work_place]').value);
+
+
+
 
     const formData = new FormData();
-    // const email = e
-    //   .target['0']
-    //   .value;
-    // const pwd = e
-    //   .target['1']
-    //   .value;
 
-    // formData.append("email", email);
-    // formData.append("pwd", pwd);
-    let data = [{
-      useremail: "useremail",
-      password: "password"
-    }]
-    formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-    axios(
-      { url: 'http://localhost:8080/user/signUp', method: 'post', data: formData }
-    ).then(function (res) {
+    formData.append('file', file);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('username', username);
+    formData.append('tel', tel);
+    formData.append('birth', birth);
+    formData.append('field', field);
+    formData.append('workNation', workNation);
+    formData.append('grade', grade);
+    formData.append('career', career);
+    formData.append('workPlace', workPlace);
+    formData.append('file', file);
+    console.log(formData);
+
+
+    axios({
+      url: 'http://localhost:8080/user/auth/signUp',
+      headers: {
+        'content-type': 'multipart/form-data'
+      },
+      method: 'post',
+      data: formData
+    }).then(function (res) {
       console.log(res.data);
+      
+      // window.location = '/login';
 
     })
   }
+
+
+
 
   return (
     <div className="reg-inner">
@@ -539,6 +603,45 @@ const Profile = () => {
 
         <Box
           sx={{
+
+            flexWrap: 'wrap'
+          }}
+        >
+          <label htmlFor="icon-button-file">
+            <Input accept="image/*" id="icon-button-file" name="file" type="file" />
+            <IconButton color="primary" aria-label="upload picture" component="span">
+              <PhotoCamera />
+            </IconButton>
+          </label>
+
+          {/* <AvatarInput>
+            <img src={file} alt="Avatar Placeholder" />
+          </AvatarInput> */}
+        </Box>
+
+
+        {/* <ReactFileReader
+          fileTypes={[".png", ".jpg"]}
+          base64={true}
+          handleFiles={handleFiles}
+
+        >
+          <IconButton color="primary" aria-label="upload picture" component="span">
+            <PhotoCamera />
+          </IconButton>
+        </ReactFileReader> */}
+
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <Box
+          sx={{
             display: 'flex',
             flexWrap: 'wrap'
           }}>
@@ -548,7 +651,8 @@ const Profile = () => {
             <Grid>
               <TextField
                 label="Email*"
-                name="username"
+                id="useremail"
+                name="useremail"
                 sx={{
                   m: 1,
                   width: '30ch'
@@ -556,13 +660,26 @@ const Profile = () => {
 
 
               {/* 비밀번호 */}
-              <FormControl
+
+              <TextField
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                sx={{
+                  m: 1,
+                  width: '30ch'
+                }}
+              />
+
+              {/* <FormControl
                 sx={{
                   m: 1,
                   width: '25ch'
                 }}
                 variant="outlined">
-                <InputLabel name="password" htmlFor="outlined-adornment-password">Password*</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password">Password*</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
                   type={values.showPassword
@@ -570,7 +687,7 @@ const Profile = () => {
                     : 'password'}
                   value={values.password}
                   onChange={handleChange('password')}
-                  endAdornment={<InputAdornment position="end" > <IconButton
+                  endAdornment={<InputAdornment position="end" name="password"  > <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
@@ -583,7 +700,7 @@ const Profile = () => {
                   </IconButton>
                   </InputAdornment>}
                   label="Password*" />
-              </FormControl>
+              </FormControl> */}
             </Grid>
             <br />
 
@@ -591,6 +708,7 @@ const Profile = () => {
             <Grid >
               <TextField
                 label="Name*"
+                id="username"
                 name="username"
                 sx={{
                   m: 1,
@@ -610,9 +728,11 @@ const Profile = () => {
                 }} />
 
               <TextField
-                id="birth"
-                label="Birth"
+                id="standard-helperText"
+                type="date"
                 name="birth"
+                helperText="Birth"
+
                 sx={{
                   m: 1,
                   width: '25ch'
@@ -626,13 +746,13 @@ const Profile = () => {
               direction="row"
               justifyContent="center"
               alignItems="center"
-              id="field" >
+            >
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 options={field}
                 sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Field" />}
+                renderInput={(params) => <TextField {...params} label="Field" name="field" />}
               />
               <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
               {/* 거주국가 */}
@@ -656,6 +776,7 @@ const Profile = () => {
                 )}
                 renderInput={(params) => (
                   <TextField
+                    name="work_nation"
                     {...params}
                     label="Choose a country"
                     inputProps={{
@@ -670,6 +791,7 @@ const Profile = () => {
             </Grid >
             <br />
 
+            {/* 수준 */}
             <Grid id="field"
             >
               <Autocomplete
@@ -677,7 +799,7 @@ const Profile = () => {
 
                 options={grade}
                 sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Grade" />}
+                renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
               />
 
 
@@ -695,7 +817,7 @@ const Profile = () => {
                   width: '30ch'
                 }} />
 
-
+              {/* 현재 근무지 */}
               <TextField
                 label="Work_place"
                 name="work_place"
@@ -708,34 +830,10 @@ const Profile = () => {
             </Grid>
 
 
-            <br />
 
-            <Grid >
-              <TextField
-                label="Tel"
-                name="tel"
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }} />
 
-            </Grid>
 
             <br />
-
-
-            {/* 가입일 */}
-            <Grid id="data" >
-              <TextField
-                required
-                fullWidth
-                name="DOB"
-                type="date"
-                id="password"
-
-                autoComplete="off"
-              />
-            </Grid>
 
 
           </div>
@@ -747,14 +845,14 @@ const Profile = () => {
         <div id="Btn-2">
           <Stack direction="row" spacing={4}>
             <Button variant="outlined" onClick={SendLogin}>Back</Button>
-            <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
+            <Button type="submit" variant="outlined" >SignUp</Button>
           </Stack>
         </div>
       </form>
 
 
-    </div>
+    </div >
   );
 };
 
-export default Profile;
+export default SignUp;

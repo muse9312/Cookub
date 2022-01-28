@@ -5,6 +5,7 @@ import{TiEdit} from 'react-icons/ti';
 import style from './Todo.module.css';
 
 const Todo = ({todos, completeTodo, removeTodo, updateTodo})=>{
+  
   const[edit, setEdit]=useState({id:null, value:''});
 
   const submitUpdate = value => {

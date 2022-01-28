@@ -19,51 +19,36 @@ function Login() {
   function LoginData(e) {
     e.preventDefault();
 
+
     let data = {
-      email: "email",
-      password: "password"
+      email: document.querySelector('[name=useremail]').value,
+      password: document.querySelector('[name=password]').value
     }
-    const formData = new FormData();
-    // const useremail = e
-    //   .target['0']
-    //   .value;
-    // const password = e
-    //   .target['1']
-    //   .value;
-
-    // formData.append("useremail", useremail);
-    // formData.append("password", password);
-    // formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
-
     axios
-      .post('http://localhost:8080/user/signin', {
-        email: data.email,
-        password: data.password
+      .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+
+        // if (res.code == 200) {
+        //   sessionStorage.setItem("email", res.user.email);
+        //   sessionStorage.setItem("password", res.user.password);
+        //   console.log(sessionStorage.getItem("email"), sessionStorage.getItem("password"));
+        //   alert(res.msg);
+        //   window.location = '/';
+        // } else if (res.code == 400) {
+        //   alert(res.msg);
+        //   document.getElementById("email").value = "";
+        //   document.getElementById("password").value = "";
+        // }
+
+
       });
 
 
-    // console.log(data.useremail);
-    // console.log(data.password);
-    // axios(
-    //   { url: 'http://localhost:8080/user/signin', method: 'post', data: formData }
-    // ).then(function (res) {
-    //   console.log(res.data);
-    //   if (res.code == 200) {
-    //     sessionStorage.setItem("useremail", res.user.email);
-    //     sessionStorage.setItem("password", res.user.password);
-    //     console.log(sessionStorage.getItem("useremail"), sessionStorage.getItem("password"));
-    //     alert(res.msg);
-    //     // window.location = '/';
-    //   } else if (res.code == 400) {
-    //     alert(res.msg);
-    //     document.getElementById("useremail").value = "";
-    //     document.getElementById("password").value = "";
-    //   }
-
-    // })
 
 
 
@@ -88,7 +73,7 @@ function Login() {
                 noValidate
                 autoComplete="on"
               >
-                <TextField id="email" name="email" label="email" variant="outlined" />
+                <TextField id="email" name="useremail" label="email" variant="outlined" />
                 <TextField
                   id="password"
                   name="password"

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class User {
     private String username;
     private String tel;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime birth;
+    private LocalDate birth;
     private String field;
     private String profile; //프로필 사진
     private String grade;   //수준
