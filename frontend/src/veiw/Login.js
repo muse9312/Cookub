@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
 
 import '../assets/css/Login.css'
 import Box from '@mui/material/Box';
@@ -20,33 +20,46 @@ function Login() {
     e.preventDefault();
 
 
-    let data = {
-      email: document.querySelector('[name=useremail]').value,
-      password: document.querySelector('[name=password]').value
+    try {
+      let data = {
+        email: document.querySelector('[name=useremail]').value,
+        password: document.querySelector('[name=password]').value
+      }
+
+      axios
+        .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          // console.log("res.data.accessToken : " + res.data.data.data.token);
+          console.log(res.data);
+          // if (res.data.data.data == null) {
+          //   alert("인증되지 않는 회원입니다")
+          // } else {
+          //   const { accessToken } = res.data.data.data.token;
+
+          //   // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+          //   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+          //   // accessToken을 localStorage, cookie 등에 저장하지 않는다!
+
+            window.location = "/"
+          // }
+
+
+
+        });
+
+    } catch (error) {
+
     }
-    axios
-      .post('http://localhost:8080/user/auth/signIn', JSON.stringify(data), {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-
-        // if (res.code == 200) {
-        //   sessionStorage.setItem("email", res.user.email);
-        //   sessionStorage.setItem("password", res.user.password);
-        //   console.log(sessionStorage.getItem("email"), sessionStorage.getItem("password"));
-        //   alert(res.msg);
-        //   window.location = '/';
-        // } else if (res.code == 400) {
-        //   alert(res.msg);
-        //   document.getElementById("email").value = "";
-        //   document.getElementById("password").value = "";
-        // }
 
 
-      });
+
+
 
 
 
