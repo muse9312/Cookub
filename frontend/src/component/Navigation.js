@@ -6,20 +6,58 @@ import MyPage from '../veiw/MyPage';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
 
+import Cookies from 'universal-cookie';
+
 
 
 
 function Navigation() {
+
+
+
+  const cookies = new Cookies();
+
+  const token = cookies.get('token');
+  console.log(token);
+
   function SendLogin(e) {
     e.preventDefault();
     window.location.href = "/login"
 
   }
 
+  function Logout(e) {
+    e.preventDefault();
+    console.log(token);
+    cookies.remove('token');
+    window.location.reload("/");
+
+  }
+
+
+
+  function BtnHendler() {
+    const token = cookies.get('token');
+    if (token == null) {
+      return <button className={style.login_button} onClick={SendLogin}>Login</button>;
+    } else {
+      return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    }
+  }
+
+
+
   return (
     <div className={style.nav}>
       <img className={style.logo_img} src={logo} alt="COOKUB" />
-      <button className={style.login_button} onClick={SendLogin}>LOGIN</button><br />
+
+      <div>
+
+
+        {BtnHendler()}
+
+      </div>
+      <br />
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>

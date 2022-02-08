@@ -15,12 +15,10 @@ public class CardServiceImpl implements CardService{
     @Override
     public List<Recipe> showOpenedCardList() {
         return cardRepository.findAllByIsOpenable(1);
-
     }
 
     @Override
     public Recipe showDetailedRecipe(Long recipeId) {
-
         return cardRepository.findById(recipeId).get();
     }
 

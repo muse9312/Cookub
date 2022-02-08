@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
             map.put("user",userEntity);
             return map;
         } else {
-            return null;
+            return map;
         }
     }
 

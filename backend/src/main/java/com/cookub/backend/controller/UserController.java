@@ -44,23 +44,39 @@ public class UserController {
             message = "Something happened with file " + file.getOriginalFilename() + ".";
         }
         response.add("data",userService.signUp(userDto));
-        return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.OK);
+
+        User user = userService.signUp(userDto);
+        if (user==null){
+            new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.CREATED);
+
     }
 
     @PostMapping("/auth/signIn")
     public ResponseEntity<Map<String,Object>> signIn(@RequestBody UserDto userDto){
         Response response = new Response();
         HttpHeaders headers = new HttpHeaders();
-        response.add("data",userService.signIn(userDto));
+        Map<String, Object> map = userService.signIn(userDto);
+        if (!map.containsKey("user")){
+            return new ResponseEntity<>(null,headers, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(userService.signIn(userDto),headers, HttpStatus.OK);
+
+
     }
 
     @PutMapping("/edit")
     public ResponseEntity<User> userEdit(UserDto userDto){
         Response response = new Response();
+        User user = userService.editUser(userDto);
+        if (user==null){
+            return new ResponseEntity<>(user,null,HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity<>(user,null,HttpStatus.OK);
+        }
 
 
-        return new ResponseEntity<>(userService.editUser(userDto),null,HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")

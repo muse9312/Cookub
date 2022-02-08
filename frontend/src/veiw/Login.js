@@ -6,15 +6,33 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+import Navigation from '../component/Navigation'
+
+
+
+// import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
+
+
 import axios from 'axios'
 
 function Login() {
+
+
+
+
+
+  // const [cookies, setCookie] = useCookies([]);
+
+  const cookies = new Cookies();
+
 
   function SendSignUp(e) {
     e.preventDefault();
     window.location.href = "/signup"
 
   }
+
 
   function LoginData(e) {
     e.preventDefault();
@@ -33,21 +51,67 @@ function Login() {
           },
         })
         .then((res) => {
+
           console.log(res);
           // console.log("res.data.accessToken : " + res.data.data.data.token);
           console.log(res.data);
-          // if (res.data.data.data == null) {
-          //   alert("인증되지 않는 회원입니다")
-          // } else {
-          //   const { accessToken } = res.data.data.data.token;
+          console.log("==========================")
+          console.log("token = " + res.data.token);
+          console.log("userId = " + res.data.user.userId);
+          console.log("email = " + res.data.user.email);
+          console.log("username = " + res.data.user.username);
+          console.log("tel = " + res.data.user.tel);
+          console.log("birth = " + res.data.user.birth);
+          console.log("field = " + res.data.user.field);
+          console.log("workNation = " + res.data.user.workNation);
+          console.log("grade = " + res.data.user.grade);
+          console.log("career = " + res.data.user.career);
+          console.log("workPlace = " + res.data.user.workPlace);
+          console.log(res.status);
 
-          //   // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-          //   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-          //   // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-
-            window.location = "/"
+          // const cookieData = {
+          //   'token': res.data.token,
+          //   'userId': res.data.user.userId,
+          //   'profile': res.data.user.profile,
+          //   'email': res.data.user.email,
+          //   'username': res.data.user.username,
+          //   'tel': res.data.user.tel,
+          //   'birth': res.data.user.birth,
+          //   'field': res.data.user.field,
+          //   'workNation': res.data.user.workNation,
+          //   "grade": res.data.user.grade,
+          //   'career': res.data.user.career,
+          //   'workPlace': res.data.user.workPlace,
           // }
+          if (res.status.code === 400) {
+            console.log(res.status);
+            alert("인증되지 않는 회원입니다")
+          } else {
+
+
+
+            cookies.set('token', res.data.token, { path: "/" });
+            cookies.set('userId', res.data.user.userId, { path: "/" });
+            cookies.set('profile', res.data.user.profile, { path: "/" });
+            cookies.set('email', res.data.user.email, { path: "/" });
+            cookies.set('username', res.data.user.username, { path: "/" });
+            cookies.set('tel', res.data.user.tel, { path: "/" });
+            cookies.set('birth', res.data.user.birth, { path: "/" });
+            cookies.set('field', res.data.user.field, { path: "/" });
+            cookies.set('workNation', res.data.user.workNation, { path: "/" });
+            cookies.set("grade", res.data.user.grade, { path: "/" });
+            cookies.set('career', res.data.user.career, { path: "/" });
+            cookies.set('workPlace', res.data.user.workPlace, { path: "/" });
+
+            console.log(cookies.get('token'));
+            console.log(cookies.get('grade'));
+
+
+
+
+
+            // window.location = "/"
+          }
 
 
 
@@ -57,18 +121,11 @@ function Login() {
 
     }
 
-
-
-
-
-
-
-
-
   }
 
   return (
     <>
+      <Navigation />
       <div className="login-inner">
         <div class="background_2">
 

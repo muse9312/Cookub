@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public interface RecipeService {
 
     // 레시피 정보 등록 
-    Recipe setRecipe (RecipeDto recipeDto,Long userId);
+    void setRecipe (RecipeDto recipeDto,Long userId);
     CookMethod setMethod (CookMethodDto cookMethodDto);
     Ingredient setIngredient (IngredientDto ingredientDto);
     Keyword setKeyword (KeywordDto keywordDto);
@@ -29,7 +29,7 @@ public interface RecipeService {
     Keyword putKeyword (KeywordDto keywordDto);
 
     List<Recipe> myRecipe (Long userId);
-    String delRecipe (Long recipeId);
+    // void delRecipe ( Long recipeId);
     Recipe findRecipe (Long recipeId);
 
 }

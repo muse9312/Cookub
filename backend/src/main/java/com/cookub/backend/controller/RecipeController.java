@@ -26,8 +26,8 @@ public class RecipeController {
     ///////////////////////등록//////////////////////////
     // 레시피 정보 등록 (recipe)
     @RequestMapping(value = "/recipe/{userId}", method = RequestMethod.POST)
-    public Recipe setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
-        return recipeService.setRecipe(recipeDto,userId);
+    public void setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
+         recipeService.setRecipe(recipeDto, userId);
     }
 
     // 레시피 정보 등록 ( CookMethod )
@@ -79,11 +79,11 @@ public class RecipeController {
         return recipeService.myRecipe(userId);
     }
 
-    // 내 레시피 삭제
-    @DeleteMapping("/recipe/{recipeId}")
-    public String recipeDelete(@PathVariable("recipeId") long recipeId) {
-        return recipeService.delRecipe(recipeId);
-    }
+    // // 내 레시피 삭제
+    // @DeleteMapping("/recipe/{recipeId}")
+    // public String recipeDelete(@PathVariable("recipeId") long recipeId) {
+    //     return recipeService.delRecipe(recipeId);
+    // }
 
     // 내 레시피 상세 정보 조회
     @GetMapping("/recipe/{recipeId}")
