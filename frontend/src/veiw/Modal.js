@@ -107,30 +107,48 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
       <div >
         <form >  
           <input 
-            placeholder="사용되는 재료를 입력하세요."
+            placeholder="재료를 입력하세요."
             type="text"
             name="ingre_list"
             id="ingre" 
             label="ingre"
             className={style.proc_input}></input>
+
           <button type='submit' className={style.proc_button} onClick={(e)=>{
             e.preventDefault();
             let test = [...ingreList];
-            test.push(document.querySelector('[name=ingre_list]').value);
-            document.querySelector('[name=ingre_list]').value="";
+            test.push({name:document.querySelector('[name=ingre_list]').value, gram:"재료량"}); //state에 재료명과 량 초기값을 push
             setIngreList(test);
              } } >추가</button>
+
         </form>
         <div className={style.lists}>
-          {ingreList.map((value)=>(
+          {ingreList.map((value, index)=>{
+            const indexStr = index.toString();
+            const gram = "gramIndex" + indexStr;
+          return(
             <div className={style.proc_row}>
-              <div className={style.list_item}>{value}</div>
-              <div>
-                <RiCloseCircleLine className={style.delete_icon}/>
-                <TiEdit className={style.edit_icon}/>
-              </div>
+              <div className={style.list_item}>{value.name}</div>
+              <from>
+                <input placeholder={value.gram} type="text" name={gram} id="gram"></input>
+                <button type='submit' onClick={(e)=>{
+                  e.preventDefault();
+                  let copy = [...ingreList];
+                  const gramName = "[name=" + gram + "]"
+                  copy[index].gram = document.querySelector(gramName).value;
+                  setIngreList(copy);
+                }}>입력</button>
+              </from>
+              <div><RiCloseCircleLine className={style.delete_icon} onClick={(e)=>{
+                e.preventDefault();
+                let copy = [...ingreList];
+                delete copy[indexStr];
+                let removeList = copy.filter(i => i !== null);//이코드 없으면 delete 한 자리에 empty 생김
+                setIngreList(removeList);
+              }}/></div>
             </div>
-          ))}
+              )  
+          })}
         </div>
     </div>
       <div className={style.footer}>
@@ -140,6 +158,7 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
         <button className={style.footerBt2} onClick={()=>{
                 setChapter2List(ingreList)
                 setCreateMod(2)
+                console.log(ingreList);
           }}>다음단계</button>
       </div>
     </>
@@ -184,10 +203,7 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }
         {procList.map((value)=>(
         <div className={style.proc_row}>
           <div className={style.list_item}>{value}</div>
-          <div>
-            <RiCloseCircleLine className={style.delete_icon}/>
-            <TiEdit className={style.edit_icon}/>
-          </div>
+          <div><RiCloseCircleLine className={style.delete_icon}/></div>
         </div>
         ))}
       </div>
@@ -271,27 +287,23 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                             setChap4info(obj)
                             setChapter4List(obj)
                              }}>이전단계</button>
+
         <button className={style.footerBt2} onClick={()=>{
                             const keypoint = document.querySelector('[name=keypoint]').value;
                             const publicOrNot = document.querySelector('[name=publicOrNot]').value;
                             const recipeLevel = document.querySelector('[name=recipeLevel]').value;
                             const cookingTime = document.querySelector('[name=cookingTime]').value;
                             const file = document.querySelector('[name=file]').value;
-                            let obj = {keypoint:keypoint,publicOrNot:publicOrNot,recipeLevel:recipeLevel,
-                              cookingTime:cookingTime,file:file};
+                            let obj = {keypoint:keypoint,
+                                      publicOrNot:publicOrNot,
+                                      recipeLevel:recipeLevel,
+                                      cookingTime:cookingTime,
+                                      file:file};
+
                             setChap4info(obj)
                             setChapter4List(obj)
 
-                            // const formData = new FormData();
                             
-                            // formData.append('chapter1List' , chapter1List)
-                            // console.log(chapter1List);
-                            // formData.append('chapter2List' , chapter2List)
-                            // console.log(chapter2List);
-                            // formData.append('chapter3List' , chapter3List)
-                            // console.log(chapter3List);
-                            // formData.append('chapter4List' , chapter4List)
-                            // console.log(chapter4List);
                             const val={
                               title:chapter1List,
                               level:chapter4List.recipeLevel,
