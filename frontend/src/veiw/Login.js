@@ -99,18 +99,18 @@ function Login() {
             cookies.set('birth', res.data.user.birth, { path: "/" });
             cookies.set('field', res.data.user.field, { path: "/" });
             cookies.set('workNation', res.data.user.workNation, { path: "/" });
-            cookies.set("grade", res.data.user.grade, { path: "/" });
+            cookies.set('grade', res.data.user.grade, { path: "/" });
             cookies.set('career', res.data.user.career, { path: "/" });
             cookies.set('workPlace', res.data.user.workPlace, { path: "/" });
 
             console.log(cookies.get('token'));
-            console.log(cookies.get('grade'));
 
 
 
 
 
-            // window.location = "/"
+
+            window.location = "/"
           }
 
 
