@@ -16,6 +16,7 @@ function Navigation() {
 
 
   const cookies = new Cookies();
+  const cookieAll = ['token', 'userId', 'profile', 'email', 'username', 'tel', 'birth', 'field', 'workNation', 'grade', 'career', 'workPlace'];
 
   const token = cookies.get('token');
   console.log(token);
@@ -29,7 +30,9 @@ function Navigation() {
   function Logout(e) {
     e.preventDefault();
     console.log(token);
-    cookies.remove('token');
+
+    cookies.remove(cookieAll);
+    // cookies.remove('token')
     window.location.reload("/");
 
   }
