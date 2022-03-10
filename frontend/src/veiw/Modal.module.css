@@ -177,9 +177,21 @@
 /* //////////// 챕터4 스타일  //////////// */
 .container{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* background-color: rgb(151, 116, 116); */
+  grid:'. .';
+  row-gap: 20px;
+  column-gap: 50px;
+  border:none;
+  margin-top: 60px;
+  margin-bottom: 40px;
+  /* background-color: rgb(219, 135, 135); */
 }
+
+.item{
+  margin-top: 10px;
+  padding: 12px;
+  background-color: white;
+}
+
 .keypoint{
   border-top: none;
   border-left: none;
@@ -193,17 +205,27 @@
 .keypoint:focus{
   outline: none;
 }
-.item{
-  margin-top: 40px;
+
+.keyword{
+  border:none;
 }
-.item:nth-child(1){
-  justify-self: center;
-  align-self: center;
+
+.dropbox1{
+  margin-left: 20%;
 }
-.item:nth-child(2){
-  justify-self: center;
-  align-self: center;
+.dropbox2{
+  margin-left: 27%;
 }
 
 
-/* 그리드 --> 난이도(5), 파일첨부(4), 조리시간(3), 공개여부(2),키포인트(1)   */
+.hashtag{
+  
+  padding: 4px 10px;
+  background: #e6e2e1;
+  border-radius: 56px;
+  color: #817e7d;
+  font-weight:bold;
+  font-size:1.1rem;
+  line-height:20px;
+  cursor:pointer;
+}
