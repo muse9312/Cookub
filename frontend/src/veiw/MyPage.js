@@ -34,6 +34,8 @@ function CreateRecipe({ closeModal }) {
           <br />
         </div>
       </section>
+      
+      {/* 아래는 하드코딩처리된 레시피 카드들 */}
       <section className={style.container2}>
         <div className={style.public_recipes}>
           <div className={style.recipe}>

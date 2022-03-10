@@ -110,12 +110,14 @@ function Login() {
 
 
 
-            // window.location = "/"
+            window.location = "/"
+
+          
           }
 
 
 
-        });
+        } );
 
     } catch (error) {
 

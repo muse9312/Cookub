@@ -8,6 +8,7 @@ import MyPage from './veiw/MyPage';
 import SignUp from './veiw/SignUp';
 import BoardDetail from './veiw/BoardDetail';
 import UserInfoUpdate from './veiw/UserInfoUpdate';
+import { integerPropType } from '@mui/utils';
 
 
 
@@ -31,6 +32,7 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 
 

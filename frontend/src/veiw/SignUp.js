@@ -583,7 +583,7 @@ const SignUp = () => {
     }).then(function (res) {
       console.log(res.data);
       
-      // window.location = '/login';
+      window.location = '/login';
 
     })
   }
