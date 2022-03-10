@@ -3,11 +3,14 @@ import Slider from 'react-animated-slider';
 import content from '../component/carousel/content'
 import '../assets/css/Main.css'
 
+import Navigation from '../component/Navigation'
+
 
 
 function Main() {
   return (
     <>
+      <Navigation />
       <div id="ls-1">
         <Slider id="ls-1" autoplay={2200}>
           {content.map((item, index) => (

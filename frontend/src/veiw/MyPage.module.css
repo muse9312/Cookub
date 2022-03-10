@@ -1,17 +1,19 @@
-.container{
+/* 상단 레시피작성 시작영역 스타일 */
+.container1{
   height: 100%;
   display: flex;
   justify-content: right;
-  /* background-color: blueviolet; */
+  background-color: rgb(228, 225, 231);
 }
 
 .My_recipes{
   padding: 40px; 
   width: 78%;
-  padding-top: 150px;
-  display: grid;
+  padding-top: 10%;
+  padding-bottom: 5%;
+  display: block;
   text-align: center;
-  /* background-color: brown; */
+  justify-content: right;
 }
 
 .create_recipe_bt{
@@ -31,5 +33,113 @@
 .create_recipe_bt:hover{
   background-color: rgb(182, 179, 179);
 }
+
+
+
+
+
+
+
+
+
+/* 레시피 카드 스타일 */
+.container2{
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  background-color: rgb(237, 238, 238);
+}
+
+.public_recipes{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, auto));
+  grid-gap: 20px;
+  padding: 40px; 
+  width: 78%;
+  padding-top: 200px;
+}
+
+@media screen and (max-width: 1500px) {
+  .public_recipes {
+    grid-template-columns: repeat(3, minmax(200px, auto));
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1150px) {
+  .public_recipes {
+    grid-template-columns: repeat(2, minmax(200px, auto));
+    width: 65%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .public_recipes {
+    grid-template-columns: repeat(1, minmax(200px, auto));
+    width: 50%;
+  }
+}
+
+
+
+.recipe{
+  background-color: white;
+  margin-bottom: 70px;
+  font-weight: 300;
+  padding: 20px;
+  border-radius: 3px;
+  color: #adaeb9;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+}
+.recipe:hover{
+  color: #37373a;
+  padding: 10px;
+}
+
+.recipe_img{
+  position: relative;
+  top: -50px;
+  max-width: 500px;
+  width: 100%;
+  margin-right: 30px;
+  box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+    0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+.recipe a{
+  /* display: grid; */
+  grid-template-columns: minmax(150px, 1fr) 2fr;
+  grid-gap: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe_title,
+.recipe_title2 {
+  margin: 0;
+  font-weight: 300;
+}
+
+.recipe_title{
+  margin-bottom: 5px;
+  font-size: 24px;
+  color: #2c2c2c;
+}
+
+.recipe_genres {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 0px;
+}
+
+.recipe_genres li,
+.recipe_title2 {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+
 
 
