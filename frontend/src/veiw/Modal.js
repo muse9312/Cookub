@@ -401,8 +401,10 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                               "views":0,
                               "cookMethods":JSON.parse(window.sessionStorage.getItem("cookMethods")),
                               "ingredients":JSON.parse(window.sessionStorage.getItem("ingredients")),
-                              "keywordList":JSON.parse(window.sessionStorage.getItem("ingredients"))
+                              "keywordList":JSON.parse(window.sessionStorage.getItem("keywordList"))
                             }
+                            console.log(keypoint);
+                            console.log(window.sessionStorage.getItem("title"));
                            
                             axios //로그인된 사용자의 userId를 우선 하드코딩해서 넣어놨다. 
                               .post(`http://localhost:8080/mypage/recipe/2`, JSON.stringify(val), {
@@ -413,7 +415,7 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                               .then((res) => {
                                 console.log(res);
                               })
-                            closeModal(false)
+                            // closeModal(false)
                             }}>완료</button>
       </div>
     </>

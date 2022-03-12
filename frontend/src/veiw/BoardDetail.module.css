@@ -1,0 +1,176 @@
+.container{
+  display: flex;
+  background-color: rgb(228, 225, 231);
+}
+.empty{
+  display: block;
+  width: 20%;
+  height: 450px;
+  background-color: rgb(228, 225, 231);
+}
+.container2{
+  margin-top: 5%;
+  width: 68%;
+  display:block;
+  border-radius: 20px;
+  background-color: white;
+}
+.empty2{
+  width: 12%;
+  height: 450px;
+  background-color: rgb(228, 225, 231);
+}
+
+.title{
+  margin-left: 8%;
+  margin-top: 4%;
+}
+/* 아래코드는 페이지 가장윗쪽 블록 */
+.step_top{
+  padding: 10px, 0 10px;
+  margin-top: 3%;
+  /* background-color: rgb(223, 182, 228); */
+}
+.top_cont{
+  background-size: 36px;
+  padding: 20px 0 40px 60px;
+  width:850px;
+}
+.top_img{
+  display: table-cell;
+  vertical-align: top;
+  width: 500px;
+  word-break: break-all;
+}
+.top_discription{
+  width: 900px;
+  display: table-cell;
+  vertical-align: middle;
+  /* background-color: rgb(113, 84, 139); */
+}
+
+
+/* 페이지 우상단 디스크립션 부분스타일 */
+.disc_list{}
+.disc_item{
+  /* li태그 */
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.disc_icon{
+  font-size:30px;
+}
+.disc_text{
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: -1.5px;
+  margin-right: 6%;
+}
+.disc_text2{
+  font-style: italic;
+}
+
+
+
+/* 아래코드는 재료 컨텐츠 블록 */
+.ingre_cont{
+  /* background-color: rgb(243, 243, 187); */
+  margin-top: 3%;
+}
+.ingreTitle{
+  font-size: 20px;
+  padding: 0 35px 30px 35px;
+}
+.ingreT1{
+  font-weight: 500;
+}
+.ingreT2{
+  color: rgb(173, 173, 173);
+  font-size: 14px;
+  font-style: italic;
+  padding-left: 4px;
+}
+.ingreBox{
+  /* ul태그 감싼 div */
+  padding: 0 20px 18px 24px;
+  vertical-align:top;
+  display: inline-block;
+}
+.ingreList{ 
+  /* ul태그 */
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+}
+.ingre{
+  /* li 태그 */
+  border-bottom: 1px solid rgb(173, 173, 173);
+  padding:10px 6px;
+  font-size: 16px;
+  margin: 0 35px;
+  display: inline-block;
+  width: 30%;
+  vertical-align:top;
+}
+.gram{
+  float:right;
+}
+
+/* 아래코드는 만드는 법 블록 */
+.step_cont{
+  padding: 35px, 0 10px;
+  margin-top: 3%;
+  /* background-color: rgb(182, 228, 228); */
+}
+.step_title{
+  font-size: 20px;
+  padding: 0 35px 30px 35px;
+}
+.step_T1{
+  font-weight: 500;
+}
+.step_T2{
+  color: rgb(173, 173, 173);
+  font-size: 14px;
+  font-style: italic;
+  padding-left: 4px;
+}
+.step_list{
+  background-size: 36px;
+  padding: 6px 0 60px 96px;
+  width:850px;
+  font-size: 22px;
+}
+.step_text{
+  display: table-cell;
+  vertical-align: top;
+  width: 800px;
+  word-break: break-all;
+  font-size: 20px;
+}
+.step_img{
+  width: 300px;
+  padding-left: 20px;
+  display: table-cell;
+  vertical-align: top;
+}
+
+.numbering{
+  font-size: 20px;
+  font-weight: bold;
+  color:white;
+  background-color: rgb(209, 209, 209);
+  padding: 6px 12px;
+  border-radius: 23px;
+}
+
+.img{
+  vertical-align: middle;
+  border:0;
+  margin: 0;
+  max-width: 300px;
+  border-radius: 15px;
+}
+div{display: block;}
