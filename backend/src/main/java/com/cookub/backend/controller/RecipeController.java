@@ -27,6 +27,8 @@ public class RecipeController {
     // 레시피 정보 등록 (recipe)
     @RequestMapping(value = "/recipe/{userId}", method = RequestMethod.POST)
     public void setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
+      System.out.println(recipeDto);
+      System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
          recipeService.setRecipe(recipeDto, userId);
     }
 

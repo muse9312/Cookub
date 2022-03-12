@@ -43,6 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
 
         User user = userRepository.findById(userId).get();
         Recipe recipeEntity = Recipe.builder()
+                .title(recipeDto.getTitle())
                 .keypoint(recipeDto.getKeypoint())
                 .isOpenable(recipeDto.getIsOpenable())
                 .level(recipeDto.getLevel())
