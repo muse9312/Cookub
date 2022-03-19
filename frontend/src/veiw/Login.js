@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Swal from 'sweetalert2'
 
 import Navigation from '../component/Navigation'
 
@@ -53,7 +54,6 @@ function Login() {
         .then((res) => {
 
           console.log(res);
-          // console.log("res.data.accessToken : " + res.data.data.data.token);
           console.log(res.data);
           console.log("==========================")
           console.log("token = " + res.data.token);
@@ -69,57 +69,52 @@ function Login() {
           console.log("workPlace = " + res.data.user.workPlace);
           console.log(res.status);
 
-          // const cookieData = {
-          //   'token': res.data.token,
-          //   'userId': res.data.user.userId,
-          //   'profile': res.data.user.profile,
-          //   'email': res.data.user.email,
-          //   'username': res.data.user.username,
-          //   'tel': res.data.user.tel,
-          //   'birth': res.data.user.birth,
-          //   'field': res.data.user.field,
-          //   'workNation': res.data.user.workNation,
-          //   "grade": res.data.user.grade,
-          //   'career': res.data.user.career,
-          //   'workPlace': res.data.user.workPlace,
-          // }
-          if (res.status.code === 400) {
-            console.log(res.status);
-            alert("인증되지 않는 회원입니다")
-          } else {
+          if (res.status === 200) {
 
-
-
+            // JWT Token 
             cookies.set('token', res.data.token, { path: "/" });
-            cookies.set('userId', res.data.user.userId, { path: "/" });
+            cookies.set('username', res.data.user.username, { path: "/" });
             cookies.set('profile', res.data.user.profile, { path: "/" });
             cookies.set('email', res.data.user.email, { path: "/" });
-            cookies.set('username', res.data.user.username, { path: "/" });
             cookies.set('tel', res.data.user.tel, { path: "/" });
             cookies.set('birth', res.data.user.birth, { path: "/" });
             cookies.set('field', res.data.user.field, { path: "/" });
             cookies.set('workNation', res.data.user.workNation, { path: "/" });
-            cookies.set("grade", res.data.user.grade, { path: "/" });
+            cookies.set('grade', res.data.user.grade, { path: "/" });
             cookies.set('career', res.data.user.career, { path: "/" });
             cookies.set('workPlace', res.data.user.workPlace, { path: "/" });
 
+
+
             console.log(cookies.get('token'));
-            console.log(cookies.get('grade'));
 
 
 
+            Swal.fire({ icon: 'success', title: 'Welcome!', text: 'Login complete!' })
+
+            setTimeout(function () {
+              window.location = '/';
+            }, 3000);
 
 
-            window.location = "/"
+          } else if (res.status === 400) {
+            console.log(res.status);
+            Swal.fire(
+              { icon: 'error', title: 'Oops...', text: 'Please check your email and password..' }
+            )
 
-          
           }
 
 
 
-        } );
+
+
+
+
+        });
 
     } catch (error) {
+
 
     }
 

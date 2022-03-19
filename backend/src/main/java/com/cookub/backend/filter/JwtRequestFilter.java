@@ -33,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         System.out.println("JwtRequestFilter 에서 Path 값 :"+path);
         //아래 경로는 이 필터가 적용되지 않는다.
-        if (path.startsWith("/user/auth")|path.startsWith("/swagger")|path.startsWith("/v2")|path.startsWith("/mypage")|path.startsWith("/test")) {
+        if (path.startsWith("/user/auth")|path.startsWith("/swagger")|path.startsWith("/mypage")|path.startsWith("/v2")|path.startsWith("/test")) {
             System.out.println("1. user 경로 필터 적용 안하고 들어옴");
             filterChain.doFilter(request, response);
             return;
@@ -43,17 +43,26 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String token = null;
         HttpSession session = request.getSession();
-
+        System.out.println(authorizationHeader);
         //Header에서 Bearer 부분 이하로 붙은 token을 파싱한다.
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            System.out.println(token);
+            System.out.println("Authorization Header 점검2-1::::");
             token = authorizationHeader.substring(7);
+            System.out.println(token);
+
+
         }
         username = jwtUtil.extractUsername(token);
+        System.out.println("Authorization Header 점검2-2::::");
+
         if (username == null) {
             exceptionCall(response, "invalidToken");
             return;
         }
         UserDetails userDetails = userDetailService.loadUserByUsername(username);
+        System.out.println("Authorization Header 점검3::::");
+
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                     = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -67,7 +76,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private HttpServletResponse exceptionCall(HttpServletResponse response, String errorType) throws IOException {
-        ResultJson resultJson = new ResultJson();
+      System.out.println("Authorization Header 점검4::::");
+        
+      ResultJson resultJson = new ResultJson();
         if (errorType.equals("invalidToken")) {
             resultJson.setCode(ResultCode.INVALID_TOKEN.getCode());
             resultJson.setMsg(ResultCode.INVALID_TOKEN.getMsg());

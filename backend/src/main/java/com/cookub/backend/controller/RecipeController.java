@@ -15,7 +15,7 @@ import com.cookub.backend.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/mypage")
 public class RecipeController {
@@ -23,12 +23,15 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public void setRecipe(@RequestBody String recipeDto) {
+         System.out.println(recipeDto);
+    }
+
     ///////////////////////등록//////////////////////////
     // 레시피 정보 등록 (recipe)
     @RequestMapping(value = "/recipe/{userId}", method = RequestMethod.POST)
     public void setRecipe(@RequestBody RecipeDto recipeDto,@PathVariable Long userId) {
-      System.out.println(recipeDto);
-      System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
          recipeService.setRecipe(recipeDto, userId);
     }
 

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import About from '../veiw/About';
 import Board from '../veiw/Board';
 import MyPage from '../veiw/MyPage';
+import UserInfo from '../veiw/UserInfoUpdate';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
+import Swal from 'sweetalert2'
 
 import Cookies from 'universal-cookie';
 
@@ -17,7 +19,9 @@ function Navigation() {
 
   const cookies = new Cookies();
 
+
   const token = cookies.get('token');
+
   console.log(token);
 
   function SendLogin(e) {
@@ -26,11 +30,35 @@ function Navigation() {
 
   }
 
+  function SendProfile(e) {
+    e.preventDefault();
+    window.location.href = "/userInfo"
+
+  }
+
   function Logout(e) {
     e.preventDefault();
     console.log(token);
-    cookies.remove('token');
-    window.location.reload("/");
+
+
+    cookies.remove('token')
+    cookies.remove('username')
+    cookies.remove('userId')
+    cookies.remove('profile')
+    cookies.remove('email')
+    cookies.remove('tel')
+    cookies.remove('birth')
+    cookies.remove('field')
+    cookies.remove('workNation')
+    cookies.remove('career')
+    cookies.remove('grade')
+    cookies.remove('workPlace')
+    Swal.fire({ icon: 'success', title: 'Goodbye!', text: 'Logout complete!' })
+
+    setTimeout(function () {
+      window.location = '/';
+    }, 2500);
+    // window.location.reload("/");
 
   }
 
@@ -45,22 +73,32 @@ function Navigation() {
     }
   }
 
+  function BtnUserInfo() {
+    const token = cookies.get('token');
+    if (token == null) {
+      return null
+    } else {
+      return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Profile</Link></li>
+    }
+  }
+
 
 
   return (
     <div className={style.nav}>
-      <img className={style.logo_img} src={logo} alt="COOKUB" />
-
+      <a className="imgbtn" href={'/'}>
+        <img className={style.logo_img} src={logo} alt="COOKUB" />
+      </a>
       <div>
-
-
         {BtnHendler()}
-
       </div>
       <br />
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
+      <div>
+        {BtnUserInfo()}
+      </div>
       <br /><br /><br /><br />
       <p className={style.ceo_pm}>대표번호 :  02 - 9575 - 4323</p>
       <p className={style.footer}>

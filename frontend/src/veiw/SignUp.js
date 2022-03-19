@@ -569,7 +569,6 @@ const SignUp = () => {
     formData.append('grade', grade);
     formData.append('career', career);
     formData.append('workPlace', workPlace);
-    formData.append('file', file);
     console.log(formData);
 
 
@@ -582,7 +581,7 @@ const SignUp = () => {
       data: formData
     }).then(function (res) {
       console.log(res.data);
-      
+
       window.location = '/login';
 
     })
