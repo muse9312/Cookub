@@ -122,6 +122,7 @@ public class UserServiceImpl implements UserService {
 //        String encPassword = passwordEncoder.encode(rawPasswd);
 //        User userEntity = userRepository.findByEmailAndPassword(userDto.getEmail(), encPassword);
         User userEntity = userRepository.findByEmail(userDto.getEmail());
+        System.out.println(userEntity);
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
             return userEntity;

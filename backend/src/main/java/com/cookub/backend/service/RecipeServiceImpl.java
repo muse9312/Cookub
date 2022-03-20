@@ -36,13 +36,14 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private KeywordRepository keywordRepository;
 
-    ///////////////////////////// 등록////////////////////////////
+    ///////////////////////////// 등록 ////////////////////////////
     // 레시피 등록 (레시피)
     @Override
     public void setRecipe(RecipeDto recipeDto, Long userId) {
 
         User user = userRepository.findById(userId).get();
         Recipe recipeEntity = Recipe.builder()
+                .title(recipeDto.getTitle())
                 .keypoint(recipeDto.getKeypoint())
                 .isOpenable(recipeDto.getIsOpenable())
                 .level(recipeDto.getLevel())
@@ -50,6 +51,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .likeCnt(recipeDto.getLikeCnt())
                 .views(recipeDto.getViews())
                 .user(user)
+                .foodImage(recipeDto.getFoodImage())
                 // .cookMethods(recipeDto.getCookMethods())
                 .build();
         recipeEntity = recipeRepository.save(recipeEntity);
