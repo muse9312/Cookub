@@ -1,4 +1,4 @@
-import react from 'react';
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import About from '../veiw/About';
 import Board from '../veiw/Board';
@@ -15,12 +15,12 @@ import Cookies from 'universal-cookie';
 
 function Navigation() {
 
-
-
   const cookies = new Cookies();
-
-
   const token = cookies.get('token');
+
+  const [user_id, setUserId] = useState();
+  const [nickName, setNickName] = useState();
+  const [profileImage, setProfileImage] = useState();
 
   console.log(token);
 
@@ -62,10 +62,29 @@ function Navigation() {
 
   }
 
+  function getProfile() {
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 획득
+      let data = window.Kakao.API.request({
+        url: "/v2/user/me",
+      });
+      // 사용자 정보 변수에 저장
+      setUserId(data.id);
+      setNickName(data.properties.nickname);
+      setProfileImage(data.properties.profile_image);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
 
   function BtnHendler() {
     const token = cookies.get('token');
+
     if (token == null) {
       return <button className={style.login_button} onClick={SendLogin}>Login</button>;
     } else {
@@ -75,6 +94,7 @@ function Navigation() {
 
   function BtnUserInfo() {
     const token = cookies.get('token');
+
     if (token == null) {
       return null
     } else {
@@ -91,6 +111,11 @@ function Navigation() {
       </a>
       <div>
         {BtnHendler()}
+      </div>
+      <div>
+        <h2>{user_id}</h2>
+        <h2>{nickName}</h2>
+        <img src={profileImage}></img>
       </div>
       <br />
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
