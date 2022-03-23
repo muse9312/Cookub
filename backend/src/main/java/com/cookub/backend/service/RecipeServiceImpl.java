@@ -89,22 +89,22 @@ public class RecipeServiceImpl implements RecipeService {
 
                 // .cookMethods(recipeDto.getCookMethods())
                 .build();
-        recipe = recipeRepository.updateByRecipes(recipe1);
+    //     recipe = recipeRepository.updateByRecipes(recipe1);
 
-        for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-            cookMethod.setMethodRecipe(recipe);
-            cookMethodRepository.updateByCookMethod(cookMethod);
-        }
-        for (Keyword keyword : recipeDto.getKeywordList()) {
-            keyword.setKeywordRecipe(recipe);
-            keywordRepository.updateByKeyword(keyword);
-        }
-        for (Ingredient ingredient : recipeDto.getIngredients()) {
-            ingredient.setIngredientRecipe(recipe);
-            ingredientRepository.updateByIngredient(ingredient);
-        }
+    //     for (CookMethod cookMethod : recipeDto.getCookMethods()) {
+    //         cookMethod.setMethodRecipe(recipe);
+    //         cookMethodRepository.updateByCookMethod(cookMethod);
+    //     }
+    //     for (Keyword keyword : recipeDto.getKeywordList()) {
+    //         keyword.setKeywordRecipe(recipe);
+    //         keywordRepository.updateByKeyword(keyword);
+    //     }
+    //     for (Ingredient ingredient : recipeDto.getIngredients()) {
+    //         ingredient.setIngredientRecipe(recipe);
+    //         ingredientRepository.updateByIngredient(ingredient);
+    //     }
         return "modifying";
-    }
+        }
 
     // 레시피 목록 조회
     @Override
