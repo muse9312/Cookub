@@ -3,7 +3,9 @@ import style from './MyPage.module.css';
 import Modal from './Modal.js'
 import { Link } from "react-router-dom";
 import img from '../assets/img/testfood.jpg';
+import noImg from '../assets/img/noimg.PNG';
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 
 function MyPage() {
@@ -24,18 +26,32 @@ function CreateRecipe({ closeModal }) {
 
   const [dataTest, setDataTest] = useState([]);
 
+  const cookies = new Cookies();
+  const token = cookies.get('token');
+  const s3URL = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
+
   useEffect(()=>{
-    const data = axios(
-      {
-        url:'http://localhost:8080/mypage/recipe/list/2',
-        method:'get'
-      }
-    ).then((res)=>{
+    console.log(token);
+    const api='http://localhost:8080/mypage/recipe/list/2';
+    axios.get(api , { headers: {Authorization : token} })
+    .then((res)=>{
       console.log(res);
-      setDataTest(res.data)})
+      console.log(res.data);
+      setDataTest(res.data)
+    })},[]);
 
-  },[]);
-
+  const string_cuting = (value)=>{
+    let string = '';
+    if(value==null){
+      string = "만드는 법 미기재";
+    }else{
+      for(const v of value){
+      string = string + v.description
+      }
+    }
+    
+    return string
+  }
 
 
   return (
@@ -50,8 +66,6 @@ function CreateRecipe({ closeModal }) {
           <br />
         </div>
       </section>
-      
-  
       <section className={style.container2}>
         <div className={style.public_recipes}>
           {dataTest.map((data,index)=>(
@@ -62,8 +76,11 @@ function CreateRecipe({ closeModal }) {
                     "detail_recipeId",data.recipeId
                   );
                 }}>
-                  <img className={style.recipe_img} src={img} alt="testimg" title="testimg" />
-                  <h2 className={style.recipe_title}>여기는 제목임</h2>
+                  {data.foodImage 
+                  ? <img className={style.recipe_img} src={s3URL + data.foodImage} alt="testimg" title="testimg" /> //s3에 있는 이미지
+                  :<img className={style.recipe_img} src={noImg} alt="testimg" title="testimg" /> } {/*대체이미지(NoImage)*/ }
+
+                  <h2 className={style.recipe_title}>{data.title==null?"제목이 없습니다.":data.title}</h2>
                   <h5 className={style.recipe_title2}>
                     {data.keywordList.map((v)=>("#" + v.keywordName +"  "))}
                   </h5>
@@ -72,8 +89,11 @@ function CreateRecipe({ closeModal }) {
                     +data.level + " | " +(data.isOpenable===1?"공개":"비공개")}
                   </ul>
                   <p className={style.recipe_summary}>
-                    {
-                    data.cookMethods.map((v)=>(" " + v.description +"  "))
+                    { 
+                    // 문자열 합치는 함수 외부에서 만들어서 사용 -> 글자수넘치면 '...'으로 대체
+                    string_cuting(data.cookMethods).length >= 60 
+                    ? string_cuting(data.cookMethods).substr(0,60) + " ..."
+                    :string_cuting(data.cookMethods)
                     }
                   </p>
                 </Link>

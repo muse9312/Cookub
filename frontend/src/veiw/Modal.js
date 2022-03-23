@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Modal.module.css'
-import TodoList from './todoTest/TodoList';
 import{RiCloseCircleLine}from 'react-icons/ri';
 import{TiEdit} from 'react-icons/ti';
-import { BsFillAlarmFill } from "react-icons/bs";
-import Input from '@mui/material/Input';
-import { Autocomplete, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
-import axios from 'axios';
+import CreateChap4 from './CreateChap4';
 
 function Modal({ closeModal }) {
 
@@ -15,6 +11,8 @@ function Modal({ closeModal }) {
   const [chapter2List, setChapter2List] = useState([]);
   const [chapter3List, setChapter3List] = useState([]);
   const [chapter4List, setChapter4List] = useState();
+
+  const [cookMethods, setCookMethods] = useState([]);
   
 
   return (
@@ -35,7 +33,8 @@ function Modal({ closeModal }) {
                           closeModal={closeModal} 
                           setCreateMod={setCreateMod}
                           chapter3List={chapter3List}
-                          setChapter3List={setChapter3List} />}
+                          setChapter3List={setChapter3List}
+                          setCookMethods={setCookMethods} />}
         {createMod === 3 && <CreateChap4 
                           closeModal={closeModal} 
                           setCreateMod={setCreateMod}
@@ -43,7 +42,8 @@ function Modal({ closeModal }) {
                           chapter2List={chapter2List}
                           chapter3List={chapter3List}
                           chapter4List={chapter4List}
-                          setChapter4List={setChapter4List}/>}
+                          setChapter4List={setChapter4List}
+                          cookMethods={cookMethods}/>}
       </div>
     </div>
   );
@@ -143,6 +143,7 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
                   copy[index].amount = Number(document.querySelector(gramName).value);
                   setIngreList(copy);
                 }}>입력</button>
+                {console.log(ingreList)}
               </from>
               <div><RiCloseCircleLine className={style.delete_icon} onClick={(e)=>{
                 e.preventDefault();
@@ -175,10 +176,11 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
 
 
 //챕터3
-function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }){
+function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, setCookMethods }){
 
   const [procList, setProcList] = useState([]);
   const [stepNum, setStepNum] = useState(1);
+  const [descImg, setDescImg] =  useState([]);
 
   useEffect(()=>{
     setProcList(chapter3List);
@@ -204,7 +206,7 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }
           <button type='submit' className={style.proc_button} onClick={(e)=>{
             e.preventDefault();
             let copy = [...procList];
-            copy.push({step:stepNum, description:document.querySelector('[name=proc_list]').value});
+            copy.push({step:stepNum, description:document.querySelector('[name=proc_list]').value, picture:""});
             setStepNum(stepNum + 1); //조리순서는 0부터가 아닌 1부터 시작으로 셋팅
             setProcList(copy);
             document.querySelector('[name=proc_list]').value="";
@@ -214,6 +216,16 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }
         {procList.map((value,index)=>(
         <div className={style.proc_row}>
           <div className={style.list_item} key={value}>{value.description}</div>
+          <input type="file" onChange={(e)=>{
+                const file = e.target.files[0];//사용자가 넣은 사진파일객체
+                //사진이름의 초기값이 ""인상태에서 파일의 이름으로 세션에 저장한뒤 식별리네임은 챕터4에서 작업!!!
+                let copy = [...procList];
+                copy[index].picture = file.name;
+                setProcList(copy);
+
+                setDescImg([...descImg,e.target.files[0]]) //파일을 추가로 선택할수록 새로운 파일이 append되는 코드
+
+          }}/>
           <div><TiEdit className={style.delete_icon} /></div> {/* 수정하기기능 구현 해야됨 */}
         </div>
         ))}
@@ -226,8 +238,9 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }
          }}>이전단계</button>
         <button className={style.footerBt2} onClick={()=>{
           setChapter3List(procList)
-          console.log(procList);
           window.sessionStorage.setItem("cookMethods",JSON.stringify(procList))
+          console.log(descImg);
+          setCookMethods(descImg); //모달 전역 스테이트에 저장하기
           setCreateMod(3)
           }}>다음단계</button>
       </div>
@@ -235,190 +248,5 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List }
   );
 }
 
-
-
-
-
-//챕터4
-function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapter2List,chapter3List, setChapter4List }){
-  const [chap4info, setChap4info]= useState([]);
-  const [keyword, setKeyword] = useState([]);
-
-  useEffect(()=>{
-    setChap4info(chapter4List);
-    console.log(chap4info);
-  },[]);
-
-
-  return(
-    <>
-    <button onClick={() => { closeModal(false)
-                              window.sessionStorage.clear()
-                               }} className={style.closeBt}>X</button>
-    <div className={style.container}>
-        <div className={style.item}>
-            <input name="keypoint" 
-                    className={style.keypoint} 
-                    placeholder={chap4info === undefined ? "Keypoint를 적어주세요!" : chap4info.keypoint}
-                    ></input>
-        </div>
-
-        <div className={style.item}>
-          <div className={style.HashWrapOuter}></div>
-          <form>
-            <input placeholder='키워드 입력'
-                  type="text"
-                  name="keyword_input"
-                  id="keyword_input" 
-                  label="keyword_input"
-                ></input>
-            <button type='submit' onClick={(e)=>{
-              e.preventDefault();
-              let copy =  [...keyword]
-              copy.push({"keywordName":document.querySelector('[name=keyword_input]').value})
-              setKeyword(copy)
-              document.querySelector('[name=keyword_input]').value="";
-            }}>추가</button>
-            <button onClick={(e)=>{
-              e.preventDefault();
-              let copy = [...keyword]
-              delete copy[copy.length-1]
-              let removeCopy = copy.filter(i => i !== null);
-              setKeyword(removeCopy)
-            }}>제거</button>
-          </form>
-          <div>
-            {keyword.map((value)=>(
-            <span className={style.hashtag}>#{value.keywordName}</span>
-            ))}
-          </div>
-          
-          
-        </div>  
-
-        <div className={style.item}>
-        <Autocomplete
-            className={style.dropbox1}
-            disablePortal
-            id="combo-box-demo"
-            options={['공개','비공개']}
-            sx={{ width: 170 }}
-            renderInput={(params) => 
-            <TextField name="publicOrNot" {...params} 
-                        label={chap4info === undefined ? "레시피 공개 여부" : chap4info.publicOrNot} />} />
-        </div>
-
-        <div className={style.item}>
-          <Autocomplete
-            className={style.dropbox2}
-            disablePortal
-            id="combo-box-demo"
-            options={['상','중','하']}
-            sx={{ width: 150 }}
-            renderInput={(params) => 
-            <TextField name="recipeLevel" {...params} 
-                        label={chap4info === undefined ? "요리난이도" : chap4info.recipeLevel} />} />
-        </div>
-
-        <div className={style.item}>
-          <input className={style.cooktime_input} name='cookingTime' 
-                  placeholder={chap4info === undefined ? "조리시간 (Minute)" : chap4info.cookingTime}
-                ></input>
-          <BsFillAlarmFill size="20" color="gray"/>
-        </div>
-
-        <div className={style.item}>
-          <Input accept="image/*" id="icon-button-file" name="file" type="file" />
-        </div>
-      </div>
-
-      <div className={style.footer}>
-        <button className={style.footerBt} onClick={() => {  
-                            const keypoint = document.querySelector('[name=keypoint]').value;
-                            const publicOrNot = document.querySelector('[name=publicOrNot]').value;
-                            const recipeLevel = document.querySelector('[name=recipeLevel]').value;
-                            const cookingTime = Number(document.querySelector('[name=cookingTime]').value);
-                            const file = document.querySelector('[name=file]').value;
-                            let obj = {keypoint:keypoint,
-                                      publicOrNot:publicOrNot,
-                                      recipeLevel:recipeLevel,
-                                      cookingTime:cookingTime,
-                                      file:file};
-
-                            setChap4info(obj)
-                            setChapter4List(obj)
-                            setCreateMod(2)
-                             }}>이전단계</button>
-
-        <button className={style.footerBt2} onClick={(e)=>{
-                            e.preventDefault();
-
-                            const keypoint = document.querySelector('[name=keypoint]').value;
-                            const publicOrNot = document.querySelector('[name=publicOrNot]').value === '공개'
-                                                ? 1
-                                                : 0;  //공개면 1 비공개면 0을 저장.
-                            const recipeLevel = document.querySelector('[name=recipeLevel]').value;
-                            const cookingTime = Number(document.querySelector('[name=cookingTime]').value); //조리시간을 int로
-                            const file = document.querySelector('[name=file]').value;
-                            let obj = {keypoint:keypoint,
-                                      publicOrNot:publicOrNot,
-                                      recipeLevel:recipeLevel,
-                                      cookingTime:cookingTime,
-                                      file:file};
-
-                            setChap4info(obj)
-                            setChapter4List(obj)
-
-                            window.sessionStorage.setItem("level",recipeLevel)
-                            window.sessionStorage.setItem("keypoint",keypoint)
-                            window.sessionStorage.setItem("isOpenable",publicOrNot)
-                            window.sessionStorage.setItem("cookingTime",cookingTime)
-                            window.sessionStorage.setItem("likeCnt","")
-                            window.sessionStorage.setItem("views",0)
-                            window.sessionStorage.setItem("keywordList",JSON.stringify(keyword))
-                            
-                            
-                            // const val={
-                            //   "title":window.sessionStorage.getItem("title"),
-                            //   "level":recipeLevel,
-                            //   "keypoint":keypoint,
-                            //   "isOpenable":publicOrNot,
-                            //   "cookingTime":cookingTime,
-                            //   "likeCnt":0,
-                            //   "views":0,
-                            //   "cookMethods":JSON.parse(window.sessionStorage.getItem("cookMethods")),
-                            //   "ingredients":JSON.parse(window.sessionStorage.getItem("ingredients")),
-                            //   "keywordList":keyword
-                            // };
-
-                            const val={
-                              "title":window.sessionStorage.getItem("title"),
-                              "level":recipeLevel,
-                              "keypoint":keypoint,
-                              "isOpenable":publicOrNot,
-                              "cookingTime":cookingTime,
-                              "likeCnt":0,
-                              "views":0,
-                              "cookMethods":JSON.parse(window.sessionStorage.getItem("cookMethods")),
-                              "ingredients":JSON.parse(window.sessionStorage.getItem("ingredients")),
-                              "keywordList":JSON.parse(window.sessionStorage.getItem("keywordList"))
-                            }
-                            console.log(keypoint);
-                            console.log(window.sessionStorage.getItem("title"));
-                           
-                            axios //로그인된 사용자의 userId를 우선 하드코딩해서 넣어놨다. 
-                              .post(`http://localhost:8080/mypage/recipe/2`, JSON.stringify(val), {
-                                headers: {
-                                  "Content-Type": `application/json`,
-                                },
-                              })
-                              .then((res) => {
-                                console.log(res);
-                              })
-                            // closeModal(false)
-                            }}>완료</button>
-      </div>
-    </>
-  );
-}}
+}
 export default Modal;

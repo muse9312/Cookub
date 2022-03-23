@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import QRcode from 'qrcode.react'
 import axios from 'axios';
-// import { style } from '@mui/system';
-import style from './BoardDetail.module.css'
+import style from './BoardDetail.module.css';
+import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import{TiEdit,TiLockClosed,TiPuzzle,TiStar, TiStarFullOutline, TiStopwatch, TiTag} from 'react-icons/ti';
+import{TiLockClosed,TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag} from 'react-icons/ti';
+import noImg from '../assets/img/noimg.PNG';
 
 function BoardDetail() {
 
   const[recipe, setRecipe] = useState([]);
 
+  const cookie = new Cookies();
+  const token = cookie.get('token'); 
+  const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
+
   useEffect(()=>{
     const id = window.sessionStorage.getItem("detail_recipeId")
-    axios(
-      {
-        url:`http://localhost:8080/mypage/recipe/${id}`,
-        method:'get'
-      }
-    ).then((res)=>{
+
+    axios
+    .get(`http://localhost:8080/mypage/recipe/${id}`,{headers:{
+      Authorization : `${token}`
+    }})
+    .then((res)=>{
       console.log(res);
       console.log(res.data);
       setRecipe(res.data);
     })
   },[]);
+
+  const handleError = (e) => {
+    e.target.scr = img;
+  }
 
   return (
     /* <QRcode id="myqr" value={"https://github.com/Namhoon-95"} 
@@ -39,7 +48,10 @@ function BoardDetail() {
         <div className={style.step_top}>
           <div className={style.top_cont}>
             <div className={style.top_img}>
-              <img className={style.img} src={img} alt="testimg" title="testimg" />
+            {recipe.foodImage !== null
+            ? <img className={style.img} src={imgUrl+recipe.foodImage} alt="testimg" title="testimg" />
+            : <img className={style.img} src={noImg} alt="testimg" title="testimg" />} {/*대체 이미지*/}
+            
             </div>
             <div className={style.top_discription}>
               {/* 난이도, 키포인트, 공개여부, 조리시간, 키워드 */}
@@ -101,28 +113,6 @@ function BoardDetail() {
                   </li>
                 ))
               }
-              
-              {/* <li className={style.ingre}>고구마
-                <span className={style.gram}>30g</span>
-              </li>
-              <li className={style.ingre}>무
-                <span className={style.gram}>50g</span>
-              </li>
-              <li className={style.ingre}>연근
-                <span className={style.gram}>150g</span>
-              </li>
-              <li className={style.ingre}>마
-                <span className={style.gram}>60g</span>
-              </li>
-              <li className={style.ingre}>마늘
-                <span className={style.gram}>80g</span>
-              </li>
-              <li className={style.ingre}>양파
-                <span className={style.gram}>70g</span>
-              </li>
-              <li className={style.ingre}>칡뿌리
-                <span className={style.gram}>300g</span>
-              </li> */}
             </ul>
           </div>
         </div>
@@ -139,7 +129,12 @@ function BoardDetail() {
                 <span className={style.numbering}>{v.step}</span>
                 <div className={style.step_text}>{v.description}</div>
                 <div className={style.step_img}>
-                  <img className={style.img} src={img} alt="testimg" title="testimg" />
+                  {v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/aboutImg.jpg" &&
+                  v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/about3.jpg" &&
+                  v.picture !== null
+                  ?<img className={style.img} src={imgUrl+v.picture} onError={handleError} alt="testimg" title="testimg" />
+                  :null}
+                  
                 </div>
               </div>
             ))

@@ -90,7 +90,7 @@ public class UserController {
     }
 
     @PostMapping("/userCheck")
-    public ResponseEntity<User> userCheck(UserDto userDto){
+    public ResponseEntity<User> userCheck(@RequestBody UserDto userDto){
         User user = userService.checkUser(userDto);
         if (user==null){
             return new ResponseEntity<>(user,null,HttpStatus.BAD_REQUEST);
