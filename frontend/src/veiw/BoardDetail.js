@@ -5,6 +5,7 @@ import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
 import{TiLockClosed,TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag} from 'react-icons/ti';
+import noImg from '../assets/img/noimg.PNG';
 
 function BoardDetail() {
 
@@ -28,6 +29,10 @@ function BoardDetail() {
     })
   },[]);
 
+  const handleError = (e) => {
+    e.target.scr = img;
+  }
+
   return (
     /* <QRcode id="myqr" value={"https://github.com/Namhoon-95"} 
             size={320} includeMargin={true} /> --> QR 코드 생성코드 */
@@ -43,7 +48,10 @@ function BoardDetail() {
         <div className={style.step_top}>
           <div className={style.top_cont}>
             <div className={style.top_img}>
-              <img className={style.img} src={imgUrl+recipe.foodImage} alt="testimg" title="testimg" />
+            {recipe.foodImage !== null
+            ? <img className={style.img} src={imgUrl+recipe.foodImage} alt="testimg" title="testimg" />
+            : <img className={style.img} src={noImg} alt="testimg" title="testimg" />} {/*대체 이미지*/}
+            
             </div>
             <div className={style.top_discription}>
               {/* 난이도, 키포인트, 공개여부, 조리시간, 키워드 */}
@@ -121,7 +129,10 @@ function BoardDetail() {
                 <span className={style.numbering}>{v.step}</span>
                 <div className={style.step_text}>{v.description}</div>
                 <div className={style.step_img}>
-                  {v.picture?<img className={style.img} src={v.picture} alt="testimg" title="testimg" />
+                  {v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/aboutImg.jpg" &&
+                  v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/about3.jpg" &&
+                  v.picture !== null
+                  ?<img className={style.img} src={imgUrl+v.picture} onError={handleError} alt="testimg" title="testimg" />
                   :null}
                   
                 </div>

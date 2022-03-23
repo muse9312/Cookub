@@ -23,9 +23,7 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
 
   //아래 코드는 S3용코드
   const[selectedFile, setSelectedFile] = useState([]);
-  const[showAlert, setShowAlert] = useState(false);
   const[foodImg, setFoodImg] = useState("");
-  const[testObj, setTestObj] = useState([]);
 
   const ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
   const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
@@ -53,29 +51,50 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
       return;
     }
     setSelectedFile(e.target.files[0]);
-    setTestObj(e.target.files[0]);
   }
 
-  const uploadFile = file => {
-    
+  const uploadFile = file => { //챕터4!의 사진을 업로드 하는 코드
     const params = {
-      // ACL:'public-read',
       Bucket: S3_BUCKET,
-      // Key: "upload/" + foodImg,
-      Key: "upload/" + file.name,
+      Key: "upload/" + foodImg,
       Body: file
     };
     myBucket.putObject(params)
     .on('httpUploadProgress',(evt)=>{
-      setShowAlert(true);
       setTimeout(()=>{
-        setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
     })
     .send((err)=>{
       if(err)console.log(err)
     })
+}
+
+    const uploadFile2 = (file,i) => { //챕터3!의 사진들을 업로드하는 코드
+      //아래 4줄의 코드는 챕터3에서 저장한 세션데이터준 DB에 저장될 사진이름을 고치는 코드임.
+      const randomName = Math.random().toString(36).substr(2,11);
+      let sessionData = JSON.parse(window.sessionStorage.getItem("cookMethods"))
+      console.log(sessionData);
+      console.log(i);
+      console.log(sessionData[i]);
+      sessionData[i].picture = randomName + "_"+ file.name;
+      console.log(sessionData[i].picture);
+      window.sessionStorage.setItem("cookMethods",JSON.stringify(sessionData))
+
+      const params = {
+        Bucket: S3_BUCKET,
+        Key: "upload/" + randomName + "_"+ file.name,
+        Body: file
+      };
+      myBucket.putObject(params)
+      .on('httpUploadProgress',(evt)=>{
+        setTimeout(()=>{
+          setSelectedFile(null);
+        }, 3000)
+      })
+      .send((err)=>{
+        if(err)console.log(err)
+      })
   }//S3 업로드 코드
 
 
@@ -184,8 +203,10 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
 
                             uploadFile(selectedFile)//레시피 썸네일 사진 S3 업로드코드!
                             console.log(selectedFile);
-                            cookMethods.map((file)=>{
-                              uploadFile(file)
+
+                            cookMethods.map((file,i)=>{
+                              uploadFile2(file,i)
+                              //새로정의한 함수는 세션정보를 넣다뺐다하면서 사진이름을 바꾸는데 이때 사용하는 index번호를 매개변수로 추가전달해준다.
                               console.log(file);
                             })
                             

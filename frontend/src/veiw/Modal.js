@@ -180,11 +180,7 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
 
   const [procList, setProcList] = useState([]);
   const [stepNum, setStepNum] = useState(1);
-  const [methodImg, setMethodImg] = useState("");
   const [descImg, setDescImg] =  useState([]);
-
-
-  const testImageName = 'https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/about3.jpg'
 
   useEffect(()=>{
     setProcList(chapter3List);
@@ -210,7 +206,7 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
           <button type='submit' className={style.proc_button} onClick={(e)=>{
             e.preventDefault();
             let copy = [...procList];
-            copy.push({step:stepNum, description:document.querySelector('[name=proc_list]').value, picture:testImageName});
+            copy.push({step:stepNum, description:document.querySelector('[name=proc_list]').value, picture:""});
             setStepNum(stepNum + 1); //조리순서는 0부터가 아닌 1부터 시작으로 셋팅
             setProcList(copy);
             document.querySelector('[name=proc_list]').value="";
@@ -222,14 +218,10 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
           <div className={style.list_item} key={value}>{value.description}</div>
           <input type="file" onChange={(e)=>{
                 const file = e.target.files[0];//사용자가 넣은 사진파일객체
-
-                const randomName = Math.random().toString(36).substr(2,11);
-
-                //DB cookmethed 테이블의 이미지이름 삽입
+                //사진이름의 초기값이 ""인상태에서 파일의 이름으로 세션에 저장한뒤 식별리네임은 챕터4에서 작업!!!
                 let copy = [...procList];
-                copy[index].picture = randomName + "_"+ file.name;
+                copy[index].picture = file.name;
                 setProcList(copy);
-                setMethodImg(randomName + "_"+ file.name)
 
                 setDescImg([...descImg,e.target.files[0]]) //파일을 추가로 선택할수록 새로운 파일이 append되는 코드
 

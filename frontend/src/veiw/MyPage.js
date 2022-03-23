@@ -3,6 +3,7 @@ import style from './MyPage.module.css';
 import Modal from './Modal.js'
 import { Link } from "react-router-dom";
 import img from '../assets/img/testfood.jpg';
+import noImg from '../assets/img/noimg.PNG';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 
@@ -27,7 +28,7 @@ function CreateRecipe({ closeModal }) {
 
   const cookies = new Cookies();
   const token = cookies.get('token');
-  console.log(token);
+  const s3URL = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
 
   useEffect(()=>{
     console.log(token);
@@ -37,18 +38,7 @@ function CreateRecipe({ closeModal }) {
       console.log(res);
       console.log(res.data);
       setDataTest(res.data)
-    })
-
-    // const data = axios(
-    //   {
-    //     url:'http://localhost:8080/mypage/recipe/list/2',
-    //     method:'get'
-    //   }
-    // ).then((res)=>{
-    //   console.log(res);
-    //   setDataTest(res.data)})
-
-  },[]);
+    })},[]);
 
   const string_cuting = (value)=>{
     let string = '';
@@ -86,7 +76,10 @@ function CreateRecipe({ closeModal }) {
                     "detail_recipeId",data.recipeId
                   );
                 }}>
-                  <img className={style.recipe_img} src={img} alt="testimg" title="testimg" />
+                  {data.foodImage 
+                  ? <img className={style.recipe_img} src={s3URL + data.foodImage} alt="testimg" title="testimg" /> //s3에 있는 이미지
+                  :<img className={style.recipe_img} src={noImg} alt="testimg" title="testimg" /> } {/*대체이미지(NoImage)*/ }
+
                   <h2 className={style.recipe_title}>{data.title==null?"제목이 없습니다.":data.title}</h2>
                   <h5 className={style.recipe_title2}>
                     {data.keywordList.map((v)=>("#" + v.keywordName +"  "))}
