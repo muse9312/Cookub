@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
+    
     @Id
     @GeneratedValue
     @Column(name = "recipe_id")
@@ -28,24 +29,27 @@ public class Recipe {
     @Column(name = "is_openable")
     private int isOpenable;
     private int cookingTime;
-    private int likeCnt;
+    private String likeCnt;
     private int views;
     @CreationTimestamp
     private LocalDateTime writtenDate;
     @UpdateTimestamp
     private LocalDateTime updatedDate;
     private String foodImage;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @JsonManagedReference
-    @OneToMany(mappedBy = "ingredientRecipe")
+    @OneToMany(mappedBy = "ingredientRecipe", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Ingredient> ingredients = new ArrayList<>();
     @JsonManagedReference
-    @OneToMany(mappedBy = "keywordRecipe")
+    @OneToMany(mappedBy = "keywordRecipe", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Keyword> keywordList = new ArrayList<>();
     @JsonManagedReference
-    @OneToMany(mappedBy = "methodRecipe")
+    @OneToMany(mappedBy = "methodRecipe", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<CookMethod> cookMethods = new ArrayList<>();
+    
+    //    , cascade = CascadeType.PERSIST, orphanRemoval = true
 
 }

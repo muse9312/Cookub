@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeDto {
@@ -26,7 +26,7 @@ public class RecipeDto {
     private String keypoint;
     private int isOpenable;
     private int cookingTime;
-    private int likeCnt;
+    private String likeCnt;
     private int views;
     private String foodImage;
     @CreationTimestamp

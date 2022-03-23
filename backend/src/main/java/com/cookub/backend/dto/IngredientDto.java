@@ -15,7 +15,7 @@ public class IngredientDto {
 
     private Long ingredientId;
     private String ingredientName;
-    private int amount;
+    private String amount;
 
     private Long recipeId;
     
