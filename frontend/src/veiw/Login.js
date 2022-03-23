@@ -34,6 +34,11 @@ function Login() {
 
   }
 
+  function KakaoClick(e) {
+    e.preventDefault();
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=b27394601c5c81c4926f41949e1dc837&redirect_uri=http://8b69-222-112-83-79.ngrok.io/oauth/kakao/callback&response_type=code`
+  }
+
 
   function LoginData(e) {
     e.preventDefault();
@@ -159,8 +164,15 @@ function Login() {
                 <Stack direction="row" spacing={4}>
                   <Button variant="outlined" type="submit" >Login</Button>
                   <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
+                  <button src="../assets/icons/kakao_login_small.png" onClick={KakaoClick}>
+
+
+                    Kakao</button>
                 </Stack>
+
               </div>
+
+
             </form>
           </div>
 
