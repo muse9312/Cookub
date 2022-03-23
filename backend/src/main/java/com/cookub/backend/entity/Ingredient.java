@@ -18,7 +18,7 @@ public class Ingredient {
     @Column(name = "ingredient_id")
     private Long ingredientId;
     private String ingredientName;
-    private int amount;
+    private String amount;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "recipe_id")
