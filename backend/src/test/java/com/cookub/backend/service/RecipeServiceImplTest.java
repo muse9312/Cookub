@@ -125,7 +125,7 @@ public class RecipeServiceImplTest {
                 .foodImage("ModImg")
                 // .cookMethods(recipeDto.getCookMethods())
                 .build();
-        recipe = recipeRepository.updateByRecipes(recipe1);
+        // recipe = recipeRepository.updateByRecipes(recipe1);
 
         // for (CookMethod cookMethod : recipeDto.getCookMethods()) {
         //     cookMethod.setMethodRecipe(recipe);
