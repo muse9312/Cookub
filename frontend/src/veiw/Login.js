@@ -77,6 +77,8 @@ function Login() {
           if (res.status === 200) {
 
             // JWT Token 
+
+            cookies.set('userId', res.data.user.userId, { path: "/" });
             cookies.set('token', res.data.token, { path: "/" });
             cookies.set('username', res.data.user.username, { path: "/" });
             cookies.set('profile', res.data.user.profile, { path: "/" });
