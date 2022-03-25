@@ -19,7 +19,7 @@ public class Keyword {
     private Long keywordId;
     private String keywordName;
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
     private Recipe keywordRecipe;
 }

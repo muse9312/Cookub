@@ -23,7 +23,7 @@ public interface RecipeService {
     void setRecipe(RecipeDto recipeDto, Long userId);
 
     // 레시피 정보 수정
-    String putRecipe(RecipeDto recipeDto, Long userId);
+    String editRecipe(RecipeDto recipeDto, Long userId);
 
     // 레시피 목록 조회
     List<Recipe> myRecipe(Long userId);

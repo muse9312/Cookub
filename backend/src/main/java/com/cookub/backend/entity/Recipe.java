@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Recipe {
     
     @Id
@@ -37,6 +38,7 @@ public class Recipe {
     private LocalDateTime updatedDate;
     private String foodImage;
     
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

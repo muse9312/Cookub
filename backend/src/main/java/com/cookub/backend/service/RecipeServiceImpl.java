@@ -2,6 +2,7 @@ package com.cookub.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.cookub.backend.dto.CookMethodDto;
 import com.cookub.backend.dto.IngredientDto;
@@ -21,6 +22,7 @@ import com.cookub.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -38,6 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     // 레시피 등록 (레시피)
     @Override
+    @Transactional
     public void setRecipe(RecipeDto recipeDto, Long userId) {
         User user = userRepository.findById(userId).get();
         Recipe recipeEntity = Recipe.builder()
@@ -66,7 +69,7 @@ public class RecipeServiceImpl implements RecipeService {
             ingredient.setIngredientRecipe(recipeEntity);
             ingredientRepository.save(ingredient);
         }
-        
+
         // for (int i = 0; i < recipeDto.getCookMethods().size(); i++) {
         // CookMethod cookMethod=recipeDto.getCookMethods().get(i);
         // cookMethod=cookMethodRepository.save(cookMethod);
@@ -75,36 +78,39 @@ public class RecipeServiceImpl implements RecipeService {
 
     // 레시피 수정 (레시피)
     @Override
-    public String putRecipe(RecipeDto recipeDto, Long recipeId) {
-        Recipe recipe1 = recipeRepository.findById(recipeId).get();
-        Recipe recipe = Recipe.builder()
-                .title(recipeDto.getTitle())
-                .keypoint(recipeDto.getKeypoint())
-                .isOpenable(recipeDto.getIsOpenable())
-                .level(recipeDto.getLevel())
-                .cookingTime(recipeDto.getCookingTime())
-                .likeCnt(recipeDto.getLikeCnt())
-                .views(recipeDto.getViews())
-                .foodImage(recipeDto.getFoodImage())
+    public String editRecipe(RecipeDto recipeDto, Long recipeId) {
+        Optional<Recipe> byId = recipeRepository.findById(recipeDto.getRecipeId());
+        if (byId.isPresent()) {
+            Recipe recipeEntity = byId.get();
+            recipeEntity.setTitle(recipeDto.getTitle());
+            recipeEntity.setKeypoint(recipeDto.getKeypoint());
+            recipeEntity.setIsOpenable(recipeDto.getIsOpenable());
+            recipeEntity.setLevel(recipeDto.getLevel());
+            recipeEntity.setCookingTime(recipeDto.getCookingTime());
+            recipeEntity.setLikeCnt(recipeDto.getLikeCnt());
+            recipeEntity.setViews(recipeDto.getViews());
+            recipeEntity.setFoodImage(recipeDto.getFoodImage());
+            // .cookMethods(recipeDto.getCookMethods())
 
-                // .cookMethods(recipeDto.getCookMethods())
-                .build();
-    //     recipe = recipeRepository.updateByRecipes(recipe1);
+            recipeRepository.save(recipeEntity);
 
-    //     for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-    //         cookMethod.setMethodRecipe(recipe);
-    //         cookMethodRepository.updateByCookMethod(cookMethod);
-    //     }
-    //     for (Keyword keyword : recipeDto.getKeywordList()) {
-    //         keyword.setKeywordRecipe(recipe);
-    //         keywordRepository.updateByKeyword(keyword);
-    //     }
-    //     for (Ingredient ingredient : recipeDto.getIngredients()) {
-    //         ingredient.setIngredientRecipe(recipe);
-    //         ingredientRepository.updateByIngredient(ingredient);
-    //     }
-        return "modifying";
+            for (CookMethod cookMethod : recipeDto.getCookMethods()) {
+                cookMethod.setMethodRecipe(recipeEntity);
+                cookMethodRepository.save(cookMethod);
+            }
+            for (Keyword keyword : recipeDto.getKeywordList()) {
+                keyword.setKeywordRecipe(recipeEntity);
+                keywordRepository.save(keyword);
+            }
+            for (Ingredient ingredient : recipeDto.getIngredients()) {
+                ingredient.setIngredientRecipe(recipeEntity);
+                ingredientRepository.save(ingredient);
+            }
+            return null;
+        } else {
+            return "modifying";
         }
+    }
 
     // 레시피 목록 조회
     @Override
@@ -114,7 +120,7 @@ public class RecipeServiceImpl implements RecipeService {
         return list;
     }
 
-    //레시피 리스트 삭제
+    // 레시피 리스트 삭제
     @Override
     public String delRecipe(Long recipeId) {
 
@@ -122,33 +128,33 @@ public class RecipeServiceImpl implements RecipeService {
         return "del";
 
         // Recipe recipeEntity = Recipe.builder()
-        //         .cookMethods(recipeDto.getCookMethods())
-        //         .keywordList(recipeDto.getKeywordList())
-        //         .ingredients(recipeDto.getIngredients())
-        //         .build();
-      
+        // .cookMethods(recipeDto.getCookMethods())
+        // .keywordList(recipeDto.getKeywordList())
+        // .ingredients(recipeDto.getIngredients())
+        // .build();
+
         // for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-        //     cookMethod.setMethodRecipe(recipeEntity);
-        //     cookMethodRepository.delete(cookMethod);
+        // cookMethod.setMethodRecipe(recipeEntity);
+        // cookMethodRepository.delete(cookMethod);
         // }
 
         // for (Keyword keyword : recipeDto.getKeywordList()) {
-        //     keyword.setKeywordRecipe(recipeEntity);
-        //     keywordRepository.delete(keyword);
+        // keyword.setKeywordRecipe(recipeEntity);
+        // keywordRepository.delete(keyword);
         // }
 
         // for (Ingredient ingredient : recipeDto.getIngredients()) {
-        //     ingredient.setIngredientRecipe(recipeEntity);
-        //     ingredientRepository.delete(ingredient);
+        // ingredient.setIngredientRecipe(recipeEntity);
+        // ingredientRepository.delete(ingredient);
         // }
 
     }
-    
+
     // 내 레시피 상세 정보 조회
     @Override
     public Recipe findRecipe(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
     }
-    
+
 }

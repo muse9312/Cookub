@@ -7,8 +7,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class Ingredient {
     private String ingredientName;
     private String amount;
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
     private Recipe ingredientRecipe;
 }

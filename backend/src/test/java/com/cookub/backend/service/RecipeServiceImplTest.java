@@ -1,5 +1,7 @@
 package com.cookub.backend.service;
 
+import java.util.Optional;
+
 import com.cookub.backend.dto.CookMethodDto;
 import com.cookub.backend.dto.IngredientDto;
 import com.cookub.backend.dto.KeywordDto;
@@ -18,6 +20,9 @@ import com.cookub.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class RecipeServiceImplTest {
@@ -53,6 +58,53 @@ public class RecipeServiceImplTest {
     // 레시피 등록 테스트
     @Test
     void setRecipe(RecipeDto recipeDto) {
+
+        // cookMethod 객체 생성
+        CookMethod cookMethodObj = CookMethod.builder()
+                .description("description1")
+                .picture("picture1")
+                .step(1)
+                .build();
+
+        CookMethod cookMethodObj2 = CookMethod.builder()
+                .description("description2")
+                .picture("picture2")
+                .step(2)
+                .build();
+
+        List<CookMethod> cookMethodsTest = null;
+
+        cookMethodsTest.add(0, cookMethodObj);
+        cookMethodsTest.add(1, cookMethodObj2);
+
+        // keyword 객체 생성
+        Keyword keywordObj = Keyword.builder()
+                .keywordName("keywordName1")
+                .build();
+        Keyword keywordObj2 = Keyword.builder()
+                .keywordName("keywordName2")
+                .build();
+
+        List<Keyword> keywordsTest = null;
+
+        keywordsTest.add(0, keywordObj);
+        keywordsTest.add(1, keywordObj2);
+
+        // ingredient 객체 생성
+        Ingredient ingredientObj1 = Ingredient.builder()
+                .amount("amount1")
+                .ingredientName("ingredientName1")
+                .build();
+
+        Ingredient ingredientObj2 = Ingredient.builder()
+                .amount("amount2")
+                .ingredientName("ingredientName2")
+                .build();
+
+        List<Ingredient> ingredientsTest = null;
+        ingredientsTest.add(0, ingredientObj1);
+        ingredientsTest.add(1, ingredientObj2);
+
         Recipe recipeEntity = Recipe.builder()
                 .title("dd")
                 .keypoint("20d")
@@ -61,30 +113,15 @@ public class RecipeServiceImplTest {
                 .cookingTime(1)
                 .likeCnt("asd")
                 .views(0)
-                .ingredients(null)
-                .keywordList(null)
-                .cookMethods(null)
+                .ingredients(ingredientsTest)
+                .keywordList(keywordsTest)
+                .cookMethods(cookMethodsTest)
                 // ingredients:[{"ingredientName":"재료1","amount":10},{"ingredientName":"재료2","amount":50}],
                 // keywordList:[{"keywordName":"키워드1"},{"keywordName":"키워드2"}]
                 // .cookMethods(recipeDto.getCookMethods();
                 .build();
 
         recipeEntity = recipeRepository.save(recipeEntity);
-
-        CookMethod cookMethodTest = CookMethod.builder()
-        .description("description")
-        .picture("picture")
-        .step(1)
-        .build();
-
-        Keyword keywordTest = Keyword.builder()
-        .keywordName("keywordName")
-        .build();
-        // keywordTest.getKeywordName();
-
-        Ingredient ingredientTest = Ingredient.builder()
-        .amount("amount")
-        .build();
 
         for (CookMethod cookMethod : recipeDto.getCookMethods()) {
             cookMethod.setMethodRecipe(recipeEntity);
@@ -102,43 +139,89 @@ public class RecipeServiceImplTest {
 
     // 레시피 수정 테스트
     @Test
-    void putRecipe() {
-        // Tip! RED->GREEN->Refactoring
+    void editRecipe() {
+        Long testId = 11L;
+        Optional<Recipe> byId = recipeRepository.findById(testId);
+        if (byId.isPresent()) {
 
-        // given : 무언가가 주어졌을 때,
+            // cookMethod 객체 생성
+            CookMethod cookMethodObj = CookMethod.builder()
+                    .description("description1")
+                    .picture("picture1")
+                    .step(1)
+                    .build();
 
-        // when : 이 상황에
+            CookMethod cookMethodObj2 = CookMethod.builder()
+                    .description("description2")
+                    .picture("picture2")
+                    .step(2)
+                    .build();
 
-        // then : 이 결과가 나와야한다.
-        // assertThat("결과값").isEqualTo("예상결과값");
-        // assertTrue() assertEquals()
+            List<CookMethod> cookMethodsTest = new ArrayList<CookMethod>();
 
-        Recipe recipe1 = recipeRepository.findById(2L).get();
-        Recipe recipe = Recipe.builder()
-                .title("ModTitle")
-                .keypoint("ModKeypoint")
-                .isOpenable(1)
-                .level("ModLev")
-                .cookingTime(1)
-                .likeCnt("ModCnt")
-                .views(0)
-                .foodImage("ModImg")
-                // .cookMethods(recipeDto.getCookMethods())
-                .build();
-        // recipe = recipeRepository.updateByRecipes(recipe1);
+            cookMethodsTest.add(0, cookMethodObj);
+            cookMethodsTest.add(1, cookMethodObj2);
 
-        // for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-        //     cookMethod.setMethodRecipe(recipe);
-        //     cookMethodRepository.updateByCookMethod(cookMethod);
-        // }
-        // for (Keyword keyword : recipeDto.getKeywordList()) {
-        //     keyword.setKeywordRecipe(recipe);
-        //     keywordRepository.updateByKeyword(keyword);
-        // }
-        // for (Ingredient ingredient : recipeDto.getIngredients()) {
-        //     ingredient.setIngredientRecipe(recipe);
-        //     ingredientRepository.updateByIngredient(ingredient);
-        // }
+            // keyword 객체 생성
+            Keyword keywordObj = Keyword.builder()
+                    .keywordName("keywordName1")
+                    .build();
+            Keyword keywordObj2 = Keyword.builder()
+                    .keywordName("keywordName2")
+                    .build();
+
+            List<Keyword> keywordsTest = new ArrayList<Keyword>();
+
+            keywordsTest.add(0, keywordObj);
+            keywordsTest.add(1, keywordObj2);
+
+            // ingredient 객체 생성
+            Ingredient ingredientObj1 = Ingredient.builder()
+                    .amount("amount1")
+                    .ingredientName("ingredientName1")
+                    .build();
+
+            Ingredient ingredientObj2 = Ingredient.builder()
+                    .amount("amount2")
+                    .ingredientName("ingredientName2")
+                    .build();
+
+            List<Ingredient> ingredientsTest = new ArrayList<Ingredient>();
+
+            ingredientsTest.add(0, ingredientObj1);
+            ingredientsTest.add(1, ingredientObj2);
+
+            Recipe recipeEntity = byId.get();
+            recipeEntity.setTitle("recipeDto.getTitle()");
+            recipeEntity.setKeypoint("recipeDto.getKeypoint()");
+            recipeEntity.setIsOpenable(1);
+            recipeEntity.setLevel("recipeDto.getLevel()");
+            recipeEntity.setCookingTime(1);
+            recipeEntity.setLikeCnt("recipeDto.getLikeCnt()");
+            recipeEntity.setViews(0);
+            recipeEntity.setFoodImage("recipeDto.getFoodImage()");
+            recipeEntity.setCookMethods(cookMethodsTest);
+            recipeEntity.setKeywordList(keywordsTest);
+            recipeEntity.setIngredients(ingredientsTest);
+            // .cookMethods(recipeDto.getCookMethods())
+
+            recipeRepository.save(recipeEntity);
+
+            for (CookMethod cookMethod : recipeEntity.getCookMethods()) {
+                cookMethod.setMethodRecipe(recipeEntity);
+                cookMethodRepository.save(cookMethod);
+            }
+            for (Keyword keyword : recipeEntity.getKeywordList()) {
+                keyword.setKeywordRecipe(recipeEntity);
+                keywordRepository.save(keyword);
+            }
+            for (Ingredient ingredient : recipeEntity.getIngredients()) {
+                ingredient.setIngredientRecipe(recipeEntity);
+                ingredientRepository.save(ingredient);
+            }
+
+        } else {
+        }
 
     }
 
