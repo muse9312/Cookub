@@ -36,7 +36,7 @@ function Login() {
 
   function KakaoClick(e) {
     e.preventDefault();
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=b27394601c5c81c4926f41949e1dc837&redirect_uri=http://localhost:3000/kakaoSignup&response_type=code`
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=a2b02f5b67bf10d12472ebb1c0541618&redirect_uri=http://localhost:3000/oauth/kakao/callback&response_type=code`
   }
 
 

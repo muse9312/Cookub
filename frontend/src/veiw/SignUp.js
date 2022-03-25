@@ -17,6 +17,7 @@ import ReactFileReader from "react-file-reader";
 import AvatarInput from "../component/FileUpload/AvatarInput"
 
 import '../assets/css/SignUp.css'
+import Navigation from '../component/Navigation'
 
 // import Nation from '../component/data/Nation'
 
@@ -591,35 +592,38 @@ const SignUp = () => {
 
 
   return (
-    <div className="reg-inner">
-      <div class="regbackground">
-        <h1 className="title2">Create your Account</h1>
-        <p className="subtitle">Happy Cooking!!</p>
-      </div>
-      <br />
-      <br />
-      <form onSubmit={RegData}>
+    <>
+      <Navigation />
+      <div className="reg-inner">
 
-        <Box
-          sx={{
+        <div class="regbackground">
+          <h1 className="title2">Create your Account</h1>
+          <p className="subtitle">Happy Cooking!!</p>
+        </div>
+        <br />
+        <br />
+        <form onSubmit={RegData}>
 
-            flexWrap: 'wrap'
-          }}
-        >
-          <label htmlFor="icon-button-file">
-            <Input accept="image/*" id="icon-button-file" name="file" type="file" />
-            <IconButton color="primary" aria-label="upload picture" component="span">
-              <PhotoCamera />
-            </IconButton>
-          </label>
+          <Box
+            sx={{
 
-          {/* <AvatarInput>
+              flexWrap: 'wrap'
+            }}
+          >
+            <label htmlFor="icon-button-file">
+              <Input accept="image/*" id="icon-button-file" name="file" type="file" />
+              <IconButton color="primary" aria-label="upload picture" component="span">
+                <PhotoCamera />
+              </IconButton>
+            </label>
+
+            {/* <AvatarInput>
             <img src={file} alt="Avatar Placeholder" />
           </AvatarInput> */}
-        </Box>
+          </Box>
 
 
-        {/* <ReactFileReader
+          {/* <ReactFileReader
           fileTypes={[".png", ".jpg"]}
           base64={true}
           handleFiles={handleFiles}
@@ -631,48 +635,48 @@ const SignUp = () => {
         </ReactFileReader> */}
 
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap'
-          }}>
-          <div>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}>
+            <div>
 
-            {/* 이메일 */}
-            <Grid>
-              <TextField
-                label="Email*"
-                id="useremail"
-                name="useremail"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }} />
+              {/* 이메일 */}
+              <Grid>
+                <TextField
+                  label="Email*"
+                  id="useremail"
+                  name="useremail"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
 
 
-              {/* 비밀번호 */}
+                {/* 비밀번호 */}
 
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-              />
+                <TextField
+                  id="outlined-password-input"
+                  label="Password"
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                />
 
-              {/* <FormControl
+                {/* <FormControl
                 sx={{
                   m: 1,
                   width: '25ch'
@@ -700,157 +704,159 @@ const SignUp = () => {
                   </InputAdornment>}
                   label="Password*" />
               </FormControl> */}
-            </Grid>
-            <br />
+              </Grid>
+              <br />
 
-            {/* 이름 */}
-            <Grid >
-              <TextField
-                label="Name*"
-                id="username"
-                name="username"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }} />
+              {/* 이름 */}
+              <Grid >
+                <TextField
+                  label="Name*"
+                  id="username"
+                  name="username"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
 
-            </Grid>
-            <br />
-            {/* 전화,생일 */}
-            <Grid >
-              <TextField
-                label="Tel"
-                name="tel"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }} />
+              </Grid>
+              <br />
+              {/* 전화,생일 */}
+              <Grid >
+                <TextField
+                  label="Tel"
+                  name="tel"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
 
-              <TextField
-                id="standard-helperText"
-                type="date"
-                name="birth"
-                helperText="Birth"
+                <TextField
+                  id="standard-helperText"
+                  type="date"
+                  name="birth"
+                  helperText="Birth"
 
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }} />
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }} />
 
-            </Grid>
-            <br />
+              </Grid>
+              <br />
 
-            {/* 전문 분야 */}
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={field}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Field" name="field" />}
-              />
-              <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-              {/* 거주국가 */}
-              <Autocomplete
-                id="country-select-demo"
-                sx={{ width: 300 }}
-                options={countries}
-                autoHighlight
-                getOptionLabel={(option) => option.label}
-                renderOption={(props, option) => (
-                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    <img
-                      loading="lazy"
-                      width="20"
-                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                      alt=""
+              {/* 전문 분야 */}
+              <Grid container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={field}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Field" name="field" />}
+                />
+                <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+                {/* 거주국가 */}
+                <Autocomplete
+                  id="country-select-demo"
+                  sx={{ width: 300 }}
+                  options={countries}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        alt=""
+                      />
+                      {option.label} ({option.code}) +{option.phone}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      name="work_nation"
+                      {...params}
+                      label="Choose a country"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
                     />
-                    {option.label} ({option.code}) +{option.phone}
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    name="work_nation"
-                    {...params}
-                    label="Choose a country"
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: 'new-password', // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
+                  )}
+                />
 
 
-            </Grid >
-            <br />
+              </Grid >
+              <br />
 
-            {/* 수준 */}
-            <Grid id="field"
-            >
-              <Autocomplete
-                disablePortal
+              {/* 수준 */}
+              <Grid id="field"
+              >
+                <Autocomplete
+                  disablePortal
 
-                options={grade}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
-              />
+                  options={grade}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
+                />
 
 
 
-            </Grid >
-            <br />
+              </Grid >
+              <br />
 
-            {/* 경력 */}
-            <Grid >
-              <TextField
-                label="Career"
-                name="career"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }} />
+              {/* 경력 */}
+              <Grid >
+                <TextField
+                  label="Career"
+                  name="career"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
 
-              {/* 현재 근무지 */}
-              <TextField
-                label="Work_place"
-                name="work_place"
+                {/* 현재 근무지 */}
+                <TextField
+                  label="Work_place"
+                  name="work_place"
 
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }} />
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }} />
 
-            </Grid>
+              </Grid>
 
 
 
 
 
-            <br />
+              <br />
 
 
+            </div>
+
+          </Box>
+
+          <br />
+          <br />
+          <div id="Btn-2">
+            <Stack direction="row" spacing={4}>
+              <Button variant="outlined" onClick={SendLogin}>Back</Button>
+              <Button type="submit" variant="outlined" >SignUp</Button>
+            </Stack>
           </div>
-
-        </Box>
-
-        <br />
-        <br />
-        <div id="Btn-2">
-          <Stack direction="row" spacing={4}>
-            <Button variant="outlined" onClick={SendLogin}>Back</Button>
-            <Button type="submit" variant="outlined" >SignUp</Button>
-          </Stack>
-        </div>
-      </form>
+        </form>
 
 
-    </div >
+      </div >
+    </>
+
   );
 };
 
