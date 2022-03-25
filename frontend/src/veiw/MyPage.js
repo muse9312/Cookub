@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import style from './MyPage.module.css';
 import Modal from './Modal.js'
 import { Link } from "react-router-dom";
-import img from '../assets/img/testfood.jpg';
 import noImg from '../assets/img/noimg.PNG';
 import axios from "axios";
 import Cookies from 'universal-cookie';
