@@ -4,168 +4,174 @@ import axios from 'axios';
 import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import{TiLockClosed,TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag} from 'react-icons/ti';
+import { TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag } from 'react-icons/ti';
 import noImg from '../assets/img/noimg.PNG';
-
+import Navigation from '../component/Navigation'
 function BoardDetail() {
 
-  const[recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState([]);
 
   const cookie = new Cookies();
-  const token = cookie.get('token'); 
+  const token = cookie.get('token');
   const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
 
-  useEffect(()=>{
+  useEffect(() => {
     const id = window.sessionStorage.getItem("detail_recipeId")
 
     axios
-    .get(`http://localhost:8080/mypage/recipe/${id}`,{headers:{
-      Authorization : `${token}`
-    }})
-    .then((res)=>{
-      console.log(res);
-      console.log(res.data);
-      setRecipe(res.data);
-    })
-  },[]);
+      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setRecipe(res.data);
+      })
+  }, []);
 
   const handleError = (e) => {
     e.target.scr = img;
   }
 
   const deleteAlert = () => {
-    if(window.confirm("정말로 삭제 하시겠습니까?")){ 
+    if (window.confirm("정말로 삭제 하시겠습니까?")) {
       alert("레시피가 삭제 됐습니다.")
       const id = window.sessionStorage.getItem("detail_recipeId");
       axios.delete(`http://localhost:8080/mypage/recipe/${id}`)
-      .then((res)=>{console.log(res.data);})
+        .then((res) => { console.log(res.data); })
       window.location.href = 'http://localhost:3000/mypage';
-    }else{
-      alert("취소 되었습니다.")}
+    } else {
+      alert("취소 되었습니다.")
+    }
   }
 
 
   return (
     /* <QRcode id="myqr" value={"https://github.com/Namhoon-95"} 
             size={320} includeMargin={true} /> --> QR 코드 생성코드 */
+    <>
+      <Navigation />
+      <div >
+        <div className={style.container}>
+          <div className={style.empty} />
+          <div className={style.contents}>
+            <div className={style.editAndDelete}>
+              <button className={style.delete_btn} onClick={deleteAlert}>레시피 삭제</button>
+            </div>
+            <div className={style.container2}>
+              <div className={style.step_top}>
+                {/* 제목 */}
+                <h1 className={style.title}>
+                  {recipe.title == null ? "제목이 없습니다." : recipe.title}
+                </h1>
+                <div className={style.top_cont}>
+                  <div className={style.top_img}>
+                    {recipe.foodImage !== null
+                      ? <img className={style.title_img} src={imgUrl + recipe.foodImage} alt="testimg" title="testimg" />
+                      : <img className={style.title_img} src={noImg} alt="testimg" title="testimg" />} {/*대체 이미지*/}
 
-  <div >
-    <div className={style.container}>
-      <div className={style.empty}/>
-      <div className={style.contents}>
-        <div className={style.editAndDelete}>
-          <button className={style.delete_btn} onClick={deleteAlert}>레시피 삭제</button>
-        </div>
-        <div className={style.container2}>
-          <div className={style.step_top}>
-            {/* 제목 */}
-            <h1 className={style.title}>
-            {recipe.title==null?"제목이 없습니다.":recipe.title}
-            </h1>
-            <div className={style.top_cont}>
-              <div className={style.top_img}>
-              {recipe.foodImage !== null
-              ? <img className={style.title_img} src={imgUrl+recipe.foodImage} alt="testimg" title="testimg" />
-              : <img className={style.title_img} src={noImg} alt="testimg" title="testimg" />} {/*대체 이미지*/}
-              
-              </div>
-              <div className={style.top_discription}>
-                {/* 난이도, 키포인트, 공개여부, 조리시간, 키워드 */}
-                <ul className={style.disc_list}>
-                  <li className={style.disc_item}>
-                    <div className={style.disc_icon}><TiStarFullOutline/></div>
-                    <span className={style.disc_text}>키포인트</span>
-                    <p className={style.disc_text2}>
-                      {recipe.keypoint==null?"내용이 없습니다.":recipe.keypoint}
-                    </p>
-                  </li>
-                  <li className={style.disc_item}>
-                    <div className={style.disc_icon}><TiLockClosed/></div>
-                    <span className={style.disc_text}>공개여부</span>
-                    <span className={style.disc_text2}>
-                      {recipe.isOpenable==null?
-                      "내용이 없습니다.":
-                      recipe.isOpenable===1?"공개":"비공개"}
-                    </span>
-                  </li>
-                  <li className={style.disc_item}>
-                    <div className={style.disc_icon}><TiPuzzle/></div>
-                    <span className={style.disc_text}>난이도</span>
-                    <span className={style.disc_text2}>
-                      &nbsp;&nbsp;&nbsp;{recipe.level==null?"내용이 없습니다.":recipe.level}
-                    </span>
-                  </li>
-                  <li className={style.disc_item}>
-                    <div className={style.disc_icon}><TiStopwatch/></div>
-                    <span className={style.disc_text}>조리시간</span>
-                    <span className={style.disc_text2}>
-                      {recipe.cookingTime==null?"내용이 없습니다.":recipe.cookingTime}&nbsp;분
-                    </span>
-                  </li>
-                  <li className={style.disc_item}>
-                    <div className={style.disc_icon}><TiTag/></div>
-                    <span className={style.disc_text}>키워드</span>
-                    <span className={style.disc_text2}>
-                      {recipe.keywordList==null?'':recipe.keywordList.map((v)=>("#"+v.keywordName +"  "))}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* 아래 코드는 재료목록 코드 */}
-          <div className={style.ingre_cont}>
-            <div className={style.ingreTitle}>
-              <b className={style.ingreT1}>재료</b>
-              <span className={style.ingreT2}>ingredients</span>
-            </div>
-            <div className={style.ingreBox}>
-              <ul className={style.ingreList}>
-                { recipe.ingredients==null?''
-                  :recipe.ingredients.map((v)=>(
-                    <li className={style.ingre}>{v.ingredientName}
-                      <span className={style.gram}>{v.amount}</span>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          </div>
-          
-          {/* 아래 코드는 조리법 목록 코드 */}
-          <div className={style.step_cont}>
-            <div className={style.step_title}>
-              <b className={style.step_T1}>조리순서</b>
-              <span className={style.step_T2}>steps</span>
-            </div>
-            {   recipe.ingredients==null?''
-                :recipe.cookMethods.map((v)=>(
-                <div className={style.step_list}>
-                  <div className={style.numberAndText}>
-                    <span className={style.numbering}>{v.step}</span>
-                    <div className={style.step_text}>{v.description}</div>
                   </div>
-                  <div className={style.steps_img}>
-                    {v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/aboutImg.jpg" &&
-                    v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/about3.jpg" &&
-                    v.picture !== null &&
-                    v.picture !== ""
-                    ?<img className={style.step_img} src={imgUrl+v.picture} onError={handleError} alt="testimg" title="testimg" />
-                    :null}
-                    
+                  <div className={style.top_discription}>
+                    {/* 난이도, 키포인트, 공개여부, 조리시간, 키워드 */}
+                    <ul className={style.disc_list}>
+                      <li className={style.disc_item}>
+                        <div className={style.disc_icon}><TiStarFullOutline /></div>
+                        <span className={style.disc_text}>키포인트</span>
+                        <p className={style.disc_text2}>
+                          {recipe.keypoint == null ? "내용이 없습니다." : recipe.keypoint}
+                        </p>
+                      </li>
+                      <li className={style.disc_item}>
+                        <div className={style.disc_icon}><TiLockClosed /></div>
+                        <span className={style.disc_text}>공개여부</span>
+                        <span className={style.disc_text2}>
+                          {recipe.isOpenable == null ?
+                            "내용이 없습니다." :
+                            recipe.isOpenable === 1 ? "공개" : "비공개"}
+                        </span>
+                      </li>
+                      <li className={style.disc_item}>
+                        <div className={style.disc_icon}><TiPuzzle /></div>
+                        <span className={style.disc_text}>난이도</span>
+                        <span className={style.disc_text2}>
+                          &nbsp;&nbsp;&nbsp;{recipe.level == null ? "내용이 없습니다." : recipe.level}
+                        </span>
+                      </li>
+                      <li className={style.disc_item}>
+                        <div className={style.disc_icon}><TiStopwatch /></div>
+                        <span className={style.disc_text}>조리시간</span>
+                        <span className={style.disc_text2}>
+                          {recipe.cookingTime == null ? "내용이 없습니다." : recipe.cookingTime}&nbsp;분
+                        </span>
+                      </li>
+                      <li className={style.disc_item}>
+                        <div className={style.disc_icon}><TiTag /></div>
+                        <span className={style.disc_text}>키워드</span>
+                        <span className={style.disc_text2}>
+                          {recipe.keywordList == null ? '' : recipe.keywordList.map((v) => ("#" + v.keywordName + "  "))}
+                        </span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              ))
-            } 
+              </div>
+
+              {/* 아래 코드는 재료목록 코드 */}
+              <div className={style.ingre_cont}>
+                <div className={style.ingreTitle}>
+                  <b className={style.ingreT1}>재료</b>
+                  <span className={style.ingreT2}>ingredients</span>
+                </div>
+                <div className={style.ingreBox}>
+                  <ul className={style.ingreList}>
+                    {recipe.ingredients == null ? ''
+                      : recipe.ingredients.map((v) => (
+                        <li className={style.ingre}>{v.ingredientName}
+                          <span className={style.gram}>{v.amount}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </div>
+
+              {/* 아래 코드는 조리법 목록 코드 */}
+              <div className={style.step_cont}>
+                <div className={style.step_title}>
+                  <b className={style.step_T1}>조리순서</b>
+                  <span className={style.step_T2}>steps</span>
+                </div>
+                {recipe.ingredients == null ? ''
+                  : recipe.cookMethods.map((v) => (
+                    <div className={style.step_list}>
+                      <div className={style.numberAndText}>
+                        <span className={style.numbering}>{v.step}</span>
+                        <div className={style.step_text}>{v.description}</div>
+                      </div>
+                      <div className={style.steps_img}>
+                        {v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/aboutImg.jpg" &&
+                          v.picture !== "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/about3.jpg" &&
+                          v.picture !== null &&
+                          v.picture !== ""
+                          ? <img className={style.step_img} src={imgUrl + v.picture} onError={handleError} alt="testimg" title="testimg" />
+                          : null}
+
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
           </div>
+          <div className={style.empty2} />
         </div>
+
       </div>
-      <div className={style.empty2}/>
-    </div>
-    
-  </div>
-    
+
+    </>
+
   );
 }
 
