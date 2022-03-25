@@ -32,8 +32,8 @@ function CreateRecipe({ closeModal }) {
 
   useEffect(()=>{
     const userId = cookies.get('userId')
-    // const api=`http://localhost:8080/mypage/recipe/list/${userId}`;
-    const api=`http://localhost:8080/mypage/recipe/list/2`;
+    const api=`http://localhost:8080/mypage/recipe/list/${userId}`;
+    // const api=`http://localhost:8080/mypage/recipe/list/2`;
     axios.get(api , { headers: {Authorization : token} })
     .then((res)=>{
       console.log(res);
