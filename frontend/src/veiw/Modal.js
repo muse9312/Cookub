@@ -64,7 +64,7 @@ function CreateChap1({ closeModal, setCreateMod }){
         <div className={style.title}><h1>레시피 제목을 입력해주세요</h1></div>
         <div >
           <input className={style.input}
-                placeholder={window.sessionStorage.getItem("title")}
+                placeholder={window.sessionStorage.getItem("title")?window.sessionStorage.getItem("title"):null}
                 type="text"
                 name='recipeTitle' 
                 id="recipe" 
@@ -134,24 +134,26 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
           return(
             <div className={style.proc_row}>
               <div className={style.list_item}>{value.ingredientName}</div>
-              <from>
-                <input placeholder={value.amount ? value.amount:0} type="text" name={gram} id="gram"></input>
-                <button type='submit' onClick={(e)=>{
+              <div className={style.inputAndDelete}>
+                <from className={style.amount_input}>
+                  <input placeholder={value.amount ? value.amount:0} type="text" name={gram} id="gram" className={style.amount_textInput} ></input>
+                  <button type='submit' onClick={(e)=>{
+                    e.preventDefault();
+                    let copy = [...ingreList];
+                    const gramName = "[name=" + gram + "]"
+                    copy[index].amount = document.querySelector(gramName).value;
+                    setIngreList(copy);
+                  }}>입력</button>
+                  {console.log(ingreList)}
+                </from>
+                <div><RiCloseCircleLine className={style.delete_icon} onClick={(e)=>{
                   e.preventDefault();
                   let copy = [...ingreList];
-                  const gramName = "[name=" + gram + "]"
-                  copy[index].amount = Number(document.querySelector(gramName).value);
-                  setIngreList(copy);
-                }}>입력</button>
-                {console.log(ingreList)}
-              </from>
-              <div><RiCloseCircleLine className={style.delete_icon} onClick={(e)=>{
-                e.preventDefault();
-                let copy = [...ingreList];
-                delete copy[indexStr];
-                let removeList = copy.filter(i => i !== null);//이코드 없으면 delete 한 자리에 empty 생김
-                setIngreList(removeList);
-              }}/></div>
+                  delete copy[indexStr];
+                  let removeList = copy.filter(i => i !== null);//이코드 없으면 delete 한 자리에 empty 생김
+                  setIngreList(removeList);
+                }}/></div>
+              </div>
             </div>
               )  
           })} 
@@ -216,17 +218,20 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
         {procList.map((value,index)=>(
         <div className={style.proc_row}>
           <div className={style.list_item} key={value}>{value.description}</div>
-          <input type="file" onChange={(e)=>{
-                const file = e.target.files[0];//사용자가 넣은 사진파일객체
-                //사진이름의 초기값이 ""인상태에서 파일의 이름으로 세션에 저장한뒤 식별리네임은 챕터4에서 작업!!!
-                let copy = [...procList];
-                copy[index].picture = file.name;
-                setProcList(copy);
+          <div className={style.fileAndIcon}>
+            <input type="file" placeholder="조리과정 사진첨부" className={style.image_fileInput} 
+            class="hidden" onChange={(e)=>{
+                  const file = e.target.files[0];//사용자가 넣은 사진파일객체
+                  //사진이름의 초기값이 ""인상태에서 파일의 이름으로 세션에 저장한뒤 식별리네임은 챕터4에서 작업!!!
+                  let copy = [...procList];
+                  copy[index].picture = file.name;
+                  setProcList(copy);
 
-                setDescImg([...descImg,e.target.files[0]]) //파일을 추가로 선택할수록 새로운 파일이 append되는 코드
+                  setDescImg([...descImg,e.target.files[0]]) //파일을 추가로 선택할수록 새로운 파일이 append되는 코드
 
-          }}/>
-          <div><TiEdit className={style.delete_icon} /></div> {/* 수정하기기능 구현 해야됨 */}
+            }}/>
+            <div><TiEdit className={style.edit_icon} /></div> {/* 수정하기기능 구현 해야됨 */}
+          </div>
         </div>
         ))}
       </div>
@@ -242,6 +247,7 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
           console.log(descImg);
           setCookMethods(descImg); //모달 전역 스테이트에 저장하기
           setCreateMod(3)
+          window.location.href = 'http://localhost:3000/mypage';
           }}>다음단계</button>
       </div>
     </>

@@ -165,11 +165,35 @@
   font-size: 20px;
   color: #fff;
 }
+.inputAndDelete{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5%;
+}
+.amount_input{
+  
+}
+.amount_textInput{
+  width:100px;
+  height: 20px;
+  border-radius: 11px;
+}
 .delete_icon {
   color: #fff;
+  margin-left: 90%;
 }
 .edit_icon {
   color: #fff;
+  margin-left: 90%;
+}
+
+.fileAndIcon{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5%;
+}
+.image_fileInput{
+  width:200px;
 }
 
 

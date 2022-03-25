@@ -31,8 +31,9 @@ function CreateRecipe({ closeModal }) {
   const s3URL = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
 
   useEffect(()=>{
-    console.log(token);
-    const api='http://localhost:8080/mypage/recipe/list/2';
+    const userId = cookies.get('userId')
+    // const api=`http://localhost:8080/mypage/recipe/list/${userId}`;
+    const api=`http://localhost:8080/mypage/recipe/list/2`;
     axios.get(api , { headers: {Authorization : token} })
     .then((res)=>{
       console.log(res);
@@ -71,7 +72,8 @@ function CreateRecipe({ closeModal }) {
           {dataTest.map((data,index)=>(
             <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
               <div className={style.recipe}>
-                <Link to="/board/detail" onClick={()=>{
+                <Link to="/board/detail" className={style.imageAndText}
+                onClick={()=>{
                   window.sessionStorage.setItem(
                     "detail_recipeId",data.recipeId
                   );
