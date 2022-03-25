@@ -10,7 +10,8 @@ import KakaoSignUp from './veiw/KakaoSignUp';
 import BoardDetail from './veiw/BoardDetail';
 import UserInfoUpdate from './veiw/UserInfoUpdate';
 import { integerPropType } from '@mui/utils';
-// import Auth from './Auth.js';
+import Profile from './veiw/Profile';
+import Auth from './Auth'
 
 
 
@@ -20,20 +21,21 @@ import { integerPropType } from '@mui/utils';
 function App() {
   return (
     <BrowserRouter>
-      <Navigation />
       <Routes>
         <Route path="/" exact={true} element={<Main />} />
         <Route path="/login" exact={true} element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/kakaoSignup" element={<KakaoSignUp />} />
-        {/* <Route path="/oauth/kakao/callback" element={<Auth />} /> */}
+        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/kakaoSignup" element={<KakaoSignUp />} /> */}
+        <Route path="/oauth/kakao/callback" element={<Auth />} />
         <Route path="/board" exact={true} element={<Board />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/board/detail" exact={true} element={<BoardDetail />} />
         <Route path="/userinfo" element={<UserInfoUpdate />} />
       </Routes>
     </BrowserRouter>
+
   );
 }
 
