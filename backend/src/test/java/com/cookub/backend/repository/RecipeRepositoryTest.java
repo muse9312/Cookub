@@ -25,7 +25,7 @@ public class RecipeRepositoryTest {
         .isOpenable(1)
         .level("중")
         .cookingTime(15)
-        .likeCnt(23)
+        .likeCnt("23")
         .views(244)
         .build();
 

@@ -34,6 +34,11 @@ function Login() {
 
   }
 
+  function KakaoClick(e) {
+    e.preventDefault();
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=b27394601c5c81c4926f41949e1dc837&redirect_uri=http://localhost:3000/kakaoSignup&response_type=code`
+  }
+
 
   function LoginData(e) {
     e.preventDefault();
@@ -72,6 +77,8 @@ function Login() {
           if (res.status === 200) {
 
             // JWT Token 
+
+            cookies.set('userId', res.data.user.userId, { path: "/" });
             cookies.set('token', res.data.token, { path: "/" });
             cookies.set('username', res.data.user.username, { path: "/" });
             cookies.set('profile', res.data.user.profile, { path: "/" });
@@ -159,8 +166,15 @@ function Login() {
                 <Stack direction="row" spacing={4}>
                   <Button variant="outlined" type="submit" >Login</Button>
                   <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
+                  <button src="../assets/icons/kakao_login_small.png" onClick={KakaoClick}>
+
+
+                    Kakao</button>
                 </Stack>
+
               </div>
+
+
             </form>
           </div>
 

@@ -19,4 +19,5 @@ public class CookMethodDto {
     private String picture;
 
     private Long recipeId;
+    
 }
