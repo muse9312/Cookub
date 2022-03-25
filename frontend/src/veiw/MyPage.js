@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 
 
 function MyPage() {
+  
 
   const [onModal, setOpenModal] = useState(false);
 
