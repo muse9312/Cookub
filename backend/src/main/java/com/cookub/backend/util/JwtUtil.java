@@ -1,6 +1,5 @@
 package com.cookub.backend.util;
 
-import com.cookub.backend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,6 +14,8 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.cookub.backend.entity.user.User;
 
 @Component
 public class JwtUtil {

@@ -1,7 +1,7 @@
 package com.cookub.backend.auth;
 
 
-import com.cookub.backend.entity.User;
+import com.cookub.backend.entity.user.User;
 import com.cookub.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -2,8 +2,8 @@ package com.cookub.backend.repository;
 
 import java.util.List;
 
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.Recipe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

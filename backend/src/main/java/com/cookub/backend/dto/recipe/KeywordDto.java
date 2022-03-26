@@ -1,9 +1,10 @@
-package com.cookub.backend.dto;
+package com.cookub.backend.dto.recipe;
 
-import com.cookub.backend.entity.Recipe;
 import lombok.*;
 
 import javax.persistence.*;
+
+import com.cookub.backend.entity.recipeE.Recipe;
 
 @Getter
 @Setter

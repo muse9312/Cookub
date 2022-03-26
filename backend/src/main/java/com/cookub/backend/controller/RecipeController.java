@@ -1,16 +1,9 @@
 package com.cookub.backend.controller;
 
-import java.io.Console;
 import java.util.List;
 
-import com.cookub.backend.dto.CookMethodDto;
-import com.cookub.backend.dto.IngredientDto;
-import com.cookub.backend.dto.KeywordDto;
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.service.RecipeService;
 
 import org.springframework.beans.factory.annotation.Autowired;

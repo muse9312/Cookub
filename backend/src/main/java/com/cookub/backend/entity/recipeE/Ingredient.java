@@ -1,7 +1,6 @@
-package com.cookub.backend.entity;
+package com.cookub.backend.entity.recipeE;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

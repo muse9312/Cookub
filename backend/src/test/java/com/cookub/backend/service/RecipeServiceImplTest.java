@@ -2,15 +2,8 @@ package com.cookub.backend.service;
 
 import java.util.Optional;
 
-import com.cookub.backend.dto.CookMethodDto;
-import com.cookub.backend.dto.IngredientDto;
-import com.cookub.backend.dto.KeywordDto;
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
-import com.cookub.backend.entity.Recipe;
-import com.cookub.backend.entity.User;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.*;
 import com.cookub.backend.repository.CookMethodRepository;
 import com.cookub.backend.repository.IngredientRepository;
 import com.cookub.backend.repository.KeywordRepository;

@@ -1,13 +1,13 @@
-package com.cookub.backend.dto;
+package com.cookub.backend.dto.recipe;
 
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.OneToMany;
+
+import com.cookub.backend.entity.recipeE.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

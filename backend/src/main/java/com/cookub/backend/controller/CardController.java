@@ -1,6 +1,6 @@
 package com.cookub.backend.controller;
 
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.service.CardService;
 import com.cookub.backend.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;

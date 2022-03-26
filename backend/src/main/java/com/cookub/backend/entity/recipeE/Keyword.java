@@ -1,4 +1,4 @@
-package com.cookub.backend.entity;
+package com.cookub.backend.entity.recipeE;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,16 +12,14 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CookMethod {
+public class Keyword {
     @Id
     @GeneratedValue
-    @Column(name = "method_id")
-    private Long methodId;
-    private int step;
-    private String description;
-    private String picture;
+    @Column(name = "keyword_id")
+    private Long keywordId;
+    private String keywordName;
     @JsonBackReference
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
-    private Recipe methodRecipe;
+    private Recipe keywordRecipe;
 }
