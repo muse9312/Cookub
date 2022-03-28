@@ -7,7 +7,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class urlDto {
+public class UrlDto {
+    
     private Long url_Id;
     private String recipeList;
     private String key;

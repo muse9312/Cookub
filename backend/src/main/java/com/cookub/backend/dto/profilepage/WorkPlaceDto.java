@@ -8,7 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkPlaceDto {
-    private Long workplace_Id;
+    
+    private Long workPlace_Id;
     private String compName;
     private String location;
     private String jobPosition;

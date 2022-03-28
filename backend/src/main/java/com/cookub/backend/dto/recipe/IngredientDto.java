@@ -2,7 +2,6 @@ package com.cookub.backend.dto.recipe;
 
 import lombok.*;
 
-
 @Getter
 @Setter
 @Builder

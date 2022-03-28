@@ -21,7 +21,7 @@ public class CookMethod {
     private int step;
     private String description;
     private String picture;
-    @JsonBackReference
+    @JsonBackReference 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
     private Recipe methodRecipe;
