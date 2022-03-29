@@ -133,18 +133,21 @@ public class RecipeServiceImplTest {
     // 레시피 수정 테스트
     @Test
     void editRecipe() {
-        Long testId = 11L;
+        Long testId = 9L;
         Optional<Recipe> byId = recipeRepository.findById(testId);
         if (byId.isPresent()) {
 
             // cookMethod 객체 생성
             CookMethod cookMethodObj = CookMethod.builder()
+                    .methodId(25L)
+                    //meyhod table id 값 받아서 진행 
                     .description("description1")
                     .picture("picture1")
                     .step(1)
                     .build();
 
             CookMethod cookMethodObj2 = CookMethod.builder()
+                    .methodId(26L)
                     .description("description2")
                     .picture("picture2")
                     .step(2)
@@ -157,9 +160,11 @@ public class RecipeServiceImplTest {
 
             // keyword 객체 생성
             Keyword keywordObj = Keyword.builder()
+                    .keywordId(17L)
                     .keywordName("keywordName1")
                     .build();
             Keyword keywordObj2 = Keyword.builder()
+            .keywordId(18L)
                     .keywordName("keywordName2")
                     .build();
 
@@ -170,12 +175,14 @@ public class RecipeServiceImplTest {
 
             // ingredient 객체 생성
             Ingredient ingredientObj1 = Ingredient.builder()
+                    .ingredientId(17L)
                     .amount("amount1")
                     .ingredientName("ingredientName1")
                     .build();
 
             Ingredient ingredientObj2 = Ingredient.builder()
-                    .amount("amount2")
+            .ingredientId(18L)        
+            .amount("amount2")
                     .ingredientName("ingredientName2")
                     .build();
 

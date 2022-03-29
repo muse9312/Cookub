@@ -47,7 +47,7 @@ public class RecipeController {
     }
 
     // 레시피 정보 수정
-    @PutMapping(value = "/recipe/{recipeId}")
+    @PostMapping(value = "/recipe/edit/{recipeId}")
     public String editRecipe(@RequestBody RecipeDto recipeDto, @PathVariable Long recipeId) {
         recipeService.editRecipe(recipeDto, recipeId);
         return "redirect:/";
