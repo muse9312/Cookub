@@ -13,8 +13,12 @@ import "../assets/css/Profile.css"
 import Slider from 'react-animated-slider';
 import content from '../component/carousel/content'
 import '../assets/css/Main.css'
+import Cookies from 'universal-cookie'
 
 const Profile = () => {
+
+    const cookies = new Cookies();
+
     const [user_id, setUserId] = useState();
     const [nickName, setNickName] = useState();
     const [profileImage, setProfileImage] = useState();
@@ -29,10 +33,15 @@ const Profile = () => {
             });
 
             // 사용자 정보 변수에 저장
+            cookies.set('kakao_id', data.id)
+            console.log(cookies.get('kakao_id'));
+            window.sessionStorage.setItem('id', data.id)
             setUserId(data.id);
             console.log(data.id);
             setNickName(data.properties.nickname);
+            cookies.set('nickname', data.properties.nickname)
             console.log(data.properties.nickname);
+            cookies.set('img', data.properties.profile_image)
             setProfileImage(data.properties.profile_image);
             console.log(data.properties.profile_image);
             console.log(data.properties);

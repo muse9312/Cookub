@@ -85,11 +85,13 @@ function Navigation() {
   function BtnHendler() {
     const token = cookies.get('token');
 
+
     if (token == null) {
-      return <button className={style.login_button} onClick={SendLogin}>Login</button>;
+      return <button className={style.login_button} onClick={SendLogin}>{window.sessionStorage.getItem('id')}</button>;
     } else {
-      return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+      return <div> <h2> {window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
     }
+
 
     // if (token == null) {
     //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
