@@ -14,7 +14,7 @@
   justify-content: flex-start;
   flex-direction: column;
   margin-top: 8%;
-  width: 65%;
+  width: 80%;
 }
 .container2{
   display:block;
@@ -34,7 +34,7 @@
   /* 최상단 삭제 버튼 스타일 */
   border: 0;
   outline: none;
-  font-size: 20px;
+  font-size: 24px;
   margin: 10px;
   background: rgb(156, 156, 156);
   color: white;
@@ -73,6 +73,7 @@
   width: 900px;
   display: table-cell;
   vertical-align: middle;
+  padding-left: 15%;
   /* background-color: rgb(113, 84, 139); */
 }
 
@@ -184,14 +185,15 @@
   max-width: 600px;
 }
 .steps_img{
-  padding-left: 20px;
+  /* padding-left: 20px; */
   display: table-cell;
   vertical-align: top;
 }
 .step_img{
   border:0;
   margin: 0;
-  max-width: 350px;
+  max-width: 300px;
+  max-height: 280px;
   border-radius: 15px;
 }
 
