@@ -247,7 +247,6 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
           console.log(descImg);
           setCookMethods(descImg); //모달 전역 스테이트에 저장하기
           setCreateMod(3)
-          window.location.href = 'http://localhost:3000/mypage';
           }}>다음단계</button>
       </div>
     </>

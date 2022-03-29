@@ -76,7 +76,7 @@ function CreateRecipe({ closeModal }) {
             {dataTest.map((data, index) => (
               <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
                 <div className={style.recipe}>
-                  <Link to="/board/detail" className={style.imageAndText}
+                  <Link to="/board/detail"  className={style.imageAndText}
                     onClick={() => {
                       window.sessionStorage.setItem(
                         "detail_recipeId", data.recipeId
