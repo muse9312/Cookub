@@ -1,13 +1,14 @@
 package com.cookub.backend.service;
 
-import com.cookub.backend.dto.UserDto;
-import com.cookub.backend.entity.User;
+import com.cookub.backend.dto.user.UserDto;
+import com.cookub.backend.entity.user.User;
 import com.cookub.backend.repository.UserRepository;
 import com.cookub.backend.util.JwtUtil;
 import com.cookub.backend.util.ResultCode;
 import com.cookub.backend.util.ResultJson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -112,6 +113,7 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
+
 
     }
 

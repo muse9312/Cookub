@@ -1,6 +1,6 @@
 package com.cookub.backend.repository;
 
-import com.cookub.backend.entity.Ingredient;
+import com.cookub.backend.entity.recipeE.Ingredient;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

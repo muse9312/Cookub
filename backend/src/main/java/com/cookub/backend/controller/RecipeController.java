@@ -1,19 +1,13 @@
 package com.cookub.backend.controller;
 
-import java.io.Console;
 import java.util.List;
 
-import com.cookub.backend.dto.CookMethodDto;
-import com.cookub.backend.dto.IngredientDto;
-import com.cookub.backend.dto.KeywordDto;
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.service.RecipeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 // import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -21,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/mypage")
-
+@Transactional
 public class RecipeController {
 
     @Autowired
@@ -53,9 +47,9 @@ public class RecipeController {
     }
 
     // 레시피 정보 수정
-    @PutMapping(value = "/recipe/{recipeId}")
-    public String putRecipe(@RequestBody RecipeDto recipeDto, @PathVariable Long recipeId) {
-        recipeService.putRecipe(recipeDto, recipeId);
+    @PostMapping(value = "/recipe/edit/{recipeId}")
+    public String editRecipe(@RequestBody RecipeDto recipeDto, @PathVariable Long recipeId) {
+        recipeService.editRecipe(recipeDto, recipeId);
         return "redirect:/";
     }
 

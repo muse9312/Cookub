@@ -1,6 +1,6 @@
 package com.cookub.backend.repository;
 
-import com.cookub.backend.entity.Keyword;
+import com.cookub.backend.entity.recipeE.Keyword;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
