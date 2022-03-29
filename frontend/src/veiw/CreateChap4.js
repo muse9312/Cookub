@@ -268,7 +268,8 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
 
                             closeModal(false) 
                             console.log(val);
-                            window.sessionStorage.clear()
+                            // window.location.href = 'http://localhost:3000/mypage';
+                            // window.sessionStorage.clear()
                             }}>완료</button>
       </div>
     </>
