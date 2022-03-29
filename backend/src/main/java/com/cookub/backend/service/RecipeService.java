@@ -4,14 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.cookub.backend.dto.CookMethodDto;
-import com.cookub.backend.dto.IngredientDto;
-import com.cookub.backend.dto.KeywordDto;
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.*;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +17,7 @@ public interface RecipeService {
     void setRecipe(RecipeDto recipeDto, Long userId);
 
     // 레시피 정보 수정
-    String putRecipe(RecipeDto recipeDto, Long userId);
+    String editRecipe(RecipeDto recipeDto, Long userId);
 
     // 레시피 목록 조회
     List<Recipe> myRecipe(Long userId);

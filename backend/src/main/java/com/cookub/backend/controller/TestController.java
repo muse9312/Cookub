@@ -1,7 +1,7 @@
 package com.cookub.backend.controller;
 
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.service.RecipeService;
 import com.cookub.backend.util.Response;
 

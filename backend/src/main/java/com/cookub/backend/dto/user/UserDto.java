@@ -1,4 +1,4 @@
-package com.cookub.backend.dto;
+package com.cookub.backend.dto.user;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,8 +8,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import com.cookub.backend.entity.profilepage.AwardsCareer;
+import com.cookub.backend.entity.profilepage.Certification;
+import com.cookub.backend.entity.profilepage.Etc;
+import com.cookub.backend.entity.profilepage.WorkCareer;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,5 +42,10 @@ public class UserDto {
     private String role;
     @CreationTimestamp
     private LocalDateTime createdDate;
+
+    List<AwardsCareer> awardsCareers = new ArrayList<>();
+    List<Certification> certifications = new ArrayList<>();
+    List<Etc> etcs = new ArrayList<>();
+    List<WorkCareer> workPlaces = new ArrayList<>();
 
 }

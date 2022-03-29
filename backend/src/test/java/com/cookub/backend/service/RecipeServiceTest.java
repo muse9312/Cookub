@@ -4,20 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.cookub.backend.dto.CookMethodDto;
-import com.cookub.backend.dto.IngredientDto;
-import com.cookub.backend.dto.RecipeDto;
-import com.cookub.backend.entity.CookMethod;
-import com.cookub.backend.entity.Ingredient;
-import com.cookub.backend.entity.Keyword;
-import com.cookub.backend.entity.Recipe;
-import com.cookub.backend.entity.Ingredient.IngredientBuilder;
+import com.cookub.backend.dto.recipe.*;
 import com.cookub.backend.repository.CookMethodRepository;
 import com.cookub.backend.repository.IngredientRepository;
 import com.cookub.backend.repository.KeywordRepository;
 import com.cookub.backend.repository.RecipeRepository;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

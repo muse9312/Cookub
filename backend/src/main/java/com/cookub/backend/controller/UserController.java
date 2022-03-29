@@ -1,7 +1,7 @@
 package com.cookub.backend.controller;
 
-import com.cookub.backend.dto.UserDto;
-import com.cookub.backend.entity.User;
+import com.cookub.backend.dto.user.UserDto;
+import com.cookub.backend.entity.user.User;
 import com.cookub.backend.exception.StorageException;
 import com.cookub.backend.repository.UserRepository;
 import com.cookub.backend.service.StorageService;

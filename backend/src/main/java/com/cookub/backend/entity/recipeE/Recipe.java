@@ -1,5 +1,7 @@
-package com.cookub.backend.entity;
+package com.cookub.backend.entity.recipeE;
 
+import com.cookub.backend.entity.recipeE.*;
+import com.cookub.backend.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -17,6 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Recipe {
     
     @Id

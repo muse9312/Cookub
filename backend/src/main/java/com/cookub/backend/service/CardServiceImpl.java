@@ -1,6 +1,6 @@
 package com.cookub.backend.service;
 
-import com.cookub.backend.entity.Recipe;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

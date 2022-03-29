@@ -1,8 +1,8 @@
 package com.cookub.backend.service;
 
-import com.cookub.backend.entity.Recipe;
-
 import java.util.List;
+
+import com.cookub.backend.entity.recipeE.Recipe;
 
 public interface CardService {
     List<Recipe> showOpenedCardList();

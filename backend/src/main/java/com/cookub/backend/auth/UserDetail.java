@@ -1,6 +1,5 @@
 package com.cookub.backend.auth;
 
-import com.cookub.backend.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.cookub.backend.entity.user.User;
 
 @Getter
 @Setter

@@ -5,6 +5,7 @@ import Board from './veiw/Board';
 import Login from './veiw/Login';
 import Main from './veiw/Main';
 import MyPage from './veiw/MyPage';
+import BoardDetailEdit from './veiw/BoardDetailEdit';
 import SignUp from './veiw/SignUp';
 import KakaoSignUp from './veiw/KakaoSignUp';
 import BoardDetail from './veiw/BoardDetail';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/board" exact={true} element={<Board />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/board/detail" exact={true} element={<BoardDetail />} />
+        <Route path="/board/detail/Edit"  element={<BoardDetailEdit />} />
         <Route path="/userinfo" element={<UserInfoUpdate />} />
       </Routes>
     </BrowserRouter>

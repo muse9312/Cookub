@@ -4,9 +4,10 @@ import axios from 'axios';
 import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import { TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag } from 'react-icons/ti';
+import { TiEdit, TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, TiTrash } from 'react-icons/ti';
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
+import { Link } from 'react-router-dom';
 function BoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
@@ -58,7 +59,8 @@ function BoardDetail() {
           <div className={style.empty} />
           <div className={style.contents}>
             <div className={style.editAndDelete}>
-              <button className={style.delete_btn} onClick={deleteAlert}>레시피 삭제</button>
+              <Link to='/board/detail/Edit'><button className={style.delete_btn}><TiEdit/> 수정</button></Link>
+              <button className={style.delete_btn} onClick={deleteAlert}><TiTrash/> 삭제</button>
             </div>
             <div className={style.container2}>
               <div className={style.step_top}>
