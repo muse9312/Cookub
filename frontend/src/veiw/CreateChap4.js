@@ -74,11 +74,15 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
       //아래 4줄의 코드는 챕터3에서 저장한 세션데이터준 DB에 저장될 사진이름을 고치는 코드임.
       const randomName = Math.random().toString(36).substr(2,11);
       let sessionData = JSON.parse(window.sessionStorage.getItem("cookMethods"))
-      console.log(sessionData);
-      console.log(i);
-      console.log(sessionData[i]);
-      sessionData[i].picture = randomName + "_"+ file.name;
-      console.log(sessionData[i].picture);
+      let newFileName = randomName + "_"+ file.name;
+
+      sessionData.map((v,i)=>{  //세션의 cookMethods 를 반복문돌려
+        if(v.picture === file.name){   //file이름을 가지고 있는 인덱스를 찾기위한 조건문
+          sessionData[i].picture = newFileName;  //기존에 파일 이름이 있는 새로운 파일 이름을 넣기
+        }
+      })
+      // sessionData[i].picture = randomName + "_"+ file.name;
+
       window.sessionStorage.setItem("cookMethods",JSON.stringify(sessionData))
 
       const params = {
@@ -251,11 +255,9 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                               "keywordList":JSON.parse(window.sessionStorage.getItem("keywordList")),
                               "foodImage" : foodImg
                             }
-                            console.log(keypoint);
-                            console.log(window.sessionStorage.getItem("title"));
                            
                             axios //로그인된 사용자의 userId를 우선 하드코딩해서 넣어놨다. 
-                              .post(`http://localhost:8080/mypage/recipe/2`, JSON.stringify(val), {
+                              .post(`http://localhost:8080/mypage/recipe/${cookies.get('userId')}`, JSON.stringify(val), {
                                 headers: {
                                   "Content-Type": `application/json`,
                                 },
@@ -265,6 +267,8 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                               })
 
                             closeModal(false) 
+                            console.log(val);
+                            window.sessionStorage.clear()
                             }}>완료</button>
       </div>
     </>

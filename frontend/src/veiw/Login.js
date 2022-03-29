@@ -36,7 +36,7 @@ function Login() {
 
   function KakaoClick(e) {
     e.preventDefault();
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=b27394601c5c81c4926f41949e1dc837&redirect_uri=http://8b69-222-112-83-79.ngrok.io/oauth/kakao/callback&response_type=code`
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=a2b02f5b67bf10d12472ebb1c0541618&redirect_uri=http://localhost:3000/oauth/kakao/callback&response_type=code`
   }
 
 
@@ -77,6 +77,8 @@ function Login() {
           if (res.status === 200) {
 
             // JWT Token 
+
+            cookies.set('userId', res.data.user.userId, { path: "/" });
             cookies.set('token', res.data.token, { path: "/" });
             cookies.set('username', res.data.user.username, { path: "/" });
             cookies.set('profile', res.data.user.profile, { path: "/" });
