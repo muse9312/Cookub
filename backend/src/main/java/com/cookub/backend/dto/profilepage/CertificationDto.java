@@ -8,9 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CertificationDto {
-    private Long certification_id;
+    private Long certificationId;
     private String certName;
-    private String getcertdate;
+    private String getCertDate;
 
-    private Long user_id;
+    private Long userId;
 }

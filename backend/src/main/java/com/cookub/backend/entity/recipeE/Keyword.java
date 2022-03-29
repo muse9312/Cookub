@@ -22,4 +22,5 @@ public class Keyword {
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
     private Recipe keywordRecipe;
+    
 }

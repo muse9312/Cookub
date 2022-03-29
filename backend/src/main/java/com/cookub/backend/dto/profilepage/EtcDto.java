@@ -9,9 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 public class EtcDto {
     
-    private Long etc_Id;
+    private Long etcId;
     private String point;
     private String pointpicture;
 
-    private Long user_id;
+    private Long userId;
 }

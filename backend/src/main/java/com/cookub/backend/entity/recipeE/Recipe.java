@@ -40,7 +40,6 @@ public class Recipe {
     private LocalDateTime updatedDate;
     private String foodImage;
     
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -9,10 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 public class AwardsCareerDto {
 
-    private Long awardsCareer_id;
+    private Long awardsCareerId;
     private String awdName;
     private String getAwdDate;
 
-    private Long user_id;
+    private Long userId;
 
 }

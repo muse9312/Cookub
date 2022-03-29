@@ -7,13 +7,13 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkPlaceDto {
+public class WorkCareerDto {
     
-    private Long workPlace_Id;
+    private Long workPlaceId;
     private String compName;
     private String location;
     private String jobPosition;
     private String period;
 
-    private Long user_id;
+    private Long userId;
 }

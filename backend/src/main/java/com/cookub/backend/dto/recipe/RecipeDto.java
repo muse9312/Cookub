@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeDto {
-    
+
     private String title;
     private Long recipeId;
     private String level;
@@ -35,7 +35,7 @@ public class RecipeDto {
     private LocalDateTime updatedDate;
 
     private Long userId;
-    
+
     List<Ingredient> ingredients = new ArrayList<>();
     List<Keyword> keywordList = new ArrayList<>();
     List<CookMethod> cookMethods = new ArrayList<>();

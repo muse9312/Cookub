@@ -1,24 +1,27 @@
 package com.cookub.backend.entity.url;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+
+import com.cookub.backend.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.*;
-
+@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Url {
-    
+
     @Id
     @GeneratedValue
-    @Column(name = "url_Id")
     private Long url_Id;
     private String recipeList;
     private String key;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User urlUser;
 
-    private Long user_id;
 }

@@ -1,18 +1,16 @@
 package com.cookub.backend.entity.profilepage;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 import com.cookub.backend.entity.user.User;
-
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Certification {
@@ -20,10 +18,12 @@ public class Certification {
     @Id
     @GeneratedValue
     @Column(name = "certification_id")
-    private Long certification_id;
+    private Long certificationId;
     private String certName;
-    private String getcertdate;
-
+    private String getCertDate;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User certificationUser;
+
 }

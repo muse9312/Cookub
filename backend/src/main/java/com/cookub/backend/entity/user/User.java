@@ -1,13 +1,22 @@
 package com.cookub.backend.entity.user;
 
+import com.cookub.backend.entity.profilepage.AwardsCareer;
+import com.cookub.backend.entity.profilepage.Certification;
+import com.cookub.backend.entity.profilepage.Etc;
+import com.cookub.backend.entity.profilepage.WorkCareer;
+import com.cookub.backend.entity.url.Url;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -45,5 +54,23 @@ public class User {
     private String role;
     @CreationTimestamp
     private LocalDateTime createdDate;
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "CareerUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<AwardsCareer> awardsCareers = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "certificationUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Certification> certifications = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "etcUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Etc> etcs = new ArrayList<>();
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "workPlaceUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<WorkCareer> workCareers = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "urlUser")
+    List<Url> urls = new ArrayList<>();
 }
