@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
@@ -70,7 +71,8 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "workPlaceUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<WorkCareer> workCareers = new ArrayList<>();
+
     @JsonManagedReference
-    @OneToMany(mappedBy = "urlUser")
+    @OneToMany(mappedBy = "urlUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Url> urls = new ArrayList<>();
 }
