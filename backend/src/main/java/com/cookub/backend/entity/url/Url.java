@@ -7,6 +7,7 @@ import com.cookub.backend.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.*;
+
 @Entity
 @Getter
 @Setter
@@ -17,10 +18,12 @@ public class Url {
 
     @Id
     @GeneratedValue
-    private Long url_Id;
+    @Column(name = "url_Id")
+    private Long urlId;
     private String recipeList;
     private String key;
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User urlUser;
 
