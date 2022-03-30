@@ -18,21 +18,12 @@ function Navigation() {
   const cookies = new Cookies();
   const token = cookies.get('token');
 
-  const [user_id, setUserId] = useState();
-  const [nickName, setNickName] = useState();
-  const [profileImage, setProfileImage] = useState();
 
   console.log(token);
 
   function SendLogin(e) {
     e.preventDefault();
-    window.location.href = "/login"
-
-  }
-
-  function SendProfile(e) {
-    e.preventDefault();
-    window.location.href = "/userInfo"
+    window.location.href = "login"
 
   }
 
@@ -62,49 +53,39 @@ function Navigation() {
 
   }
 
-  function getProfile() {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 획득
-      let data = window.Kakao.API.request({
-        url: "/v2/user/me",
-      });
-      // 사용자 정보 변수에 저장
-      setUserId(data.id);
-      setNickName(data.properties.nickname);
-      setProfileImage(data.properties.profile_image);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
 
   function BtnHendler() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-
-    if (token == null) {
-      return <button className={style.login_button} onClick={SendLogin}>{window.sessionStorage.getItem('id')}</button>;
-    } else {
-      return <div> <h2> {window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    if (token || kakao == null) {
+      return <button className={style.login_button} onClick={SendLogin}>Login</button>;
+    } else if (token !== null) {
+      <div> <h2> {cookies.get('username')}{window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    } else if (kakao !== null) {
+      return <div>
+        <h2>{cookies.get('nickname')}  님 어서오세요</h2>
+        <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
     }
 
 
     // if (token == null) {
     //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    // } else if (token !== null) {
-    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else {
-    //   return <div>
-    //     <h2>{user_id}</h2>
-    //     <h2>{nickName}</h2>
-    //     <img src={profileImage}></img>
-    //   </div>
-    // }
+    // } else if(kakao !== null) {
+    //   return <div> <h2> {cookies.get('username')}{window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    // } else
 
+
+    // if (token !== null) {
+    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    // } else if (kakao !== null) {
+    //   return <div>
+    //     <h2>{cookies.get('nickname')}  님 어서오세요</h2>
+    //     <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    // } else {
+    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
+    // }
+    // {window.sessionStorage.getItem('nickname')}
   }
 
   function BtnUserInfo() {
