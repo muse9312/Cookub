@@ -1,5 +1,7 @@
 package com.cookub.backend.dto.url;
 
+import com.cookub.backend.entity.user.User;
+
 import lombok.*;
 
 @Getter
@@ -13,5 +15,5 @@ public class UrlDto {
     private String recipeList;
     private String key;
 
-    private Long user_id;
+    private User user_id;
 }
