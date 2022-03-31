@@ -36,4 +36,5 @@ public class CardController {
         response.add("data",cardService.clickLikeRecipe(recipeId));
         return response;
     }
+    
 }
