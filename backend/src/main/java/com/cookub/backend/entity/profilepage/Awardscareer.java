@@ -21,6 +21,7 @@ public class AwardsCareer {
     private Long awardsCareerId;
     private String awdName;
     private String getAwdDate;
+    private String issuedAwd;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

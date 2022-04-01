@@ -1,6 +1,8 @@
 package com.cookub.backend.entity.url;
 
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 import com.cookub.backend.entity.user.User;
@@ -20,8 +22,8 @@ public class Url {
     @GeneratedValue
     @Column(name = "url_Id")
     private Long urlId;
-    private String recipeList;
-    private String key;
+    private Date lastDate;
+    private String privateKey;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
