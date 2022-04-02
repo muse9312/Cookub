@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 public interface UrlService {
 
     // url 발급( 등록 ) 
-    void setUrl(UrlDto urlDto, Long userId);
-
-    // url 접속 ( 확인 )
-    List<Url> getUrl( Long userId);
+    String setUrl(Long userId);
 
 }   

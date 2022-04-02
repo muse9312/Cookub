@@ -1,7 +1,10 @@
 package com.cookub.backend.service;
 
 import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.cookub.backend.dto.url.UrlDto;
 import com.cookub.backend.entity.url.Url;
@@ -25,24 +28,28 @@ public class UrlServiceImpl implements UrlService {
     //url 발급 (등록)
     @Override
     @Transactional
-    public void setUrl(UrlDto urlDto, Long userId) {
+    public String setUrl(Long userId) {
         User user = userRepository.findById(userId).get();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 7);
+        Date lastDate = cal.getTime();
+
+
+        String privateKey = UUID.randomUUID().toString();
+
         Url urlEntity = Url.builder()
-                .lastDate(urlDto.getLastDate())
-                .privateKey(urlDto.getPirvateKey())
+                .lastDate(lastDate)
+                .privateKey(privateKey)
                 .urlUser(user)
                 .build();
 
         urlEntity = urlRepository.save(urlEntity); 
+
+        return privateKey;
     }
     //url 접속 (확인)
 
-    @Override
-    @Transactional
-    public List<Url> getUrl(Long userId) {
-        User user = userRepository.findById(userId).get();
-        List<Url> url = urlRepository.findByUser(user);
-        return url;
-    }
 
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.cookub.backend.entity.user.User;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.*;
 
 @Getter
@@ -14,9 +16,9 @@ import lombok.*;
 public class UrlDto {
     
     private Long url_Id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastDate;
     //date type date는 "yyyy/MM/dd"
-    //time은 "hh:mm:ss a"
     private String pirvateKey;
 
     private User user_id;

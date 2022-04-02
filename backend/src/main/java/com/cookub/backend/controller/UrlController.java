@@ -25,15 +25,11 @@ public class UrlController {
     @Autowired
     private UrlService urlService;
     
-    @PostMapping(value = "/set/{userId}")
-    public void setUrl(@RequestBody UrlDto urlDto, @PathVariable Long userId) {
-        urlService.setUrl(urlDto, userId);
+    @PostMapping(value = "/{userId}")
+    public String setUrl(@PathVariable Long userId) {
+        return urlService.setUrl(userId);
+
     }
 
-    @GetMapping(value = "/get/{userId}")
-    public List<Url> getUrl(@PathVariable("userId") Long userId) {
-        return urlService.getUrl(userId);
-    }
-
-    //getUrl
+   // http://localhost:3000/private/key
 }

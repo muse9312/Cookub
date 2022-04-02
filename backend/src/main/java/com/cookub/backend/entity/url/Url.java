@@ -8,6 +8,8 @@ import javax.persistence.*;
 import com.cookub.backend.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.*;
 
 @Entity
@@ -22,11 +24,13 @@ public class Url {
     @GeneratedValue
     @Column(name = "url_Id")
     private Long urlId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastDate;
     private String privateKey;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    
     private User urlUser;
 
 }

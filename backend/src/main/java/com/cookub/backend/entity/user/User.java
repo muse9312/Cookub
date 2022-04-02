@@ -49,7 +49,7 @@ public class User {
     @NotNull
     private int career;     //경력년수
     @NotNull
-    private String workPlace;
+    private String workPlace; 
     @NotNull
     private String workNation;
     private String role;
