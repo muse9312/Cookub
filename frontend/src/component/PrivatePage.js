@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 
 const PrivatePage = ()=>{
-  const {key}  = useParams();
-  const [security, setSecurity] = useState(false);
+  const {key}  = useParams(); //url 의 key 변수에 저장.
+ 
+  const [dataTest, setDataTest] = useState([]);
+  const [security, setSecurity] = useState([]);
 
   const tricData = {asdf:{data:''},hjkl:{data:''}}
   const pixdata = tricData[key]
@@ -12,18 +14,13 @@ const PrivatePage = ()=>{
   useEffect(()=>{
     //axios 로 key를 보내서 get한다
     axios
-    .get(`http://localhost:8080/mypage/recipe/${key}`)
+    .get(`http://localhost:8080/mypage/private/${key}`)
     .then((res) => {
       console.log(res);
+      console.log(res.data);
+      setDataTest(res.data)
     })
     //state에 리턴된 데이터를 냄
-
-
-    if(!pixdata){
-      setSecurity(false)
-    }else{
-      setSecurity(true)
-    }
   },[])
 
 
@@ -31,7 +28,7 @@ const PrivatePage = ()=>{
   return(
     <>
       {
-        security
+        dataTest
         ?(
         <h1>접속에 성공하셨습니다.</h1>
 

@@ -76,7 +76,11 @@ function CreateRecipe({ closeModal }) {
         </section>
         <section className={style.container2}>
           <div className={style.container3}>
-            <Timer />
+            <ul>
+              <li>레시피 보기</li>
+              <li>열람 주소 관리</li>
+            </ul>
+            {/* <Timer /> */}
             <div className={style.public_recipes}>
               {dataTest.map((data, index) => (
                 <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}

@@ -1,5 +1,7 @@
 
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 import style from './Timer.module.css';
 
 function Timer() {
@@ -7,6 +9,8 @@ function Timer() {
   const [randomKey, setRandomKey] = useState('');
   const [day, setDay] = useState(0);
   const [hour, setHour] = useState(0);
+
+  const cookies = new Cookies();
 
 
   useEffect(() => {
@@ -37,24 +41,14 @@ function Timer() {
 
   const createNowTime = () => { //URL 생성 이벤트 처리
     //URL이 생성된 날짜
-    const date = new Date();
-    setDatabaseTime(date) //테스트용으로 클릭하면 날짜값 들어가게함.
-
-    var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
-
-    var dateString = year + '-' + month + '-' + day;
-    console.log(dateString);
-    console.log("2022-04-02");
-
-    //생성된 URL (key를 서버에서 검사할건지 프론트에서 할건지.)
-    const createRandomKey = Math.random().toString(36).substr(2, 11);
-    console.log(createRandomKey); //열람을 가능하게 할 userId를 명시해서 key를 발급해야 될듯.
-    setRandomKey(createRandomKey)
-
-    //위 두 데이터를 DB로 보내는 코드
-
+    const userId = cookies.get('userId')
+    axios
+    .post(`http://localhost:8080/url/${userId}`)
+    .then((res) => {
+      console.log(res);
+      console.log(res.data);
+      setRandomKey(res.data)
+    })
   }
 
   const deleteTime = () => { //기능종료 이벤트 처리
