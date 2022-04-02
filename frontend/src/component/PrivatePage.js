@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 
@@ -10,7 +11,12 @@ const PrivatePage = ()=>{
 
   useEffect(()=>{
     //axios 로 key를 보내서 get한다
-    //state에 리턴된
+    axios
+    .get(`http://localhost:8080/mypage/recipe/${key}`)
+    .then((res) => {
+      console.log(res);
+    })
+    //state에 리턴된 데이터를 냄
 
 
     if(!pixdata){
