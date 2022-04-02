@@ -18,6 +18,7 @@ import com.cookub.backend.repository.IngredientRepository;
 import com.cookub.backend.repository.KeywordRepository;
 import com.cookub.backend.repository.RecipeRepository;
 import com.cookub.backend.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,6 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     // 레시피 등록 (레시피)
     @Override
     @Transactional
+    @JsonCreator
     public void setRecipe(RecipeDto recipeDto, Long userId) {
         User user = userRepository.findById(userId).get();
         Recipe recipeEntity = Recipe.builder()

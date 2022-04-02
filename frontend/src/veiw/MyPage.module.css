@@ -49,6 +49,12 @@
   justify-content: right;
   background-color: rgb(237, 238, 238);
 }
+.container3{
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
 
 .public_recipes{
   display: grid;

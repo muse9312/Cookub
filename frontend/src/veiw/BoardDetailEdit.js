@@ -15,7 +15,11 @@ function BoardDetailEdit() {
   const cookie = new Cookies();
   const token = cookie.get('token');
 
-  const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
+  const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/" // --> 리사이징 안된 이미지 저장하는곳
+  // const imgUrl = "https://s3-bucket-react-file-upload-test-5jo-resized.s3.us-east-2.amazonaws.com/upload/"   //리사이징된 이미지 저장하는곳
+
+
+  
 
 
   useEffect(() => {
@@ -43,7 +47,7 @@ function BoardDetailEdit() {
       : console.log(document.querySelector(`[name=recipe_${strSlice[1]}]`).value)
   }
 
-  const editButtonEvent = () => {
+  const editButtonEvent = () => { //수정완료 누르면 동작하는 함수
     let result = []
 
     const ingreResult = []; // 재료 오브젝트
@@ -56,15 +60,15 @@ function BoardDetailEdit() {
         value = document.querySelector(`[name=recipe_ingredientName${i}]`).value
       }
 
-      let value2 = 0;
+      let value2 = "";
       if(document.querySelector(`[name=recipe_amount${i}]`).value === ""){
-        value2 = Number(recipe.ingredients[i].amount)
+        value2 = recipe.ingredients[i].amount
       }else{
-        value2 = Number(document.querySelector(`[name=recipe_amount${i}]`).value) 
+        value2 = document.querySelector(`[name=recipe_amount${i}]`).value
       }
 
       const obj = {
-        "ingredientId":recipe.ingredients[i].ingredientId,
+        "IngredientId":recipe.ingredients[i].ingredientId,
         "ingredientName":value,
         "amount":value2
       }
@@ -128,21 +132,23 @@ function BoardDetailEdit() {
     console.log(recipe.likeCnt)
 
     result.push({
+      "recipeId":Number(window.sessionStorage.getItem("detail_recipeId")),
       "title" : titleValue,
-      "likeCut" : recipe.likeCnt,
+      "likeCnt" : recipe.likeCnt,
       "level" : levelValue,
       "keypoint" : keypointValue,
       "isOpenable" : isOpenableValue,
       "foodImage" : recipe.foodImage,
       "cookingTime" : cookingTimeValue,
       "ingredients" : ingreResult,
-      "cookMethods" : methodResult
+      "cookMethods" : methodResult,
+      "keywordList": recipe.keywordList
     })
+
 
     console.log(result)
 
-    axios //로그인된 사용자의 userId를 우선 하드코딩해서 넣어놨다. 
-      .post(`http://localhost:8080/mypage/recipe/edit/${window.sessionStorage.getItem("detail_recipeId")}`, JSON.stringify(result), {
+    axios.post(`http://localhost:8080/mypage/recipe/edit/${window.sessionStorage.getItem("detail_recipeId")}`, JSON.stringify(result[0]), {
         headers: {
           "Content-Type": `application/json`,
         },
@@ -160,7 +166,6 @@ function BoardDetailEdit() {
           <div className={style.empty} />
           <div className={style.contents}>
             <div className={style.editAndDelete}>
-              <h2>레시피 수정모드</h2>
               <button className={style.delete_btn} onClick={() => { editButtonEvent() }}><TiTickOutline /> 수정완료</button>
             </div>
             <div className={style.container2}>

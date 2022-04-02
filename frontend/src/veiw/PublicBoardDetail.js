@@ -8,7 +8,7 @@ import { TiEdit, TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, 
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
 import { Link } from 'react-router-dom';
-function BoardDetail() {
+function PublicBoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
 
@@ -37,18 +37,6 @@ function BoardDetail() {
     e.target.scr = img;
   }
 
-  const deleteAlert = () => {
-    if (window.confirm("정말로 삭제 하시겠습니까?")) {
-      alert("레시피가 삭제 됐습니다.")
-      const id = window.sessionStorage.getItem("detail_recipeId");
-      axios.delete(`http://localhost:8080/mypage/recipe/${id}`)
-        .then((res) => { console.log(res.data); })
-      window.location.href = 'http://localhost:3000/mypage';
-    } else {
-      alert("취소 되었습니다.")
-    }
-  }
-
 
   return (
     /* <QRcode id="myqr" value={"https://github.com/Namhoon-95"} 
@@ -59,10 +47,6 @@ function BoardDetail() {
         <div className={style.container}>
           <div className={style.empty} />
           <div className={style.contents}>
-            <div className={style.editAndDelete}>
-              <Link to='/board/detail/Edit'><button className={style.delete_btn}><TiEdit/> 수정</button></Link>
-              <button className={style.delete_btn} onClick={deleteAlert}><TiTrash/> 삭제</button>
-            </div>
             <div className={style.container2}>
               <div className={style.step_top}>
                 {/* 제목 */}
@@ -178,4 +162,4 @@ function BoardDetail() {
   );
 }
 
-export default BoardDetail;
+export default PublicBoardDetail;
