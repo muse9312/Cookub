@@ -21,6 +21,7 @@ public class Certification {
     private Long certificationId;
     private String certName;
     private String getCertDate;
+    private String issuedCert;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
