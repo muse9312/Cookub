@@ -12,6 +12,7 @@ public class AwardsCareerDto {
     private Long awardsCareerId;
     private String awdName;
     private String getAwdDate;
+    private String issedAwd;
 
     private Long userId;
 

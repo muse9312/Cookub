@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
-import com.cookub.backend.entity.profilepage.Etc;
+import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
 
 import java.time.LocalDate;
@@ -45,7 +45,7 @@ public class UserDto {
 
     List<AwardsCareer> awardsCareers = new ArrayList<>();
     List<Certification> certifications = new ArrayList<>();
-    List<Etc> etcs = new ArrayList<>();
+    List<Degree> degrees = new ArrayList<>();
     List<WorkCareer> workPlaces = new ArrayList<>();
 
 }

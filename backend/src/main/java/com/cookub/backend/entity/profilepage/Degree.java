@@ -13,17 +13,18 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Etc {
+public class Degree {
     
     @Id
     @GeneratedValue
-    @Column(name = "etc_id")
-    private Long etcId;
-    private String point;
-    private String pointpicture;
+    @Column(name = "degree_id")
+    private Long degreeId;
+    private String education;
+    private String major;
+    private String graduation;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User etcUser;
+    private User degreeUser;
 
 }
