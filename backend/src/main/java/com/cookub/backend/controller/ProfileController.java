@@ -1,5 +1,8 @@
 package com.cookub.backend.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cookub.backend.dto.profilepage.AwardsCareerDto;
 import com.cookub.backend.dto.profilepage.CertificationDto;
 import com.cookub.backend.dto.profilepage.DegreeDto;
@@ -9,6 +12,7 @@ import com.cookub.backend.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,12 @@ public class ProfileController {
 
     @Autowired
     ProfileService profileService;
+
+    // get Profile Info
+    @GetMapping(value = "/{userId}")
+    public ArrayList<List> profile(@PathVariable("userId") Long userId ){
+        return profileService.profile(userId);
+    }
 
     // update AwardsCareer
     @PostMapping(value = "/awd/{userId}")

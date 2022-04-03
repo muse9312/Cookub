@@ -57,7 +57,7 @@ public class User {
     private LocalDateTime createdDate;
     
     @JsonManagedReference
-    @OneToMany(mappedBy = "CareerUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "careerUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<AwardsCareer> awardsCareers = new ArrayList<>();
 
     @JsonManagedReference

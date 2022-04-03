@@ -1,5 +1,8 @@
 package com.cookub.backend.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import com.cookub.backend.dto.profilepage.AwardsCareerDto;
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Service;
 public interface ProfileService {
 
     // get profile info 
-
+    ArrayList<List> profile(Long userId);
 
     // update AwardsCareer
     void setAwd(AwardsCareerDto AwdDto, Long userId);

@@ -38,6 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         path.startsWith("/mypage")|
         path.startsWith("/v2")|
         path.startsWith("/open")|
+        path.startsWith("/profile")|
         path.startsWith("/url")
         ) {
             System.out.println("1. user 경로 필터 적용 안하고 들어옴");

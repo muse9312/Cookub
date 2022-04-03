@@ -26,6 +26,6 @@ public class AwardsCareer {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User CareerUser;
+    private User careerUser;
 
 }

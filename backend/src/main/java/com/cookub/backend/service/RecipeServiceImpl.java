@@ -126,7 +126,7 @@ public class RecipeServiceImpl implements RecipeService {
         return list;
     }
 
-    // 레시피 목록 조회
+    // private 레시피 조회
     @Override
     public List<Recipe> myPrivate(String key) {
         Url url = urlRepository.findByPrivateKey(key);
