@@ -2,6 +2,11 @@ package com.cookub.backend.service;
 
 import javax.transaction.Transactional;
 
+import com.cookub.backend.dto.profilepage.AwardsCareerDto;
+import com.cookub.backend.dto.profilepage.CertificationDto;
+import com.cookub.backend.dto.profilepage.DegreeDto;
+import com.cookub.backend.dto.profilepage.WorkCareerDto;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,15 +17,15 @@ public interface ProfileService {
 
 
     // update AwardsCareer
-    void setAwd();
+    void setAwd(AwardsCareerDto careerDto, Long userId);
 
     // upadate Certification
-    void setCert();
+    void setCert(CertificationDto certDto, Long userId);
 
     // update Degree 
-    void setDegree();
+    void setDegree(DegreeDto degreeDto, Long userId);
 
     // update WorkCareer 
-    void setCareer();
+    void setWork(WorkCareerDto workDto, Long userId);
 
 }

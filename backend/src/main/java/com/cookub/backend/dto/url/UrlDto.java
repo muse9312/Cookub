@@ -20,6 +20,7 @@ public class UrlDto {
     private Date lastDate;
     //date type date는 "yyyy/MM/dd"
     private String pirvateKey;
+    private String purpose;
 
     private User user_id;
 }

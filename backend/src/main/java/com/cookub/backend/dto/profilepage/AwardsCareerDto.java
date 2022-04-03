@@ -13,6 +13,7 @@ public class AwardsCareerDto {
     private String awdName;
     private String getAwdDate;
     private String issedAwd;
+    private String compName;
 
     private Long userId;
 
