@@ -17,7 +17,7 @@ public interface ProfileService {
 
 
     // update AwardsCareer
-    void setAwd(AwardsCareerDto careerDto, Long userId);
+    void setAwd(AwardsCareerDto AwdDto, Long userId);
 
     // upadate Certification
     void setCert(CertificationDto certDto, Long userId);
