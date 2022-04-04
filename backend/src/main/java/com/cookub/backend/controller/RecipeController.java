@@ -34,7 +34,6 @@ public class RecipeController {
         recipeService.setRecipe(recipeDto, userId);
     }
 
-
     // 내 레시피 목록 조회
     @GetMapping("/recipe/list/{userId}")
     public List<Recipe> myRecipe(@PathVariable("userId") Long userId) {
@@ -66,5 +65,7 @@ public class RecipeController {
     public String recipeDelete(@PathVariable("recipeId") long recipeId) {
         return recipeService.delRecipe(recipeId);
     }
+
+    // 레시피 검색
 
 }

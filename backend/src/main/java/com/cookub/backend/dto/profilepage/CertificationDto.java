@@ -12,5 +12,6 @@ public class CertificationDto {
     private String certName;
     private String getCertDate;
     private String issuedCert;
+    
     private Long userId;
 }
