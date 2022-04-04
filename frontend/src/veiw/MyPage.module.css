@@ -3,17 +3,21 @@
   height: 100%;
   display: flex;
   justify-content: right;
-  background-color: rgb(228, 225, 231);
+  background-color: rgb(237, 238, 238);
+  padding: 60px 300px 20px 420px;
 }
 
 .My_recipes{
   padding: 40px; 
   width: 78%;
-  padding-top: 10%;
+  padding-top: 5%;
   padding-bottom: 5%;
   display: block;
   text-align: center;
   justify-content: right;
+  border: 1px solid;
+  border-radius: 50px;
+  background-color:rgb(248, 248, 248) ;
 }
 
 .create_recipe_bt{
@@ -35,10 +39,41 @@
 }
 
 
+/* 탭 스타일 */
+.tabType{
+  list-style: none;
+  padding-top: 50px;
+}
+.tabItem{
+  list-style: none;
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+.tabText{
+  padding: 15px;
+  border-bottom: 2px solid #aaa;
+  text-align: center;
+  color: #aaa;
+  font-weight: 300;
+  font-size: 20px;
+}
+.tabText:hover{
+  color: #2c2c2c;
+  border-bottom: 3px solid #2c2c2c;
+  font-weight: bold;
+}
 
-
-
-
+.pickTabText{
+  padding: 15px;
+  border-bottom: 3px solid #2c2c2c;
+  text-align: center;
+  color: #2c2c2c;
+  font-weight: bold;
+  font-size: 20px;
+}
 
 
 
@@ -49,14 +84,20 @@
   justify-content: right;
   background-color: rgb(237, 238, 238);
 }
+.container3{
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
 
 .public_recipes{
   display: grid;
   grid-template-columns: repeat(4, minmax(200px, auto));
   grid-gap: 50px;
   padding: 40px; 
-  width: 78%;
-  padding-top: 200px;
+  width: 92%;
+  padding-top: 100px;
 }
 
 @media screen and (max-width: 1500px) {
@@ -92,7 +133,7 @@
   max-width: 100%;
   max-height: 100%;
   width: 300px;
-  height: 550px;
+  height: 530px;
 }
 
 .recipe:hover{ 

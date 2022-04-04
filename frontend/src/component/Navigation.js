@@ -90,6 +90,19 @@ function Navigation() {
     } else {
       return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
     }
+
+    // if (token == null) {
+    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
+    // } else if (token !== null) {
+    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    // } else {
+    //   return <div>
+    //     <h2>{user_id}</h2>
+    //     <h2>{nickName}</h2>
+    //     <img src={profileImage}></img>
+    //   </div>
+    // }
+
   }
 
   function BtnUserInfo() {
@@ -98,7 +111,7 @@ function Navigation() {
     if (token == null) {
       return null
     } else {
-      return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Profile</Link></li>
+      return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
     }
   }
 
@@ -112,11 +125,7 @@ function Navigation() {
       <div>
         {BtnHendler()}
       </div>
-      <div>
-        <h2>{user_id}</h2>
-        <h2>{nickName}</h2>
-        <img src={profileImage}></img>
-      </div>
+
       <br />
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>

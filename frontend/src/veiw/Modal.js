@@ -124,7 +124,6 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
             setIngreList(copy);
             document.querySelector('[name=ingre_list]').value=""; //인풋초기화
              } } >추가</button>
-             {console.log(ingreList)}
         </form>
 
         <div className={style.lists}>
@@ -135,17 +134,7 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
             <div className={style.proc_row}>
               <div className={style.list_item}>{value.ingredientName}</div>
               <div className={style.inputAndDelete}>
-                <from className={style.amount_input}>
-                  <input placeholder={value.amount ? value.amount:0} type="text" name={gram} id="gram" className={style.amount_textInput} ></input>
-                  <button type='submit' onClick={(e)=>{
-                    e.preventDefault();
-                    let copy = [...ingreList];
-                    const gramName = "[name=" + gram + "]"
-                    copy[index].amount = document.querySelector(gramName).value;
-                    setIngreList(copy);
-                  }}>입력</button>
-                  {console.log(ingreList)}
-                </from>
+                <input placeholder={value.amount ? value.amount:0} type="text" name={gram} id="gram" className={style.amount_textInput} ></input>
                 <div><RiCloseCircleLine className={style.delete_icon} onClick={(e)=>{
                   e.preventDefault();
                   let copy = [...ingreList];
@@ -164,6 +153,15 @@ function CreateChap2({ closeModal, setCreateMod,chapter2List, setChapter2List })
                 setChapter2List(ingreList)
                 setCreateMod(0)}}>이전단계</button>
         <button className={style.footerBt2} onClick={()=>{
+
+                for(var i=0;i<ingreList.length;i++){
+                  let copy = [...ingreList];
+                  copy[i].amount = document.querySelector(`[name=gramIndex${i}]`).value;
+                  setIngreList(copy);
+                }
+
+                console.log(ingreList)
+
                 window.sessionStorage.setItem("ingredients",JSON.stringify(ingreList))
                 setChapter2List(JSON.parse(window.sessionStorage.getItem("ingredients")))
                 setCreateMod(2)
@@ -247,7 +245,6 @@ function CreateChap3({ closeModal, setCreateMod, chapter3List, setChapter3List, 
           console.log(descImg);
           setCookMethods(descImg); //모달 전역 스테이트에 저장하기
           setCreateMod(3)
-          window.location.href = 'http://localhost:3000/mypage';
           }}>다음단계</button>
       </div>
     </>

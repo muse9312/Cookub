@@ -1,7 +1,7 @@
 package com.cookub.backend.service;
 
-import com.cookub.backend.dto.UserDto;
-import com.cookub.backend.entity.User;
+import com.cookub.backend.dto.user.UserDto;
+import com.cookub.backend.entity.user.User;
 import com.cookub.backend.util.ResultJson;
 import org.springframework.web.bind.annotation.RequestBody;
 

@@ -1,7 +1,8 @@
 package com.cookub.backend.repository;
 
-import com.cookub.backend.dto.UserDto;
-import com.cookub.backend.entity.User;
+import com.cookub.backend.dto.user.UserDto;
+import com.cookub.backend.entity.user.User;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,6 +12,7 @@ import Input from '@mui/material/Input';
 import Autocomplete from '@mui/material/Autocomplete';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Avatar from '@mui/material/Avatar';
+import Navigation from '../component/Navigation'
 
 
 import Cookies from 'universal-cookie';
@@ -34,6 +35,8 @@ const UserInfoUpdate = () => {
   const cookies = new Cookies();
 
   const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
+
+
 
   const handleFiles = (files) => {
     console.log(files);
@@ -524,75 +527,128 @@ const UserInfoUpdate = () => {
     e.preventDefault(e);
     console.log(e);
 
+    const token = cookies.get('token');
+
+    // 프로필
+    const file = document.querySelector('[name=file]').files[0];
+    console.log(document.querySelector('[name=file]').value);
+    // 이메일
+    const email = document.querySelector('[name=useremail]').value;
+    console.log(document.querySelector('[name=useremail]').value);
+    // 페스워드
+    const password = document.querySelector('[name=password]').value;
+    console.log(document.querySelector('[name=password]').value);
+    // 이름
+    const username = document.querySelector('[name=username]').value;
+    console.log(document.querySelector('[name=username]').value);
+    // 전화번호
+    const tel = document.querySelector('[name=tel]').value;
+    console.log(document.querySelector('[name=tel]').value);
+    // 생일
+    const birth = document.querySelector('[name=birth]').value;
+    console.log(document.querySelector('[name=birth]').value);
+    // 전문분야
+    const field = document.querySelector('[name=field]').value;
+    console.log(document.querySelector('[name=field]').value);
+    // 거주국가
+    const workNation = document.querySelector('[name=work_nation]').value;
+    console.log(document.querySelector('[name=work_nation]').value);
+    // 수준
+    const grade = document.querySelector('[name=grade]').value;
+    console.log(document.querySelector('[name=grade]').value);
+    // 경력
+    const career = document.querySelector('[name=career]').value;
+    console.log(document.querySelector('[name=career]').value);
+    // 현재 근무지
+    const workPlace = document.querySelector('[name=work_place]').value;
+    console.log(document.querySelector('[name=work_place]').value);
+
+
     const formData = new FormData();
 
-    // formData.append('file', file);
-    // formData.append('email', email);
-    // formData.append('password', password);
-    // formData.append('username', username);
-    // formData.append('tel', tel);
-    // formData.append('birth', birth);
-    // formData.append('field', field);
-    // formData.append('workNation', workNation);
-    // formData.append('grade', grade);
-    // formData.append('career', career);
-    // formData.append('workPlace', workPlace);
-    // console.log(formData);
+    formData.append('file', file);
+    formData.append('token', token);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('username', username);
+    formData.append('tel', tel);
+    formData.append('birth', birth);
+    formData.append('field', field);
+    formData.append('workNation', workNation);
+    formData.append('grade', grade);
+    formData.append('career', career);
+    formData.append('workPlace', workPlace);
+    console.log(formData);
 
 
-    // axios({
-    //   url: 'http://localhost:8080/user/edit',
-    //   headers: {
-    //     'content-type': 'multipart/form-data'
-    //   },
-    //   method: 'post',
-    //   data: formData
-    // }).then(function (res) {
-    //   console.log(res.data);
+    axios({
+      url: 'http://localhost:8080/user/edit',
+      headers: {
+        'content-type': 'multipart/form-data'
 
-    //   window.location = '/';
+      },
+      method: 'put',
+      data: formData
+    }).then(function (res) {
+      console.log(res.data);
 
-    // })
+      window.location = '/userInfo';
+
+    })
+
+
 
 
 
 
   }
+  // ================================  axios userDelete  ====================================
 
+  // function DeleteUser(e) {
+  //   e.preventDefault();
+
+  //   axios.delete('http://localhost:8080/user/{userId}')
+  //     .then(() => this.setState({ status: 'Delete successful' }));
+
+
+  //   window.location.href = "/login"
+
+  // }
 
 
 
   return (
+    <>
+      <Navigation />
+      <div className="reg-inner">
+        <div class="regbackground">
 
-    <div className="reg-inner">
-      <div class="regbackground">
 
+        </div>
+        <br />
+        <br />
+        <form onSubmit={EditData}>
 
-      </div>
-      <br />
-      <br />
-      <form onSubmit={EditData}>
+          <Box
+            sx={{
 
-        <Box
-          sx={{
+              flexWrap: 'wrap'
+            }}
+          >
+            <label htmlFor="icon-button-file">
+              <Input accept="image/*" id="icon-button-file" name="file" type="file" />
+              <IconButton color="primary" aria-label="upload picture" component="span">
+                <PhotoCamera />
+              </IconButton>
+            </label>
 
-            flexWrap: 'wrap'
-          }}
-        >
-          <label htmlFor="icon-button-file">
-            <Input accept="image/*" id="icon-button-file" name="file" type="file" />
-            <IconButton color="primary" aria-label="upload picture" component="span">
-              <PhotoCamera />
-            </IconButton>
-          </label>
-
-          {/* <AvatarInput>
+            {/* <AvatarInput>
             <img src={file} alt="Avatar Placeholder" />
           </AvatarInput> */}
-        </Box>
+          </Box>
 
 
-        {/* <ReactFileReader
+          {/* <ReactFileReader
           fileTypes={[".png", ".jpg"]}
           base64={true}
           handleFiles={handleFiles}
@@ -604,54 +660,54 @@ const UserInfoUpdate = () => {
         </ReactFileReader> */}
 
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap'
-          }}>
-          <div>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}>
+            <div>
 
-            {/* 이메일 */}
-
-
-            <Grid>
-              <TextField
-
-                required
-                id="useremail"
-                name="useremail"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-                defaultValue={cookies.get('email')}
-              />
+              {/* 이메일 */}
 
 
+              <Grid>
+                <TextField
 
-              {/* 비밀번호 */}
+                  required
+                  id="useremail"
+                  name="useremail"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                  defaultValue={cookies.get('email')}
+                />
 
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-              />
 
-              {/* <FormControl
+
+                {/* 비밀번호 */}
+
+                <TextField
+                  id="outlined-password-input"
+                  label="Password"
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                />
+
+                {/* <FormControl
                 sx={{
                   m: 1,
                   width: '25ch'
@@ -679,169 +735,172 @@ const UserInfoUpdate = () => {
                   </InputAdornment>}
                   label="Password*" />
               </FormControl> */}
-            </Grid>
-            <br />
+              </Grid>
+              <br />
 
-            {/* 이름 */}
-            <Grid >
-              <TextField
-                label="Name*"
-                id="username"
-                name="username"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-                defaultValue={cookies.get('username')}
-              />
+              {/* 이름 */}
+              <Grid >
+                <TextField
+                  label="Name*"
+                  id="username"
+                  name="username"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                  defaultValue={cookies.get('username')}
+                />
 
-            </Grid>
-            <br />
-            {/* 전화,생일 */}
-            <Grid >
-              <TextField
+              </Grid>
+              <br />
+              {/* 전화,생일 */}
+              <Grid >
+                <TextField
 
-                name="tel"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-                defaultValue={cookies.get('tel')}
-              />
+                  name="tel"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                  defaultValue={cookies.get('tel')}
+                />
 
-              <TextField
-                id="standard-helperText"
+                <TextField
+                  id="standard-helperText"
 
-                name="birth"
-                label={cookies.get('birth')}
+                  name="birth"
+                  label={cookies.get('birth')}
 
 
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }}
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }}
 
-              />
+                />
 
-            </Grid>
-            <br />
+              </Grid>
+              <br />
 
-            {/* 전문 분야 */}
-            <Grid container
-              direction="row"
+              {/* 전문 분야 */}
+              <Grid container
+                direction="row"
 
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={field}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label={cookies.get('field')} name="field" />}
-              />
-              <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-              {/* 거주국가 */}
-              <Autocomplete
-                id="country-select-demo"
-                sx={{ width: 300 }}
-                options={countries}
-                autoHighlight
-                getOptionLabel={(option) => option.label}
-                renderOption={(props, option) => (
-                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    <img
-                      loading="lazy"
-                      width="20"
-                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                      alt=""
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={field}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label={cookies.get('field')} name="field" />}
+                />
+                <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+                {/* 거주국가 */}
+                <Autocomplete
+                  id="country-select-demo"
+                  sx={{ width: 300 }}
+                  options={countries}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        alt=""
+                      />
+                      {option.label} ({option.code}) +{option.phone}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      name="work_nation"
+                      {...params}
+                      label={cookies.get('workNation')}
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
                     />
-                    {option.label} ({option.code}) +{option.phone}
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    name="work_nation"
-                    {...params}
-                    label={cookies.get('workNation')}
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: 'new-password', // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
+                  )}
+                />
 
 
-            </Grid >
-            <br />
+              </Grid >
+              <br />
 
-            {/* 수준 */}
-            <Grid id="field"
-            >
-              <Autocomplete
-                disablePortal
-                options={grade}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label={cookies.get('grade')} name="grade" />}
+              {/* 수준 */}
+              <Grid id="field"
+              >
+                <Autocomplete
+                  disablePortal
+                  options={grade}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label={cookies.get('grade')} name="grade" />}
 
-              />
+                />
 
 
 
-            </Grid >
-            <br />
+              </Grid >
+              <br />
 
-            {/* 경력 */}
-            <Grid >
-              <TextField
-                label="Career"
-                name="career"
-                sx={{
-                  m: 1,
-                  width: '30ch'
-                }}
-                defaultValue={cookies.get('career')}
-              />
+              {/* 경력 */}
+              <Grid >
+                <TextField
+                  label="Career"
+                  name="career"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }}
+                  defaultValue={cookies.get('career')}
+                />
 
-              {/* 현재 근무지 */}
-              <TextField
-                label="Work_place"
-                name="work_place"
+                {/* 현재 근무지 */}
+                <TextField
+                  label="Work_place"
+                  name="work_place"
 
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }}
-                defaultValue={cookies.get('workPlace')}
-              />
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }}
+                  defaultValue={cookies.get('workPlace')}
+                />
 
-            </Grid>
+              </Grid>
 
 
 
 
 
-            <br />
+              <br />
 
 
+            </div>
+
+          </Box>
+
+          <br />
+          <br />
+          <div id="Btn-2">
+            <Stack direction="row" spacing={4}>
+              <Button variant="outlined" onClick={SendLogin}>Back</Button>
+              <Button type="submit" variant="outlined" >Edit</Button>
+              {/* <Button variant="outlined" onClick={DeleteUser} >Withdrawal</Button> */}
+            </Stack>
           </div>
-
-        </Box>
-
-        <br />
-        <br />
-        <div id="Btn-2">
-          <Stack direction="row" spacing={4}>
-            <Button variant="outlined" onClick={SendLogin}>Back</Button>
-            <Button type="submit" variant="outlined" >Edit</Button>
-          </Stack>
-        </div>
-      </form>
+        </form>
 
 
-    </div >
+      </div >
+
+    </>
   );
 };
 
