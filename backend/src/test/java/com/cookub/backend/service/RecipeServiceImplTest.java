@@ -280,4 +280,25 @@ public class RecipeServiceImplTest {
 
     }
 
+    // 레시피 검색 테스트
+//    @Test
+//    void searchRecipe() {
+//        String searchingName = "양파";
+//        List<Ingredient> ingredient = ingredientRepository.findByingredientName(searchingName);
+//        List<Recipe> recipe = recipeRepository.findByingredients(ingredient);
+//
+//        System.out.println(recipe);
+//
+        // Tip! RED->GREEN->Refactoring
+
+        // given : 무언가가 주어졌을 때,
+
+        // when : 이 상황에
+
+        // then : 이 결과가 나와야한다.
+        // assertThat("결과값").isEqualTo("예상결과값");
+        // assertTrue() assertEquals()
+
+//    }
+
 }

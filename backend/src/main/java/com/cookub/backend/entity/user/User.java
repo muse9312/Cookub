@@ -75,4 +75,5 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "urlUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Url> urls = new ArrayList<>();
+    
 }

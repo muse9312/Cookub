@@ -143,7 +143,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
     }
-
+    // 유효성 검사 
     public boolean checkEnable(Url url) {
         Date currentDate = new Date();
         if (currentDate.getTime() > url.getLastDate().getTime())
@@ -159,27 +159,6 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(recipeId);
         return "del";
 
-        // Recipe recipeEntity = Recipe.builder()
-        // .cookMethods(recipeDto.getCookMethods())
-        // .keywordList(recipeDto.getKeywordList())
-        // .ingredients(recipeDto.getIngredients())
-        // .build();
-
-        // for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-        // cookMethod.setMethodRecipe(recipeEntity);
-        // cookMethodRepository.delete(cookMethod);
-        // }
-
-        // for (Keyword keyword : recipeDto.getKeywordList()) {
-        // keyword.setKeywordRecipe(recipeEntity);
-        // keywordRepository.delete(keyword);
-        // }
-
-        // for (Ingredient ingredient : recipeDto.getIngredients()) {
-        // ingredient.setIngredientRecipe(recipeEntity);
-        // ingredientRepository.delete(ingredient);
-        // }
-
     }
 
     // 내 레시피 상세 정보 조회
@@ -188,5 +167,13 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
     }
+
+    // 레시피 검색
+//    @Override
+//    public List<Recipe> searchRecipe(String searchingName){
+//        List<Ingredient> ingredient = ingredientRepository.findByingredientName(searchingName);
+//        List<Recipe> recipe = recipeRepository.findByingredients(ingredient);
+//        return recipe;
+//    }
 
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class CardServiceImpl implements CardService{
     @Autowired
     private CardRepository cardRepository;
+    
     @Override
     public List<Recipe> showOpenedCardList() {
         return cardRepository.findAllByIsOpenable(1);

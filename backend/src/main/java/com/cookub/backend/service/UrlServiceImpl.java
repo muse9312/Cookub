@@ -25,10 +25,11 @@ public class UrlServiceImpl implements UrlService {
     @Autowired
     private UserRepository userRepository;
 
-    //url 발급 (등록)
+    // Make Url (등록)
     @Override
     @Transactional
-    public String setUrl(Long userId) {
+    public String setUrl(Long userId, UrlDto urlDto) {
+
         User user = userRepository.findById(userId).get();
 
         Calendar cal = Calendar.getInstance();
@@ -40,6 +41,7 @@ public class UrlServiceImpl implements UrlService {
         String privateKey = UUID.randomUUID().toString();
 
         Url urlEntity = Url.builder()
+                .purpose(urlDto.getPurpose())
                 .lastDate(lastDate)
                 .privateKey(privateKey)
                 .urlUser(user)
@@ -47,9 +49,21 @@ public class UrlServiceImpl implements UrlService {
 
         urlEntity = urlRepository.save(urlEntity); 
 
-        return privateKey;
+        return "";
     }
-    //url 접속 (확인)
 
+    // delete Url
+    public String delUrl(Long urlId){
+        urlRepository.deleteById(urlId);
+        return "del";
+    }
+
+    // list Url 
+    public List<Url> myUrl(Long userId){
+        User user = userRepository.findById(userId).get();
+        List<Url> list = urlRepository.findByUrlUser(user);
+
+        return list;
+    }
 
 }
