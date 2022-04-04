@@ -112,6 +112,8 @@ public class RecipeServiceImpl implements RecipeService {
             }
             for (Ingredient ingredient : recipeDto.getIngredients()) {
                 ingredient.setIngredientRecipe(recipeEntity);
+                System.out.println(ingredient.getIngredientId());
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@");
                 ingredientRepository.save(ingredient);
             }
             return null;

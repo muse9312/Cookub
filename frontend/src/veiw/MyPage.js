@@ -6,7 +6,7 @@ import noImg from '../assets/img/noimg.PNG';
 import axios from "axios";
 import Cookies from 'universal-cookie';
 import Navigation from '../component/Navigation'
-import Timer from "../component/Timer.jsx";
+import PrivateURL from "../component/PrivateURL.jsx";
 
 
 function MyPage() {
@@ -27,6 +27,7 @@ function MyPage() {
 function CreateRecipe({ closeModal }) {
 
   const [dataTest, setDataTest] = useState([]);
+  const [tabSwitch, setTabSwitch] = useState(true);
 
   const cookies = new Cookies();
   const token = cookies.get('token');
@@ -76,12 +77,22 @@ function CreateRecipe({ closeModal }) {
         </section>
         <section className={style.container2}>
           <div className={style.container3}>
-            <ul>
-              <li>레시피 보기</li>
-              <li>열람 주소 관리</li>
+            <ul className={style.tabType}> 
+              <li className={style.tabItem}>
+                {tabSwitch === true 
+                  ? <div className={style.pickTabText} onClick={()=>{setTabSwitch(true)}}>레시피 보기</div>
+                  : <div className={style.tabText} onClick={()=>{setTabSwitch(true)}}>레시피 보기</div>}
+                
+              </li>
+              <li className={style.tabItem}>
+                {tabSwitch === false
+                  ? <div className={style.pickTabText} onClick={()=>{setTabSwitch(false)}}>열람 주소 관리</div>
+                  : <div className={style.tabText} onClick={()=>{setTabSwitch(false)}}>열람 주소 관리</div>}
+                
+              </li>
             </ul>
-            {/* <Timer /> */}
-            <div className={style.public_recipes}>
+            {tabSwitch === true?( //탭 선택에 따른 2가지 ui보여줌
+              <div className={style.public_recipes}>
               {dataTest.map((data, index) => (
                 <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
                   <div className={style.recipe}>
@@ -116,6 +127,8 @@ function CreateRecipe({ closeModal }) {
                 </>
               ))}
             </div>
+            ):(<PrivateURL/>)}
+            
           </div>
 
         </section>

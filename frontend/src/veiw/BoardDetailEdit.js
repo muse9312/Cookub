@@ -68,7 +68,7 @@ function BoardDetailEdit() {
       }
 
       const obj = {
-        "IngredientId":recipe.ingredients[i].ingredientId,
+        "ingredientId":recipe.ingredients[i].ingredientId, //재료의 Id도 json에 담아서 백으로 넘김.
         "ingredientName":value,
         "amount":value2
       }
@@ -155,6 +155,7 @@ function BoardDetailEdit() {
       })
       .then((res) => {
         console.log(res);
+        window.location.href = "/mypage"
       })
   }
 

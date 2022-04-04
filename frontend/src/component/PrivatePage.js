@@ -6,15 +6,10 @@ const PrivatePage = ()=>{
   const {key}  = useParams(); //url 의 key 변수에 저장.
  
   const [dataTest, setDataTest] = useState([]);
-  const [security, setSecurity] = useState([]);
-
-  const tricData = {asdf:{data:''},hjkl:{data:''}}
-  const pixdata = tricData[key]
 
   useEffect(()=>{
-    //axios 로 key를 보내서 get한다
     axios
-    .get(`http://localhost:8080/mypage/private/${key}`)
+    .get(`http://localhost:8080/private/${key}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);
@@ -27,9 +22,8 @@ const PrivatePage = ()=>{
 
   return(
     <>
-      {
-        dataTest
-        ?(
+      {dataTest
+        ?(//키가 유효할때 레시피를 보여주는 UI
         <h1>접속에 성공하셨습니다.</h1>
 
         // <div className={style.public_recipes}>
@@ -69,7 +63,8 @@ const PrivatePage = ()=>{
         //     </div>
 
         )
-        :<h1>유효하지 않은 키로 접속 하셨습니다.</h1>
+        :( //키가 잘못됐거나 기간이 유효하지 않을때 보여줄 UI
+          <h1>유효하지 않은 키로 접속 하셨습니다.</h1>)
       }
     </>
   );

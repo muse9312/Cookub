@@ -60,6 +60,7 @@ function BoardDetail() {
           <div className={style.empty} />
           <div className={style.contents}>
             <div className={style.editAndDelete}>
+              <button className={style.delete_btn}>PDF 다운로드</button>
               <Link to='/board/detail/Edit'><button className={style.delete_btn}><TiEdit/> 수정</button></Link>
               <button className={style.delete_btn} onClick={deleteAlert}><TiTrash/> 삭제</button>
             </div>

@@ -139,6 +139,7 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
               setKeyword(removeCopy)
             }}>제거</button>
           </form>
+          <br/>
           <div>
             {keyword.map((value)=>(
             <span className={style.hashtag}>#{value.keywordName}</span>
@@ -264,12 +265,14 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                               })
                               .then((res) => {
                                 console.log(res);
+                                closeModal(false) 
+                                console.log(val);
+                                window.location.href = 'http://localhost:3000/mypage';
+                                window.sessionStorage.clear()
                               })
 
-                            closeModal(false) 
-                            console.log(val);
-                            // window.location.href = 'http://localhost:3000/mypage';
-                            // window.sessionStorage.clear()
+                            
+                            
                             }}>완료</button>
       </div>
     </>
