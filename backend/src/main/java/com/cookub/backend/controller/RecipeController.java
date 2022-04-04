@@ -34,10 +34,18 @@ public class RecipeController {
         recipeService.setRecipe(recipeDto, userId);
     }
 
+
     // 내 레시피 목록 조회
     @GetMapping("/recipe/list/{userId}")
     public List<Recipe> myRecipe(@PathVariable("userId") Long userId) {
         return recipeService.myRecipe(userId);
+    }
+
+    
+    // 내 레시피 목록 조회 - private 
+    @GetMapping("/private/{key}")
+    public List<Recipe> myPrivate(@PathVariable("key") String key) {
+        return recipeService.myPrivate(key);
     }
 
     // 레시피 '상세' 정보 조회

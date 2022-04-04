@@ -1,6 +1,7 @@
 package com.cookub.backend.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,15 +9,18 @@ import com.cookub.backend.dto.recipe.CookMethodDto;
 import com.cookub.backend.dto.recipe.IngredientDto;
 import com.cookub.backend.dto.recipe.KeywordDto;
 import com.cookub.backend.dto.recipe.RecipeDto;
+import com.cookub.backend.dto.url.UrlDto;
 import com.cookub.backend.entity.recipeE.*;
 import com.cookub.backend.entity.recipeE.Ingredient;
 import com.cookub.backend.entity.recipeE.Keyword;
 import com.cookub.backend.entity.recipeE.Recipe;
+import com.cookub.backend.entity.url.Url;
 import com.cookub.backend.entity.user.User;
 import com.cookub.backend.repository.CookMethodRepository;
 import com.cookub.backend.repository.IngredientRepository;
 import com.cookub.backend.repository.KeywordRepository;
 import com.cookub.backend.repository.RecipeRepository;
+import com.cookub.backend.repository.UrlRepository;
 import com.cookub.backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,8 @@ public class RecipeServiceImpl implements RecipeService {
     private IngredientRepository ingredientRepository;
     @Autowired
     private KeywordRepository keywordRepository;
+    @Autowired
+    private UrlRepository urlRepository;
 
     // 레시피 등록 (레시피)
     @Override
@@ -118,6 +124,32 @@ public class RecipeServiceImpl implements RecipeService {
         User user = userRepository.findById(userId).get();
         List<Recipe> list = recipeRepository.findByUser(user);
         return list;
+    }
+
+    // 레시피 목록 조회
+    @Override
+    public List<Recipe> myPrivate(String key) {
+        Url url = urlRepository.findByPrivateKey(key);
+        if (url == null)
+            return null;
+
+        if (checkEnable(url)) {
+
+            User user = url.getUrlUser();
+            List<Recipe> list = recipeRepository.findByUser(user);
+            return list;
+        } else {
+            return null;
+        }
+
+    }
+
+    public boolean checkEnable(Url url) {
+        Date currentDate = new Date();
+        if (currentDate.getTime() > url.getLastDate().getTime())
+            return false;
+        else
+            return true;
     }
 
     // 레시피 리스트 삭제

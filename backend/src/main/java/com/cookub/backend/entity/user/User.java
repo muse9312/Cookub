@@ -2,7 +2,7 @@ package com.cookub.backend.entity.user;
 
 import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
-import com.cookub.backend.entity.profilepage.Etc;
+import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
 import com.cookub.backend.entity.url.Url;
 import com.sun.istack.NotNull;
@@ -49,7 +49,7 @@ public class User {
     @NotNull
     private int career;     //경력년수
     @NotNull
-    private String workPlace;
+    private String workPlace; 
     @NotNull
     private String workNation;
     private String role;
@@ -65,8 +65,8 @@ public class User {
     List<Certification> certifications = new ArrayList<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "etcUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    List<Etc> etcs = new ArrayList<>();
+    @OneToMany(mappedBy = "degreeUser", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Degree> degrees = new ArrayList<>();
     
     @JsonManagedReference
     @OneToMany(mappedBy = "workPlaceUser", cascade = CascadeType.REMOVE, orphanRemoval = true)

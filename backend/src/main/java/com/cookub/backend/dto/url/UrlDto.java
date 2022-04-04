@@ -1,6 +1,10 @@
 package com.cookub.backend.dto.url;
 
+import java.util.Date;
+
 import com.cookub.backend.entity.user.User;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.*;
 
@@ -12,8 +16,10 @@ import lombok.*;
 public class UrlDto {
     
     private Long url_Id;
-    private String recipeList;
-    private String key;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date lastDate;
+    //date type date는 "yyyy/MM/dd"
+    private String pirvateKey;
 
     private User user_id;
 }
