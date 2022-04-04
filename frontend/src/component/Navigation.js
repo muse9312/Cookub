@@ -19,7 +19,7 @@ function Navigation() {
   const token = cookies.get('token');
 
 
-  console.log(token);
+
 
   function SendLogin(e) {
     e.preventDefault();
@@ -30,6 +30,10 @@ function Navigation() {
   function Logout(e) {
     e.preventDefault();
     console.log(token);
+
+    window.sessionStorage.clear();
+
+
 
 
     cookies.remove('token')
@@ -58,40 +62,27 @@ function Navigation() {
     const token = cookies.get('token');
     const kakao = cookies.get('kakao_id')
 
-    if (token || kakao == null) {
+
+
+    if (kakao == null && token == null) {
       return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    } else if (token !== null) {
-      <div> <h2> {cookies.get('username')}{window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    } else if (kakao !== null) {
+    } else {
       return <div>
-        <h2>{cookies.get('nickname')}  님 어서오세요</h2>
-        <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+        <div  >
+          <img className="cat" src={cookies.get('img')}></img>
+        </div>
+        <h2>
+          {cookies.get('nickname')}{cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
     }
 
-
-    // if (token == null) {
-    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    // } else if(kakao !== null) {
-    //   return <div> <h2> {cookies.get('username')}{window.sessionStorage.getItem('id')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else
-
-
-    // if (token !== null) {
-    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else if (kakao !== null) {
-    //   return <div>
-    //     <h2>{cookies.get('nickname')}  님 어서오세요</h2>
-    //     <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else {
-    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    // }
-    // {window.sessionStorage.getItem('nickname')}
   }
+
 
   function BtnUserInfo() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-    if (token == null) {
+    if (token == null && kakao == null) {
       return null
     } else {
       return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
@@ -109,14 +100,14 @@ function Navigation() {
         {BtnHendler()}
       </div>
 
-      <br />
+
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
       <div>
         {BtnUserInfo()}
       </div>
-      <br /><br /><br /><br />
+      <br /><br /><br />
       <p className={style.ceo_pm}>대표번호 :  02 - 9575 - 4323</p>
       <p className={style.footer}>
         주식회사  레인보우<br />
