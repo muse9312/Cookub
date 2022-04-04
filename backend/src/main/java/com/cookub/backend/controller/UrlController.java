@@ -44,7 +44,7 @@ public class UrlController {
     @DeleteMapping(value = "/{urlId}")
     public String recipeDelete(@PathVariable("urlId") long urlId) {
         return urlService.delUrl(urlId);
-    }    
+    }
 
     // url List 
     @GetMapping("/list/{userId}")
