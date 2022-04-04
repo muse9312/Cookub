@@ -8,6 +8,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
 import IconButton from '@mui/material/IconButton';
 import Grid from "@mui/material/Grid";
 import Input from '@mui/material/Input';
@@ -266,6 +272,50 @@ const Profile = () => {
 
             <div className="reg-inner">
 
+                <div className="regbackground">
+                    <p className="subtitle">Happy Cooking!!</p>
+                </div>
+
+                <div className="">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon />
+                        </Fab>
+                        <Fab size="small" color="secondary" aria-label="edit">
+                            <EditIcon />
+                        </Fab>
+
+                    </Box>
+                </div>
+
+                <br />
+                <br />
+                <form onSubmit={RegData}>
+                    {/* 프로필 이미지 */}
+
+                    <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
+
+                    <div className="profileInfo">
+                        {cookies.get('username')}
+
+                    </div>
+
+                    <hr />
+                    <br />
+                    <br />
+                    <div id="Btn-2">
+                        <Stack direction="row" spacing={4}>
+                            <Button variant="outlined" onClick={SendLogin}>Back</Button>
+                            <Button type="submit" variant="outlined" >SignUp</Button>
+                        </Stack>
+                    </div>
+                </form>
+
+
+            </div >
+
+            <div className="reg-inner">
+
                 <div class="regbackground">
                     <p className="subtitle">Happy Cooking!!</p>
                 </div>
@@ -275,13 +325,6 @@ const Profile = () => {
                     {/* 프로필 이미지 */}
                     <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
 
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
 
                     <Box
                         sx={{
@@ -345,7 +388,7 @@ const Profile = () => {
                   label="Password*" />
               </FormControl> */}
                             </Grid>
-                            <br />
+
 
                             {/* 이름 */}
                             <Grid >
@@ -359,124 +402,7 @@ const Profile = () => {
                                     }} />
 
                             </Grid>
-                            <br />
-                            {/* 전화,생일 */}
-                            <Grid >
-                                <TextField
-                                    label="Tel"
-                                    name="tel"
-                                    sx={{
-                                        m: 1,
-                                        width: '30ch'
-                                    }} />
 
-                                <TextField
-                                    id="standard-helperText"
-                                    type="date"
-                                    name="birth"
-                                    helperText="Birth"
-
-                                    sx={{
-                                        m: 1,
-                                        width: '25ch'
-                                    }} />
-
-                            </Grid>
-                            <br />
-
-                            {/* 전문 분야 */}
-                            <Grid container
-                                direction="row"
-                                justifyContent="center"
-                                alignItems="center"
-                            >
-                                <Autocomplete
-                                    disablePortal
-                                    id="combo-box-demo"
-
-                                    sx={{ width: 300 }}
-                                    renderInput={(params) => <TextField {...params} label="Field" name="field" />}
-                                />
-                                <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-                                {/* 거주국가 */}
-                                <Autocomplete
-                                    id="country-select-demo"
-                                    sx={{ width: 300 }}
-
-                                    autoHighlight
-                                    getOptionLabel={(option) => option.label}
-                                    renderOption={(props, option) => (
-                                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                                            <img
-                                                loading="lazy"
-                                                width="20"
-                                                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                                alt=""
-                                            />
-                                            {option.label} ({option.code}) +{option.phone}
-                                        </Box>
-                                    )}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            name="work_nation"
-                                            {...params}
-                                            label="Choose a country"
-                                            inputProps={{
-                                                ...params.inputProps,
-                                                autoComplete: 'new-password', // disable autocomplete and autofill
-                                            }}
-                                        />
-                                    )}
-                                />
-
-
-                            </Grid >
-                            <br />
-
-                            {/* 수준 */}
-                            <Grid id="field"
-                            >
-                                <Autocomplete
-                                    disablePortal
-
-
-                                    sx={{ width: 300 }}
-                                    renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
-                                />
-
-
-
-                            </Grid >
-                            <br />
-
-                            {/* 경력 */}
-                            <Grid >
-                                <TextField
-                                    label="Career"
-                                    name="career"
-                                    sx={{
-                                        m: 1,
-                                        width: '30ch'
-                                    }} />
-
-                                {/* 현재 근무지 */}
-                                <TextField
-                                    label="Work_place"
-                                    name="work_place"
-
-                                    sx={{
-                                        m: 1,
-                                        width: '25ch'
-                                    }} />
-
-                            </Grid>
-
-
-
-
-
-                            <br />
 
 
                         </div>

@@ -70,6 +70,7 @@ function Navigation() {
       return <div>
         <div  >
           <img className="cat" src={cookies.get('img')}></img>
+
         </div>
         <h2>
           {cookies.get('nickname')}{cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
