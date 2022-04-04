@@ -18,27 +18,22 @@ function Navigation() {
   const cookies = new Cookies();
   const token = cookies.get('token');
 
-  const [user_id, setUserId] = useState();
-  const [nickName, setNickName] = useState();
-  const [profileImage, setProfileImage] = useState();
 
-  console.log(token);
+
 
   function SendLogin(e) {
     e.preventDefault();
-    window.location.href = "/login"
-
-  }
-
-  function SendProfile(e) {
-    e.preventDefault();
-    window.location.href = "/userInfo"
+    window.location.href = "login"
 
   }
 
   function Logout(e) {
     e.preventDefault();
     console.log(token);
+
+    window.sessionStorage.clear();
+
+
 
 
     cookies.remove('token')
@@ -62,53 +57,33 @@ function Navigation() {
 
   }
 
-  function getProfile() {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 획득
-      let data = window.Kakao.API.request({
-        url: "/v2/user/me",
-      });
-      // 사용자 정보 변수에 저장
-      setUserId(data.id);
-      setNickName(data.properties.nickname);
-      setProfileImage(data.properties.profile_image);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
 
   function BtnHendler() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-    if (token == null) {
+
+
+    if (kakao == null && token == null) {
       return <button className={style.login_button} onClick={SendLogin}>Login</button>;
     } else {
-      return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    }
+      return <div>
+        <div  >
+          <img className="cat" src={cookies.get('img')}></img>
 
-    // if (token == null) {
-    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    // } else if (token !== null) {
-    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else {
-    //   return <div>
-    //     <h2>{user_id}</h2>
-    //     <h2>{nickName}</h2>
-    //     <img src={profileImage}></img>
-    //   </div>
-    // }
+        </div>
+        <h2>
+          {cookies.get('nickname')}{cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+    }
 
   }
 
+
   function BtnUserInfo() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-    if (token == null) {
+    if (token == null && kakao == null) {
       return null
     } else {
       return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
@@ -126,14 +101,14 @@ function Navigation() {
         {BtnHendler()}
       </div>
 
-      <br />
+
       <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
       <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
       <div>
         {BtnUserInfo()}
       </div>
-      <br /><br /><br /><br />
+      <br /><br /><br />
       <p className={style.ceo_pm}>대표번호 :  02 - 9575 - 4323</p>
       <p className={style.footer}>
         주식회사  레인보우<br />

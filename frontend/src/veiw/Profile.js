@@ -1,20 +1,46 @@
+
 import React, { useEffect, useState } from "react";
+import Cookies from 'universal-cookie'
 
-import { Link } from 'react-router-dom';
-import About from '../veiw/About';
-import Board from '../veiw/Board';
-import MyPage from '../veiw/MyPage';
-import UserInfo from '../veiw/UserInfoUpdate';
-import logo from '../assets/img/CookubLogo.png'
-import style from '../component/Navigation.module.css';
-import Swal from 'sweetalert2'
+// ================================  Data  ====================================
 
-import "../assets/css/Profile.css"
-import Slider from 'react-animated-slider';
-import content from '../component/carousel/content'
-import '../assets/css/Main.css'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import IconButton from '@mui/material/IconButton';
+import Grid from "@mui/material/Grid";
+import Input from '@mui/material/Input';
+import Autocomplete from '@mui/material/Autocomplete';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
+import ReactFileReader from "react-file-reader";
+
+import AvatarInput from "../component/FileUpload/AvatarInput"
+
+import '../assets/css/Profile.css'
+
+import Cook from "../assets/img/sebastian-coman-photography-eBmyH7oO5wY-unsplash.jpg"
+
+import Navigation from "../component/Navigation";
+
+// import Nation from '../component/data/Nation'
+
+// Fileupload component
+
+
+import axios from 'axios'
 
 const Profile = () => {
+
+    const cookies = new Cookies();
+
     const [user_id, setUserId] = useState();
     const [nickName, setNickName] = useState();
     const [profileImage, setProfileImage] = useState();
@@ -29,18 +55,54 @@ const Profile = () => {
             });
 
             // 사용자 정보 변수에 저장
-            setUserId(data.id);
-            console.log(data.id);
-            setNickName(data.properties.nickname);
+
+            // 카카오 id
+            cookies.set('kakao_id', data.id)
+            console.log(cookies.get('kakao_id'));
+
+            // 카카오 닉네임
+            cookies.set('nickname', data.properties.nickname)
             console.log(data.properties.nickname);
-            setProfileImage(data.properties.profile_image);
+
+            // 카카오 프로필 사진
+            cookies.set('img', data.properties.profile_image)
             console.log(data.properties.profile_image);
-            console.log(data.properties);
+
+            // 카카오 이메일
+            cookies.set('email', data.kakao_account.email)
+            console.log(data.kakao_account.email);
+
+            // 카카오 생일
+            cookies.set('birth', data.kakao_account.birthday)
+            console.log(data.kakao_account.birthday);
+
+
+
         } catch (err) {
             console.log(err);
         }
 
     };
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
+
+    const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
+
+    const handleFiles = (files) => {
+        console.log(files);
+        setFiles(files.base64);
+    };
+
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    // ================================  Page location  ====================================
+
 
     function SendLogin(e) {
         e.preventDefault();
@@ -48,89 +110,321 @@ const Profile = () => {
 
     }
 
-    function Logout(e) {
-        e.preventDefault();
+    // ================================  axios post userInfo  ====================================
 
-        Swal.fire({ icon: 'success', title: 'Goodbye!', text: 'Logout complete!' })
 
-        setTimeout(function () {
-            window.location = '/';
-        }, 2500);
-        // window.location.reload("/");
+    function RegData(e) {
+        e.preventDefault(e);
+        console.log(e);
 
+        // try {
+        //   let data = {
+
+        //     // 프로필이미지
+        //     file: cookies.get('img'),
+
+        //     // 페스워드
+        //     password: document.querySelector('[name=password]').value,
+
+        //     // 이메일
+        //     email: cookies.get('email'),
+
+        //     // 이름
+        //     username: cookies.get('nickname'),
+
+        //     // 전화번호
+        //     tel: document.querySelector('[name=tel]').value,
+
+        //     // 생일
+        //     birth: cookies.get('birth'),
+
+        //     // 전문분야
+        //     field: document.querySelector('[name=field]').value,
+
+        //     // 거주국가
+        //     workNation: document.querySelector('[name=work_nation]').value,
+
+        //     // 수준
+        //     grade: document.querySelector('[name=grade]').value,
+
+        //     // 경력
+        //     career: document.querySelector('[name=career]').value,
+
+        //     // 현재 근무지
+        //     workPlace: document.querySelector('[name=work_place]').value
+
+
+        //   }
+        //   console.log(data);
+        //   // axios
+        //   //   .post('http://localhost:8080/user/auth/signUp', JSON.stringify(data), {
+        //   //     headers: {
+        //   //       "Content-Type": `application/json`,
+        //   //     },
+        //   //   })
+        //   //   .then((res) => {
+
+        //   //     console.log(res);
+        //   //     console.log(res.data);
+        //   //     console.log("==========================")
+        //   //     console.log("token = " + res.data.token);
+        //   //     console.log("userId = " + res.data.user.userId);
+        //   //     console.log("email = " + res.data.user.email);
+        //   //     console.log("username = " + res.data.user.username);
+        //   //     console.log("tel = " + res.data.user.tel);
+        //   //     console.log("birth = " + res.data.user.birth);
+        //   //     console.log("field = " + res.data.user.field);
+        //   //     console.log("workNation = " + res.data.user.workNation);
+        //   //     console.log("grade = " + res.data.user.grade);
+        //   //     console.log("career = " + res.data.user.career);
+        //   //     console.log("workPlace = " + res.data.user.workPlace);
+        //   //     console.log(res.status);
+
+
+
+
+
+
+
+
+
+        //   //   });
+
+        // } catch (error) {
+
+
+        // }
+
+
+        // 프로필이미지
+        const file = cookies.get('img')
+        console.log(file);
+        // 페스워드
+        const password = document.querySelector('[name=password]').value;
+        console.log(document.querySelector('[name=password]').value);
+        // 이메일
+        const email = cookies.get('email')
+        console.log(email);
+        // 이름
+        const username = cookies.get('nickname')
+        console.log(username);
+        // 전화번호
+        const tel = document.querySelector('[name=tel]').value;
+        console.log(document.querySelector('[name=tel]').value);
+        // 생일
+        const birth = document.querySelector('[name=birth]').value;
+        console.log(document.querySelector('[name=birth]').value);
+        // 전문분야
+        const field = document.querySelector('[name=field]').value;
+        console.log(document.querySelector('[name=field]').value);
+        // 거주국가
+        const workNation = document.querySelector('[name=work_nation]').value;
+        console.log(document.querySelector('[name=work_nation]').value);
+        // 수준
+        const grade = document.querySelector('[name=grade]').value;
+        console.log(document.querySelector('[name=grade]').value);
+        // 경력
+        const career = document.querySelector('[name=career]').value;
+        console.log(document.querySelector('[name=career]').value);
+        // 현재 근무지
+        const workPlace = document.querySelector('[name=work_place]').value;
+        console.log(document.querySelector('[name=work_place]').value);
+
+
+        const formData = new FormData();
+
+        formData.append('file', file);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('username', username);
+        formData.append('tel', tel);
+        formData.append('birth', birth);
+        formData.append('field', field);
+        formData.append('workNation', workNation);
+        formData.append('grade', grade);
+        formData.append('career', career);
+        formData.append('workPlace', workPlace);
+        console.log(formData);
+
+
+
+        axios({
+            url: 'http://localhost:8080/user/auth/signUp',
+            headers: {
+                'content-type': 'multipart/form-data'
+            },
+            method: 'post',
+            data: formData
+        }).then(function (res) {
+            console.log(res.data);
+
+            window.location = '/login';
+
+        })
     }
 
-    function BtnHendler() {
 
-
-        if (user_id == null) {
-            return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-        } else {
-            return <div> <div class="cat">
-                <img src={profileImage}></img>
-                <h2>{nickName}</h2></div> <br /><br /><br /><br />  <button className={style.login_button} onClick={Logout}>Logout</button>  </div>
-        }
-
-
-    }
-
-    useEffect(() => {
-        getProfile();
-    }, []);
 
 
     return (
         <>
+            <Navigation />
 
+            <div className="reg-inner">
 
-            <div className={style.nav}>
-                <a className="imgbtn" href={'/'}>
-                    <img className={style.logo_img} src={logo} alt="COOKUB" />
-                </a>
-                <div>
-                    {BtnHendler()}
+                <div className="regbackground">
+                    <p className="subtitle">Happy Cooking!!</p>
                 </div>
 
-                <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
-                <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
-                <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
+                <div className="">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon />
+                        </Fab>
+                        <Fab size="small" color="secondary" aria-label="edit">
+                            <EditIcon />
+                        </Fab>
 
-                <br /><br /><br /><br />
-                <p className={style.ceo_pm}>대표번호 :  02 - 9575 - 4323</p>
-                <p className={style.footer}>
-                    주식회사  레인보우<br />
-                    owner 김남현<br />
-                    서울특별시 금천구 가산디지털1로(가산동)<br />
-                    우림라이온스밸리 8층<br />
-                    budiness licence 740-99-1053<br />
-                    online business licence 2022-서울서초구-1532<br />
-                    개인정보 관리 책임자 : 레인보우(skagns@gmail.com)<br /><br />
+                    </Box>
+                </div>
 
-                    이용약관 <br />
-                    개인정보취급방침<br />
-                    이용안내<br />
-                </p>
-            </div>
-            <div id="ls-1">
-                <Slider id="ls-1" autoplay={2200}>
-                    {content.map((item, index) => (
-                        <div
-                            key={index}
+                <br />
+                <br />
+                <form onSubmit={RegData}>
+                    {/* 프로필 이미지 */}
 
-                            style={{ background: `url('${item.image}') no-repeat center center` }}
-                        >
-                            <div className="center">
-                                <h1>{item.title}</h1>
-                                <p>{item.description}</p>
+                    <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
 
-                            </div>
+                    <div className="profileInfo">
+                        {cookies.get('username')}
+
+                    </div>
+
+                    <hr />
+                    <br />
+                    <br />
+                    <div id="Btn-2">
+                        <Stack direction="row" spacing={4}>
+                            <Button variant="outlined" onClick={SendLogin}>Back</Button>
+                            <Button type="submit" variant="outlined" >SignUp</Button>
+                        </Stack>
+                    </div>
+                </form>
+
+
+            </div >
+
+            <div className="reg-inner">
+
+                <div class="regbackground">
+                    <p className="subtitle">Happy Cooking!!</p>
+                </div>
+                <br />
+                <br />
+                <form onSubmit={RegData}>
+                    {/* 프로필 이미지 */}
+                    <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
+
+
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap'
+                        }}>
+                        <div>
+
+                            {/* 이메일 */}
+                            <Grid>
+                                <TextField
+                                    label="Email*"
+                                    id="useremail"
+                                    name="useremail"
+                                    sx={{
+                                        m: 1,
+                                        width: '30ch'
+                                    }} />
+
+
+                                {/* 비밀번호 */}
+
+                                <TextField
+                                    id="outlined-password-input"
+                                    label="Password"
+                                    type="password"
+                                    name="password"
+                                    autoComplete="current-password"
+                                    sx={{
+                                        m: 1,
+                                        width: '30ch'
+                                    }}
+                                />
+
+                                {/* <FormControl
+                sx={{
+                  m: 1,
+                  width: '25ch'
+                }}
+                variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Password*</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={values.showPassword
+                    ? 'text'
+                    : 'password'}
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  endAdornment={<InputAdornment position="end" name="password"  > <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end">
+                    {
+                      values.showPassword
+                        ? <VisibilityOff />
+                        : <Visibility />
+                    }
+                  </IconButton>
+                  </InputAdornment>}
+                  label="Password*" />
+              </FormControl> */}
+                            </Grid>
+
+
+                            {/* 이름 */}
+                            <Grid >
+                                <TextField
+                                    label="Name*"
+                                    id="username"
+                                    name="username"
+                                    sx={{
+                                        m: 1,
+                                        width: '30ch'
+                                    }} />
+
+                            </Grid>
+
+
+
                         </div>
-                    ))}
-                </Slider>
 
-            </div>
+                    </Box>
+
+                    <br />
+                    <br />
+                    <div id="Btn-2">
+                        <Stack direction="row" spacing={4}>
+                            <Button variant="outlined" onClick={SendLogin}>Back</Button>
+                            <Button type="submit" variant="outlined" >SignUp</Button>
+                        </Stack>
+                    </div>
+                </form>
+
+
+            </div >
+
+
+
         </>
-
     );
 };
 
