@@ -140,7 +140,7 @@ public class RecipeServiceImplTest {
             // cookMethod 객체 생성
             CookMethod cookMethodObj = CookMethod.builder()
                     .methodId(7L)
-                    //meyhod table id 값 받아서 진행 
+                    // meyhod table id 값 받아서 진행
                     .description("description1")
                     .picture("picture1")
                     .step(1)
@@ -164,7 +164,7 @@ public class RecipeServiceImplTest {
                     .keywordName("keywordName1")
                     .build();
             Keyword keywordObj2 = Keyword.builder()
-            .keywordId(6L)
+                    .keywordId(6L)
                     .keywordName("keywordName2")
                     .build();
 
@@ -181,8 +181,8 @@ public class RecipeServiceImplTest {
                     .build();
 
             Ingredient ingredientObj2 = Ingredient.builder()
-            .ingredientId(6L)        
-            .amount("amount2")
+                    .ingredientId(6L)
+                    .amount("amount2")
                     .ingredientName("ingredientName2")
                     .build();
 
@@ -281,24 +281,27 @@ public class RecipeServiceImplTest {
     }
 
     // 레시피 검색 테스트
-//    @Test
-//    void searchRecipe() {
-//        String searchingName = "양파";
-//        List<Ingredient> ingredient = ingredientRepository.findByingredientName(searchingName);
-//        List<Recipe> recipe = recipeRepository.findByingredients(ingredient);
-//
-//        System.out.println(recipe);
-//
-        // Tip! RED->GREEN->Refactoring
+    @Test
+    void searchRecipe() {
+        String searchingName = "양파";
 
-        // given : 무언가가 주어졌을 때,
+        List<Recipe> searchRecipe = recipeRepository.findByisOpenable(1);
+        List<Ingredient> searchIngredient = ingredientRepository.findByingredientName(searchingName);
 
-        // when : 이 상황에
+        List<Recipe> recipeList = new ArrayList<Recipe>();
 
-        // then : 이 결과가 나와야한다.
-        // assertThat("결과값").isEqualTo("예상결과값");
-        // assertTrue() assertEquals()
+        for (int u = 0; u < searchIngredient.size(); u++) {
+            System.out.println(searchIngredient.indexOf(u));
+        }
+    }
+    // Tip! RED->GREEN->Refactoring
 
-//    }
+    // given : 무언가가 주어졌을 때,
+
+    // when : 이 상황에
+
+    // then : 이 결과가 나와야한다.
+    // assertThat("결과값").isEqualTo("예상결과값");
+    // assertTrue() assertEquals()
 
 }

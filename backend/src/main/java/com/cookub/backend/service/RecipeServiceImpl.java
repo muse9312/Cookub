@@ -143,7 +143,8 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
     }
-    // 유효성 검사 
+
+    // 유효성 검사
     public boolean checkEnable(Url url) {
         Date currentDate = new Date();
         if (currentDate.getTime() > url.getLastDate().getTime())
@@ -169,11 +170,28 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     // 레시피 검색
-//    @Override
-//    public List<Recipe> searchRecipe(String searchingName){
-//        List<Ingredient> ingredient = ingredientRepository.findByingredientName(searchingName);
-//        List<Recipe> recipe = recipeRepository.findByingredients(ingredient);
-//        return recipe;
-//    }
+    @Override
+    public List<Recipe> searchRecipe(String searchingName) {
+        List<Recipe> searchRecipe = recipeRepository.findByisOpenable(1);
+        List<Ingredient> searchIngredient = ingredientRepository.findByingredientName(searchingName);
+
+        List<Recipe> recipeList = new ArrayList<Recipe>();
+
+        for (int i = 0; i < searchRecipe.size(); i++) {
+            // System.out.println(recipe.get(i));
+            for (int o = 0; o < searchIngredient.size(); o++) {
+                if (searchIngredient.get(o).getIngredientName().equals(searchingName)) {
+                }
+
+            }
+            recipeList.add(searchRecipe.get(i));
+
+        }
+        for (int u = 0; u < searchRecipe.size(); u++) {
+            System.out.println(searchRecipe.indexOf(u));
+        }
+
+        return recipeList;
+    }
 
 }

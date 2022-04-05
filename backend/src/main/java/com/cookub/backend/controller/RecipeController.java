@@ -2,6 +2,7 @@ package com.cookub.backend.controller;
 
 import java.util.List;
 
+import com.cookub.backend.dto.recipe.IngredientDto;
 import com.cookub.backend.dto.recipe.RecipeDto;
 import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.service.RecipeService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/mypage")
 @Transactional
+@ResponseBody
 public class RecipeController {
 
     @Autowired
@@ -23,8 +25,8 @@ public class RecipeController {
 
     @PostMapping("/test")
     public void setRecipe2(@RequestBody String ttt) {
-        System.out.println("result:"+ttt);
-        // recipeService.setRecipe(recipeDto, userId);                
+        System.out.println("result:" + ttt);
+        // recipeService.setRecipe(recipeDto, userId);
     }
 
     // 레시피 정보 등록
@@ -40,8 +42,7 @@ public class RecipeController {
         return recipeService.myRecipe(userId);
     }
 
-    
-    // 내 레시피 목록 조회 - private 
+    // 내 레시피 목록 조회 - private
     @GetMapping("/private/{key}")
     public List<Recipe> myPrivate(@PathVariable("key") String key) {
         return recipeService.myPrivate(key);
@@ -67,5 +68,15 @@ public class RecipeController {
     }
 
     // 레시피 검색
+    //@GetMapping(value = "/search/{ingredientN}")
+    //public List<Recipe> searchRecipe(@PathVariable String ingredientN) {
+    //    return recipeService.searchRecipe(ingredientN);
+    //}
+
+    // Post Test
+    @PostMapping(value = "/search")
+    public List<Recipe> searchRecipe(@RequestBody IngredientDto ingredientN) {
+        return recipeService.searchRecipe(ingredientN.getIngredientName());
+    }
 
 }
