@@ -3,6 +3,11 @@
   justify-content: space-between;
   background-color: rgb(228, 225, 231);
 }
+
+.userurl{
+  text-align: right;
+  
+}
 .empty{
   display: block;
   width: 20%;
