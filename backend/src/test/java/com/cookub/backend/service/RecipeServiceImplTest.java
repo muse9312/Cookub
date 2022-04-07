@@ -289,10 +289,21 @@ public class RecipeServiceImplTest {
         List<Ingredient> searchIngredient = ingredientRepository.findByingredientName(searchingName);
 
         List<Recipe> recipeList = new ArrayList<Recipe>();
+        List<Ingredient> findIngredient = new ArrayList<Ingredient>();
 
-        for (int u = 0; u < searchIngredient.size(); u++) {
-            System.out.println(searchIngredient.indexOf(u));
+        // searching the openable recipe
+        for (int i = 0; i < searchRecipe.size(); i++) {
+
+            // same Ingredient Test in recipeList
+            if (searchRecipe.get(i).getIngredients().iterator().equals(searchIngredient.iterator())) {
+                recipeList.add(searchRecipe.get(i));
+            }
+
         }
+        for (int u = 0; u < recipeList.size(); u++) {
+            System.out.println(recipeList.indexOf(u));
+        }
+        
     }
     // Tip! RED->GREEN->Refactoring
 
@@ -303,5 +314,10 @@ public class RecipeServiceImplTest {
     // then : 이 결과가 나와야한다.
     // assertThat("결과값").isEqualTo("예상결과값");
     // assertTrue() assertEquals()
+
+    @Test
+    void simpleTest() {
+        
+    }
 
 }

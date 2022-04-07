@@ -68,12 +68,6 @@ public class RecipeController {
     }
 
     // 레시피 검색
-    //@GetMapping(value = "/search/{ingredientN}")
-    //public List<Recipe> searchRecipe(@PathVariable String ingredientN) {
-    //    return recipeService.searchRecipe(ingredientN);
-    //}
-
-    // Post Test
     @PostMapping(value = "/search")
     public List<Recipe> searchRecipe(@RequestBody IngredientDto ingredientN) {
         return recipeService.searchRecipe(ingredientN.getIngredientName());

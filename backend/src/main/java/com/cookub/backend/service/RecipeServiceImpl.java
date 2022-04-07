@@ -1,9 +1,13 @@
 package com.cookub.backend.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.cookub.backend.dto.recipe.CookMethodDto;
 import com.cookub.backend.dto.recipe.IngredientDto;
@@ -175,23 +179,33 @@ public class RecipeServiceImpl implements RecipeService {
         List<Recipe> searchRecipe = recipeRepository.findByisOpenable(1);
         List<Ingredient> searchIngredient = ingredientRepository.findByingredientName(searchingName);
 
-        List<Recipe> recipeList = new ArrayList<Recipe>();
-
+        List<Recipe> recipeList1 = new ArrayList<Recipe>();
+        List<Recipe> recipeList2 = new ArrayList<Recipe>();
+        
+        int u = 0;
+        // searching the openable recipe
         for (int i = 0; i < searchRecipe.size(); i++) {
-            // System.out.println(recipe.get(i));
-            for (int o = 0; o < searchIngredient.size(); o++) {
-                if (searchIngredient.get(o).getIngredientName().equals(searchingName)) {
+
+            int o = 0;
+            
+            // same Ingredient Test in recipeList
+            for (o = 0; o < searchRecipe.get(i).getIngredients().size(); o++) {
+                if (searchRecipe.get(i).getIngredients().get(o).getIngredientName().equals(searchingName)) {
+                    recipeList1.add(searchRecipe.get(i));
                 }
-
             }
-            recipeList.add(searchRecipe.get(i));
-
         }
-        for (int u = 0; u < searchRecipe.size(); u++) {
-            System.out.println(searchRecipe.indexOf(u));
-        }
+        // remove overlap
 
-        return recipeList;
+        // set in HashSet
+        HashSet<Recipe> set = new HashSet<>();
+        for (u=0; u < recipeList1.size() ; u++){
+            set.addAll(recipeList1);
+        }
+        // set in Array
+        recipeList2.addAll(set);
+
+        return recipeList2;
     }
 
 }
