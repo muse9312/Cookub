@@ -79,7 +79,7 @@ public class ProfileServiceImplTest {
             .compName("careerDto.getCompName()")
             .awdName("careerDto.getAwdName()")
             .issuedAwd("careerDto.getIssedAwd()")
-            .getAwdDate("getAwdDate")
+            //.getAwdDate("getAwdDate")
             .careerUser(user)
             .build();
 
@@ -112,7 +112,7 @@ public class ProfileServiceImplTest {
             .degreeId(1L)
             .education("degreeDto.getEducation()")
             .major("degreeDto.getMajor()")
-            .graduation("degreeDto.getGraduation()")
+            //.graduation("degreeDto.getGraduation()")
             .degreeUser(user)
             .build();
 
@@ -127,7 +127,7 @@ public class ProfileServiceImplTest {
         Certification certEntity = Certification.builder()
             .certificationId(1L)
             .certName("certDto.getCertName()")
-            .getCertDate("certDto.getGetCertDate()")
+            //.getCertDate("certDto.getGetCertDate()")
             .issuedCert("certDto.getIssuedCert()")
             .certificationUser(user)
             .build();
