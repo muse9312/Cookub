@@ -16,7 +16,7 @@ const PrivateURL = ()=>{
     const userId = cookies.get('userId')
     //렌더링시 DB의 회원URL 리스트 가져오기
     axios
-    .get(`http://localhost:8080/private/${userId}`)
+    .get(`http://localhost:8080/url/list/${userId}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);
@@ -25,21 +25,33 @@ const PrivateURL = ()=>{
   },[])
 
 
-  const deleteURL = () => { //url 제거 이벤트 처리
+  const deleteURL = (index) => { //url 제거 이벤트 처리
     if (window.confirm("종료하시면 더 이상 주소가 유효하지 않습니다.")) {
       alert("주소가 제거 됐습니다.")
-      window.location.reload();
       //여기에 DB에 주소를 지우는 기능구현
-
+      axios.delete(`http://localhost:8080/url/${dataTest[index].urlId}`)
+      .then((res) => { console.log(res.data); })
+      window.location.reload();
     }
   }
 
   const createURL = () => { //url 생성 이벤트
     const userId = cookies.get('userId')
-    axios.post(`http://localhost:8080/url/${userId}`)
+    const val = {"purpose":document.querySelector('[name=create_URL_name]').value}
+    axios.post(`http://localhost:8080/url/${userId}`,JSON.stringify(val),{
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    })
     .then((res)=>{
       console.log(res);
+      window.location.reload();
     })
+  }
+
+  const dateChange = (time) => {
+    const date = new Date(time).toLocaleDateString().replace(/\./g,".");
+    return date
   }
 
 
@@ -48,20 +60,22 @@ const PrivateURL = ()=>{
       <div className={style.section}>
         <div className={style.container}>
           <div className={style.cardSection}>
-
-            {/* user가 가지고 있는 URL이 있으면 반복문 돌려 보여주기 */}
+            {dataTest.map((urlData,index)=>(
+              //  user가 가지고 있는 URL이 있으면 반복문 돌려 보여주기 
             <div className={style.URLcard}>
               <div className={style.textAndBtn}>
                 <div className={style.cardText}>
-                  <h4>URL의 사용처</h4>
-                  <h5>{`발급됩 URL 주소 : https://localhost3000/private/`}</h5>
-                  <h5>URL주소 소멸까지 남은시간 : ~~일 ~~시간 후에 URL이  소멸됩니다.</h5>
+                  <h4>{`사용처 : ${urlData.purpose}`}</h4>
+                  <h5>{`발급됩 URL 주소 : http://localhost:3000/private/${urlData.privateKey}`}</h5>
+                  <h5>{`URL 주소 유효기간 : ${dateChange(urlData.lastDate)} 까지 유효`}</h5>
                 </div>
                 <button className={style.cardBtn} 
-                        onClick={() => { deleteURL() }}>URL 제거
+                        onClick={() => { deleteURL(index) }}>URL 제거
                 </button>
               </div>
             </div>
+            ))}
+            
 
             {/* 가장아래에 있는 New URL 발급버튼 */}
             <div className={style.URLcard}> 

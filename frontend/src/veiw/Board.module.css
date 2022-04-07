@@ -116,3 +116,39 @@
 
 
 
+/* 검색창 스타일 */
+.proc_input {
+  /* 검색어 */
+  padding: 10px 20px 10px 10px;
+  border-radius: 4px 0 0 4px;
+  border: 4px double rgb(160, 159, 159);
+  outline: none;
+  width: 320px;
+  background: transparent;
+  font-size: 20px;
+  background-color: white;
+}
+.proc_input::placeholder {
+  color: rgb(160, 159, 159);
+  font-size: 20px;
+}
+
+.proc_button { 
+  /* 검색버튼 */
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgb(218, 216, 221) 0%,
+    rgb(207, 201, 211) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+}
+.proc_button:active{
+  color :rgba(50, 50, 93, 0.25);
+  background-color: rgba(127, 127, 128, 0.25);
+}
