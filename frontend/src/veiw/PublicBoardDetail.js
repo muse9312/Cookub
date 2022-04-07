@@ -8,6 +8,9 @@ import { TiEdit, TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, 
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
+
+
 function PublicBoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
@@ -16,6 +19,13 @@ function PublicBoardDetail() {
   const token = cookie.get('token');
   const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/" // --> 리사이징 안된 이미지 저장하는곳
   // const imgUrl = "https://s3-bucket-react-file-upload-test-5jo-resized.s3.us-east-2.amazonaws.com/upload/"   //리사이징된 이미지 저장하는곳
+
+  function SendLogin(e) {
+    e.preventDefault();
+
+    alert('Please login')
+    window.location.href = "/login"
+  }
 
   useEffect(() => {
     const id = window.sessionStorage.getItem("detail_recipeId")
@@ -52,7 +62,14 @@ function PublicBoardDetail() {
                 {/* 제목 */}
                 <h1 className={style.title}>
                   {recipe.title == null ? "제목이 없습니다." : recipe.title}
+
                 </h1>
+                <div className={style.userurl} onClick={SendLogin}>
+
+                  <h2>
+                    {recipe.user.username == undefined ? "제목이 없습니다." : recipe.user.username}
+                  </h2>
+                </div>
                 <div className={style.top_cont}>
                   <div className={style.top_img}>
                     {recipe.foodImage !== null
