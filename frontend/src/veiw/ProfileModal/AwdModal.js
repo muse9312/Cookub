@@ -17,17 +17,17 @@ function AwdModal({ setOpenModal }) {
 
         let data = {
             // 대회 이름
-            "comp_name": document.querySelector('[name=comp_name]').value,
+            "compName": document.querySelector('[name=comp_name]').value,
 
             // 상 이름
-            "awd_name": document.querySelector('[name=awd_name]').value,
+            "awdName": document.querySelector('[name=awd_name]').value,
 
 
             // 취득연도
-            "get_awd_date": document.querySelector('[name=get_awd_date]').value,
+            "getAwdDate": document.querySelector('[name=get_awd_date]').value,
 
             // 주최측
-            "issued_awd": document.querySelector('[name=issued_awd]').value,
+            "issuedAwd": document.querySelector('[name=issued_awd]').value,
 
 
         }

@@ -17,10 +17,10 @@ function WorkModal({ setOpenModal }) {
 
         let data = {
             // 회사 이름
-            "comp_name": document.querySelector('[name=comp_name]').value,
+            "compName": document.querySelector('[name=comp_name]').value,
 
             //  직책
-            "job_position": document.querySelector('[name=job_position]').value,
+            "jobPosition": document.querySelector('[name=job_position]').value,
 
             // 위치
             "location": document.querySelector('[name=location]').value,

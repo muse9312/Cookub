@@ -17,13 +17,13 @@ function CerModal({ setOpenModal }) {
 
         let data = {
             // 자격증 이름
-            "cert_name": document.querySelector('[name=cert_name]').value,
+            "certName": document.querySelector('[name=cert_name]').value,
 
             //  취득날짜
-            "get_cert_date": document.querySelector('[name=get_cert_date]').value,
+            "getCertDate": document.querySelector('[name=get_cert_date]').value,
 
             // 주최측
-            "location": document.querySelector('[name=issued_cert]').value,
+            "issuedCert": document.querySelector('[name=issued_cert]').value,
 
         }
         console.log(data);
@@ -95,7 +95,7 @@ function CerModal({ setOpenModal }) {
                                     <TextField
                                         label="Organizers*"
                                         id="Organizers"
-                                        name="location"
+                                        name="issued_cert"
                                         sx={{
 
                                             m: 1,
