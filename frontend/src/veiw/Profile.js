@@ -5,13 +5,16 @@ import Cookies from 'universal-cookie'
 // ================================  Data  ====================================
 
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import Fab from '@mui/material/Fab';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import AddIcon from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import IconButton from '@mui/material/IconButton';
@@ -25,6 +28,10 @@ import ReactFileReader from "react-file-reader";
 import AvatarInput from "../component/FileUpload/AvatarInput"
 
 import '../assets/css/Profile.css'
+import EudModal from './ProfileModal/EudModal'
+import WorkModal from './ProfileModal/WorkModal'
+import AwdModal from './ProfileModal/AwdModal'
+import CerModal from './ProfileModal/CerModal'
 
 import Cook from "../assets/img/sebastian-coman-photography-eBmyH7oO5wY-unsplash.jpg"
 
@@ -37,231 +44,71 @@ import Navigation from "../component/Navigation";
 
 import axios from 'axios'
 
+
+// function Modal({ setOpenModal }) {
+//     return (
+//         <div className="modalBackground">
+//             <div className="modalContainer">
+//                 <div className="titleCloseBtn">
+//                     <button
+//                         onClick={() => {
+//                             setOpenModal(false);
+//                         }}
+//                     >
+//                         X
+//                     </button>
+//                 </div>
+//                 <div className="title">
+//                     <h1>Are You Sure You Want to Continue?</h1>
+//                 </div>
+//                 <div className="body">
+//                     <p>The next page looks amazing. Hope you want to go there!</p>
+//                 </div>
+//                 <div className="footer">
+//                     <button
+//                         onClick={() => {
+//                             setOpenModal(false);
+//                         }}
+//                         id="cancelBtn"
+//                     >
+//                         Cancel
+//                     </button>
+//                     <button>Continue</button>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
+
 const Profile = () => {
 
     const cookies = new Cookies();
 
-    const [user_id, setUserId] = useState();
-    const [nickName, setNickName] = useState();
-    const [profileImage, setProfileImage] = useState();
-    // const [show, setShow] = useState(false);
+    const [EudmodalOpen, setEudModalOpen] = useState(false);
+    const [CermodalOpen, setCerModalOpen] = useState(false);
+    const [AwdmodalOpen, setAwdModalOpen] = useState(false);
+    const [WorkmodalOpen, setWorkModalOpen] = useState(false);
 
-    // setShow(false);
-    const getProfile = async () => {
-        try {
-            // Kakao SDK API를 이용해 사용자 정보 획득
-            let data = await window.Kakao.API.request({
-                url: "/v2/user/me",
-            });
-
-            // 사용자 정보 변수에 저장
-
-            // 카카오 id
-            cookies.set('kakao_id', data.id)
-            console.log(cookies.get('kakao_id'));
-
-            // 카카오 닉네임
-            cookies.set('nickname', data.properties.nickname)
-            console.log(data.properties.nickname);
-
-            // 카카오 프로필 사진
-            cookies.set('img', data.properties.profile_image)
-            console.log(data.properties.profile_image);
-
-            // 카카오 이메일
-            cookies.set('email', data.kakao_account.email)
-            console.log(data.kakao_account.email);
-
-            // 카카오 생일
-            cookies.set('birth', data.kakao_account.birthday)
-            console.log(data.kakao_account.birthday);
+    // function RegData(e) {
+    //     e.preventDefault(e);
+    //     console.log(e);
 
 
+    //     axios({
+    //         url: 'http://localhost:8080/user/auth/signUp',
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         },
+    //         method: 'post',
+    //         data: formData
+    //     }).then(function (res) {
+    //         console.log(res.data);
 
-        } catch (err) {
-            console.log(err);
-        }
+    //         window.location = '/login';
 
-    };
-
-    useEffect(() => {
-        getProfile();
-    }, []);
-
-
-    const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
-
-    const handleFiles = (files) => {
-        console.log(files);
-        setFiles(files.base64);
-    };
-
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    // ================================  Page location  ====================================
-
-
-    function SendLogin(e) {
-        e.preventDefault();
-        window.location.href = "/login"
-
-    }
-
-    // ================================  axios post userInfo  ====================================
-
-
-    function RegData(e) {
-        e.preventDefault(e);
-        console.log(e);
-
-        // try {
-        //   let data = {
-
-        //     // 프로필이미지
-        //     file: cookies.get('img'),
-
-        //     // 페스워드
-        //     password: document.querySelector('[name=password]').value,
-
-        //     // 이메일
-        //     email: cookies.get('email'),
-
-        //     // 이름
-        //     username: cookies.get('nickname'),
-
-        //     // 전화번호
-        //     tel: document.querySelector('[name=tel]').value,
-
-        //     // 생일
-        //     birth: cookies.get('birth'),
-
-        //     // 전문분야
-        //     field: document.querySelector('[name=field]').value,
-
-        //     // 거주국가
-        //     workNation: document.querySelector('[name=work_nation]').value,
-
-        //     // 수준
-        //     grade: document.querySelector('[name=grade]').value,
-
-        //     // 경력
-        //     career: document.querySelector('[name=career]').value,
-
-        //     // 현재 근무지
-        //     workPlace: document.querySelector('[name=work_place]').value
-
-
-        //   }
-        //   console.log(data);
-        //   // axios
-        //   //   .post('http://localhost:8080/user/auth/signUp', JSON.stringify(data), {
-        //   //     headers: {
-        //   //       "Content-Type": `application/json`,
-        //   //     },
-        //   //   })
-        //   //   .then((res) => {
-
-        //   //     console.log(res);
-        //   //     console.log(res.data);
-        //   //     console.log("==========================")
-        //   //     console.log("token = " + res.data.token);
-        //   //     console.log("userId = " + res.data.user.userId);
-        //   //     console.log("email = " + res.data.user.email);
-        //   //     console.log("username = " + res.data.user.username);
-        //   //     console.log("tel = " + res.data.user.tel);
-        //   //     console.log("birth = " + res.data.user.birth);
-        //   //     console.log("field = " + res.data.user.field);
-        //   //     console.log("workNation = " + res.data.user.workNation);
-        //   //     console.log("grade = " + res.data.user.grade);
-        //   //     console.log("career = " + res.data.user.career);
-        //   //     console.log("workPlace = " + res.data.user.workPlace);
-        //   //     console.log(res.status);
-
-
-
-
-
-
-
-
-
-        //   //   });
-
-        // } catch (error) {
-
-
-        // }
-
-
-        // 프로필이미지
-        const file = cookies.get('img')
-        console.log(file);
-        // 페스워드
-        const password = document.querySelector('[name=password]').value;
-        console.log(document.querySelector('[name=password]').value);
-        // 이메일
-        const email = cookies.get('email')
-        console.log(email);
-        // 이름
-        const username = cookies.get('nickname')
-        console.log(username);
-        // 전화번호
-        const tel = document.querySelector('[name=tel]').value;
-        console.log(document.querySelector('[name=tel]').value);
-        // 생일
-        const birth = document.querySelector('[name=birth]').value;
-        console.log(document.querySelector('[name=birth]').value);
-        // 전문분야
-        const field = document.querySelector('[name=field]').value;
-        console.log(document.querySelector('[name=field]').value);
-        // 거주국가
-        const workNation = document.querySelector('[name=work_nation]').value;
-        console.log(document.querySelector('[name=work_nation]').value);
-        // 수준
-        const grade = document.querySelector('[name=grade]').value;
-        console.log(document.querySelector('[name=grade]').value);
-        // 경력
-        const career = document.querySelector('[name=career]').value;
-        console.log(document.querySelector('[name=career]').value);
-        // 현재 근무지
-        const workPlace = document.querySelector('[name=work_place]').value;
-        console.log(document.querySelector('[name=work_place]').value);
-
-
-        const formData = new FormData();
-
-        formData.append('file', file);
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('username', username);
-        formData.append('tel', tel);
-        formData.append('birth', birth);
-        formData.append('field', field);
-        formData.append('workNation', workNation);
-        formData.append('grade', grade);
-        formData.append('career', career);
-        formData.append('workPlace', workPlace);
-        console.log(formData);
-
-
-
-        axios({
-            url: 'http://localhost:8080/user/auth/signUp',
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            method: 'post',
-            data: formData
-        }).then(function (res) {
-            console.log(res.data);
-
-            window.location = '/login';
-
-        })
-    }
+    //     })
+    // }
 
 
 
@@ -276,7 +123,12 @@ const Profile = () => {
                     <p className="subtitle">Happy Cooking!!</p>
                 </div>
 
-                <div className="">
+
+
+
+
+
+                <div className="iconPosition">
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         <Fab size="small" color="primary" aria-label="add">
                             <AddIcon />
@@ -288,136 +140,182 @@ const Profile = () => {
                     </Box>
                 </div>
 
-                <br />
-                <br />
-                <form onSubmit={RegData}>
-                    {/* 프로필 이미지 */}
 
+
+                {/* 프로필 이미지 */}
+                <div className="proBox">
                     <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
-
+                    <br />
+                    <br />
                     <div className="profileInfo">
-                        {cookies.get('username')}
+
+                        <Typography variant="h4" component="div">
+                            <AccountCircleIcon sx={{ fontSize: 30 }} />  {cookies.get('username')}
+                        </Typography>
+
+                        <Typography variant="h8" component="div">
+                            <EmailIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('email')}
+                        </Typography>
+
+
+                        <Typography variant="h8" component="div">
+                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('field')}
+                        </Typography>
+
+                        <Typography variant="h8" component="div">
+                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('workPlace')}
+                        </Typography>
+
+                        <Typography variant="h8" component="div">
+                            <PhoneAndroidIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('tel')}
+                        </Typography>
+
 
                     </div>
+                </div>
 
-                    <hr />
-                    <br />
-                    <br />
-                    <div id="Btn-2">
-                        <Stack direction="row" spacing={4}>
-                            <Button variant="outlined" onClick={SendLogin}>Back</Button>
-                            <Button type="submit" variant="outlined" >SignUp</Button>
-                        </Stack>
-                    </div>
-                </form>
+                <br />
+                <hr />
+
+                <Stack direction="row" spacing={2}>
+                    <Button variant="contained">???</Button>
+                    <Button variant="contained" href="#contained-buttons">
+                        ???
+                    </Button>
+                    <Button variant="contained" href="#contained-buttons">
+                        Url
+                    </Button>
+                </Stack>
+
+                <br />
+
+
 
 
             </div >
 
+
+            {/* 학력 */}
             <div className="reg-inner">
 
-                <div class="regbackground">
-                    <p className="subtitle">Happy Cooking!!</p>
-                </div>
+                <Typography variant="h4" component="div">
+                    Education
+                </Typography>
                 <br />
                 <br />
-                <form onSubmit={RegData}>
-                    {/* 프로필 이미지 */}
-                    <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
-
-
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexWrap: 'wrap'
-                        }}>
-                        <div>
-
-                            {/* 이메일 */}
-                            <Grid>
-                                <TextField
-                                    label="Email*"
-                                    id="useremail"
-                                    name="useremail"
-                                    sx={{
-                                        m: 1,
-                                        width: '30ch'
-                                    }} />
-
-
-                                {/* 비밀번호 */}
-
-                                <TextField
-                                    id="outlined-password-input"
-                                    label="Password"
-                                    type="password"
-                                    name="password"
-                                    autoComplete="current-password"
-                                    sx={{
-                                        m: 1,
-                                        width: '30ch'
-                                    }}
-                                />
-
-                                {/* <FormControl
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }}
-                variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password*</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={values.showPassword
-                    ? 'text'
-                    : 'password'}
-                  value={values.password}
-                  onChange={handleChange('password')}
-                  endAdornment={<InputAdornment position="end" name="password"  > <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end">
-                    {
-                      values.showPassword
-                        ? <VisibilityOff />
-                        : <Visibility />
-                    }
-                  </IconButton>
-                  </InputAdornment>}
-                  label="Password*" />
-              </FormControl> */}
-                            </Grid>
-
-
-                            {/* 이름 */}
-                            <Grid >
-                                <TextField
-                                    label="Name*"
-                                    id="username"
-                                    name="username"
-                                    sx={{
-                                        m: 1,
-                                        width: '30ch'
-                                    }} />
-
-                            </Grid>
 
 
 
-                        </div>
+                {EudmodalOpen && <EudModal setOpenModal={setEudModalOpen} />}
+
+                <div className="iconPosition">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon onClick={setEudModalOpen} />
+
+
+                        </Fab>
+
 
                     </Box>
+                </div>
 
-                    <br />
-                    <br />
-                    <div id="Btn-2">
-                        <Stack direction="row" spacing={4}>
-                            <Button variant="outlined" onClick={SendLogin}>Back</Button>
-                            <Button type="submit" variant="outlined" >SignUp</Button>
-                        </Stack>
-                    </div>
-                </form>
+
+
+
+
+
+            </div >
+            {/* 수상경력 */}
+            <div className="reg-inner">
+
+                <Typography variant="h4" component="div">
+                    AwardsCareer
+                </Typography>
+                <br />
+                <br />
+
+
+
+                {AwdmodalOpen && <AwdModal setOpenModal={setAwdModalOpen} />}
+
+                <div className="iconPosition">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon onClick={setAwdModalOpen} />
+
+
+                        </Fab>
+
+
+                    </Box>
+                </div>
+
+
+
+
+
+
+            </div >
+            {/* 경력 */}
+            <div className="reg-inner">
+
+                <Typography variant="h4" component="div">
+                    WorkCareer
+                </Typography>
+                <br />
+                <br />
+
+
+
+                {WorkmodalOpen && <WorkModal setOpenModal={setWorkModalOpen} />}
+
+                <div className="iconPosition">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon onClick={setWorkModalOpen} />
+
+
+                        </Fab>
+
+
+                    </Box>
+                </div>
+
+
+
+
+
+
+            </div >
+            {/* 자격증 */}
+            <div className="reg-inner">
+
+                <Typography variant="h4" component="div">
+                    Certification
+                </Typography>
+                <br />
+                <br />
+
+
+
+                {CermodalOpen && <CerModal setOpenModal={setCerModalOpen} />}
+
+                <div className="iconPosition">
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab size="small" color="primary" aria-label="add">
+                            <AddIcon onClick={setCerModalOpen} />
+
+
+                        </Fab>
+
+
+                    </Box>
+                </div>
+
+
+
+
 
 
             </div >
@@ -429,3 +327,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

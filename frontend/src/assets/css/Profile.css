@@ -35,6 +35,10 @@ img {
 	opacity: 0.6;
 	
 }
+.iconPosition{
+    padding-left: 50rem;
+    padding-top: -3rem;
+}
 
 .profilePic {
     width: 180px;
@@ -43,9 +47,9 @@ img {
     border-radius: 50%;
   }
 
-.profileInfo {
-    text-align: right;
-    font-size: 1.8rem;
+.profileInfo {  
+    padding-left: 3rem;
+    
 }
 
 
