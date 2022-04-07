@@ -32,6 +32,6 @@ public interface RecipeService {
     String delRecipe(Long recipeId);
 
     // 레시피 검색 
-    // List<Recipe> searchRecipe(String searchingName);
+    List<Recipe> searchRecipe(String searchingName);
 
 }

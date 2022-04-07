@@ -54,5 +54,5 @@ public class Recipe {
     List<CookMethod> cookMethods = new ArrayList<>();
     
     //    , cascade = CascadeType.PERSIST, orphanRemoval = true
-
+    
 }
