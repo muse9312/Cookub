@@ -19,6 +19,8 @@ import AvatarInput from "../component/FileUpload/AvatarInput"
 import '../assets/css/SignUp.css'
 import Navigation from '../component/Navigation'
 
+import AWS from 'aws-sdk';
+
 // import Nation from '../component/data/Nation'
 
 // Fileupload component
@@ -478,6 +480,57 @@ const SignUp = () => {
     { code: 'ZW', label: 'Zimbabwe', phone: '263' },
   ];
 
+  // ================================  AWS S3 file upload  ====================================
+
+  const ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
+  const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
+  const RESION = 'us-east-2';
+  const S3_BUCKET = 's3-bucket-react-file-upload-test-5jo';
+
+  const[foodImg, setFoodImg] = useState(""); //DB에 저장될 파일의 고유한 이름 담는 state
+  const[selectedFile, setSelectedFile] = useState([]); //사진 파일을 잠시 담아두는 state
+
+  AWS.config.update({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY
+  });
+
+  const myBucket = new AWS.S3({
+    params : {Bucket: S3_BUCKET},
+    region : RESION,
+  })
+
+  const handleFileInput = e =>{ //사용자가 입력한 파일을 선택하면 state에 파일이 저장!
+    const file = e.target.files[0];
+    const randomName = Math.random().toString(36).substr(2,11);
+    const imgName = randomName +"_"+ file.name  //파일 랜덤이름 생성 후 state에 저장!
+    console.log(imgName);
+    setFoodImg(imgName)
+    const fileExt = file.name.split('.').pop();  //파일익스텐션값 가져오기
+    if(file.type !== 'image/jpeg' || fileExt !=='jpg'){ //파일타입과 익스텐션이 jpg인것만
+      alert('jpg 파일만 업로드 가능합니다.');
+      return;
+    }
+    setSelectedFile(e.target.files[0]);
+  }
+
+  const uploadFile = file => { // submit 버튼누르면 S3에 파일업로드
+    const params = {
+      Bucket: S3_BUCKET,
+      Key: "upload/" + foodImg,
+      Body: file
+    };
+    myBucket.putObject(params)
+    .on('httpUploadProgress',(evt)=>{
+      setTimeout(()=>{
+        setSelectedFile(null);
+      }, 3000)
+    })
+    .send((err)=>{
+      if(err)console.log(err)
+    })
+  }
+
   // ================================  password change notifications  ====================================
 
 
@@ -519,10 +572,12 @@ const SignUp = () => {
     e.preventDefault(e);
     console.log(e);
 
+    uploadFile(selectedFile) //s3로 업로드하는 함수에 사용자한테 입력받은 파일 넣음.
+
     try {
       let data = {
         // 프로필
-        file: document.querySelector('[name=file]').value,
+        file: foodImg,
 
         // 이메일
         email: document.querySelector('[name=useremail]').value,
@@ -665,7 +720,7 @@ const SignUp = () => {
             }}
           >
             <label htmlFor="icon-button-file">
-              <Input accept="image/*" id="icon-button-file" name="file" type="file" />
+              <Input accept="image/*" id="icon-button-file" name="file" type="file" onChange={handleFileInput}/>
               <IconButton color="primary" aria-label="upload picture" component="span">
                 <PhotoCamera />
               </IconButton>

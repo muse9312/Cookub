@@ -75,7 +75,9 @@
   font-size: 20px;
 }
 
-
+.container{
+  background-color: rgb(237, 238, 238);
+}
 
 /* 레시피 카드 스타일 */
 .container2{
