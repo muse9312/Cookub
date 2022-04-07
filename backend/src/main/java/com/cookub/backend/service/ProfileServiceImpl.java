@@ -67,7 +67,7 @@ public class ProfileServiceImpl implements ProfileService {
             .getAwdDate(careerDto.getGetAwdDate())
             .compName(careerDto.getCompName())
             .awdName(careerDto.getAwdName())
-            .issuedAwd(careerDto.getIssedAwd())
+            .issuedAwd(careerDto.getIssuedAwd())
             .careerUser(user)
             .build();
 
