@@ -33,7 +33,7 @@ public class UserController {
     private StorageService storageService;
 
     @PostMapping("/auth/signUp")
-    public ResponseEntity<User> signUp(UserDto userDto){
+    public ResponseEntity<User> signUp(@RequestBody UserDto userDto){
         Response response = new Response();
         User user = userService.signUp(userDto);
         if (user==null){
