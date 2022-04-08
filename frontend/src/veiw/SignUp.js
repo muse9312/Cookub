@@ -30,13 +30,6 @@ import axios from 'axios'
 
 const SignUp = () => {
 
-  const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
-
-  const handleFiles = (files) => {
-    console.log(files);
-    setFiles(files.base64);
-  };
-
 
 
   // ================================  Data  ====================================
@@ -577,7 +570,7 @@ const SignUp = () => {
     try {
       let data = {
         // 프로필
-        file: foodImg,
+        profile: foodImg,
 
         // 이메일
         email: document.querySelector('[name=useremail]').value,
@@ -620,7 +613,7 @@ const SignUp = () => {
         .then((res) => {
           console.log(res);
 
-          // window.location = '/login';
+          window.location = '/login';
         });
 
     } catch (error) {
