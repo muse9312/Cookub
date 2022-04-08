@@ -74,15 +74,9 @@ function Navigation() {
     } else {
       return <div>
         <div  >
-<<<<<<< HEAD
-          {cookies.get('img')
-            ? <img className="cat" src={cookies.get('img')} alt="profile" />
-            : <img className="cat" src={noImg} alt="profile" />
-=======
           {cookies.get('profile')
             ?<img className="cat" src={imgUrl + profileFile} alt="profile"/>
             :<img className="cat" src={noImg} alt="profile"/>
->>>>>>> NH
           }
         </div>
         <h2>
