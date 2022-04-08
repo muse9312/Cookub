@@ -622,8 +622,8 @@ const UserInfoUpdate = () => {
         cookies.remove('grade')
         cookies.remove('workPlace')
         console.log(res);
+        window.location.href = "/"
       })
-    // window.location.href = "/"
 
   }
 
@@ -900,18 +900,18 @@ const UserInfoUpdate = () => {
 
           <br />
           <br />
-          <div id="Btn-2">
-            <Stack direction="row" spacing={4}>
-              <Button variant="outlined" onClick={SendLogin}>Back</Button>
-              <Button type="submit" variant="outlined" >Edit</Button>
-            </Stack>
-          </div>
         </form>
+        <div id="Btn-2">
+          <Stack direction="row" spacing={4}>
+            <Button variant="outlined" onClick={SendLogin}>Back</Button>
+            <Button type="submit" variant="outlined" >Edit</Button>
+            <Button onClick={DeleteUser} variant="outlined" >Delete</Button>
+          </Stack>
+        </div>
 
 
 
 
-        <Button onClick={DeleteUser} variant="outlined" >Delete</Button>
 
 
 

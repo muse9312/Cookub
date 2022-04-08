@@ -80,7 +80,7 @@ const Profile = () => {
     const [AwdmodalOpen, setAwdModalOpen] = useState(false);
     const [WorkmodalOpen, setWorkModalOpen] = useState(false);
 
-    const [dataTest, setDataTest] = useState([]);
+    const [ResData, setResData] = useState([]);
 
     function EditProfile(e) {
         e.preventDefault()
@@ -95,8 +95,7 @@ const Profile = () => {
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
-                console.log(res.data[0][0]);
-                setDataTest(res.data)
+                setResData(res.data)
             })
 
 
@@ -119,27 +118,23 @@ const Profile = () => {
     //         // window.location = '/login';
     //     });
 
-    function result() {
-        dataTest.map((data) => {
-            for (let i = 0; i < data[i].length; i++) {
-                return <div>
-                    {data[i].education}
-                    <br />
-                    {data[i].major}
-                    <br />
-                    {data[i].graduation}
+    // function Eudresult() {
+    //     data.map((data) => {
+    //         for (let i = 0; i < data.degress[i].length; i++) {
+    //             return <div>
+    //                 {data.degress[i].education}
+    //                 <br />
+    //                 {data.degress[i].major}
+    //                 <br />
+    //                 {data.degress[i].graduation}
 
 
-                </div>
+    //             </div>
 
-            }
-            // if(data.role !== "leader"){
-            //     return <div>{data.name}</div>;
-            // }
-
-        }
-        )
-    }
+    //         }
+    //     }
+    //     )
+    // }
 
     // const result = dataTest.map(data => {
     //     if(data.role !== "leader")
@@ -167,9 +162,6 @@ const Profile = () => {
 
                 <div className="iconPosition">
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                        <Fab size="small" color="primary" aria-label="add">
-                            <AddIcon />
-                        </Fab>
                         <Fab size="small" color="secondary" aria-label="edit">
                             <EditIcon onClick={EditProfile} />
                         </Fab>
@@ -187,24 +179,24 @@ const Profile = () => {
                     <div className="profileInfo">
 
                         <Typography variant="h4" component="div">
-                            <AccountCircleIcon sx={{ fontSize: 30 }} />  {cookies.get('username')}
+                            <AccountCircleIcon sx={{ fontSize: 30 }} />  {ResData.username}
                         </Typography>
 
                         <Typography variant="h8" component="div">
-                            <EmailIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('email')}
+                            <EmailIcon sx={{ fontSize: 20 }} />&nbsp; {ResData.email}
                         </Typography>
 
 
                         <Typography variant="h8" component="div">
-                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('field')}
+                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {ResData.field}
                         </Typography>
 
                         <Typography variant="h8" component="div">
-                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('workPlace')}
+                            <ApartmentIcon sx={{ fontSize: 20 }} />&nbsp; {ResData.workPlace}
                         </Typography>
 
                         <Typography variant="h8" component="div">
-                            <PhoneAndroidIcon sx={{ fontSize: 20 }} />&nbsp; {cookies.get('tel')}
+                            <PhoneAndroidIcon sx={{ fontSize: 20 }} />&nbsp; {ResData.tel}
                         </Typography>
 
 
@@ -214,15 +206,7 @@ const Profile = () => {
                 <br />
                 <hr />
 
-                {/* <Stack direction="row" spacing={2}>
-                    <Button variant="contained">???</Button>
-                    <Button variant="contained" href="#contained-buttons">
-                        ???
-                    </Button>
-                    <Button variant="contained" href="#contained-buttons">
-                        Url
-                    </Button>
-                </Stack> */}
+
 
 
 
@@ -238,24 +222,22 @@ const Profile = () => {
                 <Typography variant="h4" component="div">
                     Education
                 </Typography>
+                <br />
 
-                {/* {result} */}
-                {/* <div className="dataMap">
-                    {dataTest.map((data, index) => (
+                <div className="dataMap">
+                    {ResData.degrees && ResData.degrees.map((data) => (
                         <div className="dataMap">
-                            <h2>{data.title == null ? "제목이 없습니다." : data.title}</h2>
-                            {data[index].education}
-                            <br />
-                            {data[index].major}
-                            <br />
-                            {data[index].graduation}
+
+                            {data.education} &nbsp; {data.major} &nbsp; {data.graduation}
+
+
 
                         </div>
                     ))}
 
-                </div> */}
+                </div>
 
-
+                <br />
                 {EudmodalOpen && <EudModal setOpenModal={setEudModalOpen} />}
 
                 <div className="iconPosition">
@@ -281,10 +263,21 @@ const Profile = () => {
                     AwardsCareer
                 </Typography>
                 <br />
+
+                <div className="dataMap">
+                    {ResData.awardsCareers && ResData.awardsCareers.map((data) => (
+                        <div className="dataMap">
+
+                            {data.compName} &nbsp; {data.issuedAwd} &nbsp; {data.awdName} &nbsp; {data.getAwdDate}
+
+
+
+                        </div>
+                    ))}
+
+                </div>
+
                 <br />
-
-
-
                 {AwdmodalOpen && <AwdModal setOpenModal={setAwdModalOpen} />}
 
                 <div className="iconPosition">
@@ -312,10 +305,21 @@ const Profile = () => {
                     WorkCareer
                 </Typography>
                 <br />
+
+                <div className="dataMap">
+                    {ResData.workCareers && ResData.workCareers.map((data) => (
+                        <div className="dataMap">
+
+                            {data.compName} &nbsp; {data.jobPosition} &nbsp; {data.location} &nbsp; {data.period}
+
+
+
+                        </div>
+                    ))}
+
+                </div>
+
                 <br />
-
-
-
                 {WorkmodalOpen && <WorkModal setOpenModal={setWorkModalOpen} />}
 
                 <div className="iconPosition">
@@ -343,10 +347,21 @@ const Profile = () => {
                     Certification
                 </Typography>
                 <br />
+
+                <div className="dataMap">
+                    {ResData.certifications && ResData.certifications.map((data) => (
+                        <div className="dataMap">
+
+                            {data.certName} &nbsp; {data.issuedCert} &nbsp; {data.getCertDate}
+
+
+
+                        </div>
+                    ))}
+
+                </div>
+
                 <br />
-
-
-
                 {CermodalOpen && <CerModal setOpenModal={setCerModalOpen} />}
 
                 <div className="iconPosition">
