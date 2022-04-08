@@ -51,7 +51,9 @@ const PrivatePage = ()=>{
         ?(
         <div className={style.private_header}>
           <div className={style.private_logo}>
-            <img src={Logo} alt="COOKUB"/>
+            <a className="imgbtn" href={'/'}>
+              <img src={Logo} alt="COOKUB"/>
+            </a>
             {userName?<h1 className={ style.private_header_title}>{`${userName}님의 레시피 저장소 입니다.`}</h1>
             :<h1 className={ style.private_header_title}>안녕하세요! 'Cookub'입니다</h1>}
           </div>
@@ -61,7 +63,7 @@ const PrivatePage = ()=>{
               {dataTest.map((data, index) => (
                 <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
                   <div className={style.recipe}>
-                    <Link to="/board/detail" className={style.imageAndText}
+                    <Link to="/board/detail2" className={style.imageAndText}
                       onClick={() => {
                         window.sessionStorage.setItem(
                           "detail_recipeId", data.recipeId

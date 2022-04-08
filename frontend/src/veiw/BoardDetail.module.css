@@ -232,3 +232,15 @@
   border-radius: 15px;
 }
 div{display: block;}
+
+
+
+/* 좋아요버튼 스타일 */
+.like_btn{
+  font-size: 60px;
+  padding-bottom: 6px;
+}
+.like_btn:active{
+  font-size: 65px;
+  padding-bottom: 0px;
+}

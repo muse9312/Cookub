@@ -9,6 +9,7 @@ import BoardDetailEdit from './veiw/BoardDetailEdit';
 import SignUp from './veiw/SignUp';
 import KakaoSignUp from './veiw/KakaoSignUp';
 import BoardDetail from './veiw/BoardDetail';
+import PrivateBoardDetail from './veiw/PrivateBoardDetail';
 import UserInfoUpdate from './veiw/UserInfoUpdate';
 import Profile from './veiw/Profile';
 import Auth from './Auth'
@@ -36,6 +37,7 @@ function App() {
         <Route path="/board" element={<Board />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/board/detail" exact={true} element={<BoardDetail />} />
+        <Route path="/board/detail2" exact={true} element={<PrivateBoardDetail />} />
         <Route path="/board/detail/Edit" element={<BoardDetailEdit />} />
         <Route path="/open/detail" exact={true} element={<PublicBoardDetail />} />
         <Route path="/userinfo" element={<UserInfoUpdate />} />
