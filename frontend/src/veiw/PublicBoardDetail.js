@@ -4,16 +4,18 @@ import axios from 'axios';
 import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import { TiEdit, TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, TiTrash } from 'react-icons/ti';
+import {TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag } from 'react-icons/ti';
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import LoadingBar from '../component/LodingBar';
 
 
 function PublicBoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
+  const [anySwitch, setAnySwitch] = useState(false)
 
   const cookie = new Cookies();
   const token = cookie.get('token');
@@ -28,6 +30,7 @@ function PublicBoardDetail() {
   }
 
   useEffect(() => {
+    setAnySwitch(true)
     const id = window.sessionStorage.getItem("detail_recipeId")
 
     axios
@@ -38,8 +41,8 @@ function PublicBoardDetail() {
       })
       .then((res) => {
         console.log(res);
-        console.log(res.data);
         setRecipe(res.data);
+        setAnySwitch(false)
       })
   }, []);
 
@@ -61,13 +64,12 @@ function PublicBoardDetail() {
               <div className={style.step_top}>
                 {/* 제목 */}
                 <h1 className={style.title}>
+                  {anySwitch && <LoadingBar/>}
                   {recipe.title == null ? "제목이 없습니다." : recipe.title}
-
                 </h1>
                 <div className={style.userurl} onClick={SendLogin}>
-
                   <h2>
-                    {recipe.user.username == undefined ? "제목이 없습니다." : recipe.user.username}
+                    {recipe.user === undefined ? "" : recipe.user.username}
                   </h2>
                 </div>
                 <div className={style.top_cont}>

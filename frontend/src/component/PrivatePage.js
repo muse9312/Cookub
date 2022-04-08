@@ -4,12 +4,14 @@ import { Link, useParams } from 'react-router-dom';
 import noImg from '../assets/img/noimg.PNG';
 import style from '../veiw/MyPage.module.css';
 import LoadingBar from "./LodingBar";
+import Logo from "../assets/img/CookubLogo.png"
 
 const PrivatePage = ()=>{
   const {key}  = useParams(); //url 의 key 변수에 저장.
  
   const [dataTest, setDataTest] = useState([]);
   const [anySwitch, setAnySwitch] = useState(false)
+  const [userName, setUserName] = useState();
 
   const s3URL = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/" // --> 리사이징 안된 이미지 저장하는곳
 
@@ -22,6 +24,7 @@ const PrivatePage = ()=>{
       console.log(res);
       console.log(res.data);
       setDataTest(res.data)
+      setUserName(res.data[0].user.username)
       setAnySwitch(false)
     })
     //state에 리턴된 데이터를 냄
@@ -46,9 +49,15 @@ const PrivatePage = ()=>{
     <>
       {dataTest
         ?(
-          // 키가 유효할때 레시피를 보여주는 UI
-        <div className={style.public_recipes}>
-           {anySwitch && <LoadingBar/>}
+        <div className={style.private_header}>
+          <div className={style.private_logo}>
+            <img src={Logo} alt="COOKUB"/>
+            {userName?<h1 className={ style.private_header_title}>{`${userName}님의 레시피 저장소 입니다.`}</h1>
+            :<h1 className={ style.private_header_title}>안녕하세요! 'Cookub'입니다</h1>}
+          </div>
+          {anySwitch && <LoadingBar/>}
+            {/* // 키가 유효할때 레시피를 보여주는 UI */}
+          <div className={style.public_recipes}>
               {dataTest.map((data, index) => (
                 <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
                   <div className={style.recipe}>
@@ -83,6 +92,8 @@ const PrivatePage = ()=>{
                 </>
               ))}
             </div>
+          </div>
+        
         )
         :( 
           //키가 잘못됐거나 기간이 유효하지 않을때 보여줄 UI

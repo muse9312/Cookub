@@ -101,7 +101,7 @@ function Login() {
 
             setTimeout(function () {
               window.location = '/';
-            }, 3000);
+            }, 1000);
 
 
           } else if (res.status === 400) {

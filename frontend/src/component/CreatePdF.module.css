@@ -1,3 +1,4 @@
+
 .doc{
   display: block;
   /* 아래 스타일은 A4사이즈로 크기 고정시켜놓음
@@ -6,8 +7,9 @@
   height: 100%;
   max-width: 790px;
   max-height: 1180px;
-  border: 1px solid;
+  /* border: 0.5px solid; */
   resize: none;
+  background-color: #fff;
 }
 .pdf_body{
   padding: 20px 15px;
@@ -28,15 +30,7 @@
   text-align: justify;
   font-family: 'Times New Roman', Times, serif;
 }
-.pdf_pageNum{
-  position: absolute;
-  font-size: 12px;
-  bottom: 30px;
-  left: 0px;
-  right: 0px;
-  text-align: center;
-  color: gray;
-}
+
 
 .pdf_btn{
   border: 0px;
@@ -163,3 +157,27 @@
   display: flex;
   justify-content: flex-end;
 }
+
+
+
+
+/* 워터마크 스타일 */
+
+.watermarked{
+  position: absolute;
+  top: -150%;
+  left: 22%;
+
+  display: block;
+  width: 65%;
+  height: 50%;
+
+  transform: rotate(16deg);
+
+  opacity: 0.7;
+  line-height: 4em;
+  letter-spacing: 5px;
+  color: rgb(237, 238, 238);
+}
+
+
