@@ -4,15 +4,21 @@ import Logo from '../assets/img/CookubLogo.png';
 import Pdf from "react-to-pdf";
 import style from './CreatePdF.module.css';
 
+import Cookies from 'universal-cookie';
+
 
 const ref = React.createRef();
 
 
 
 const CreatePDF = ({recipe,setPdfMode}) => {
+  const cookies = new Cookies();
+  const userName = cookies.get("username") + " " 
+
   return (
     <>
-      <div ref={ref}>
+      <div  ref={ref}>
+        <div className={style.watermarked}>{userName.repeat(500)}</div>
         <span className={style.doc}>
           <div className={style.pdf_body}>
             <div className={style.pdf_header}>

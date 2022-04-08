@@ -167,6 +167,7 @@ function BoardDetailEdit() {
           <div className={style.empty} />
           <div className={style.contents}>
             <div className={style.editAndDelete}>
+              <button className={style.delete_btn} onClick={() => { window.history.back() }}> 돌아가기</button>
               <button className={style.delete_btn} onClick={() => { editButtonEvent() }}><TiTickOutline /> 수정완료</button>
             </div>
             <div className={style.container2}>
