@@ -4,6 +4,7 @@ import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
 import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.entity.url.Url;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -55,6 +56,8 @@ public class User {
     private String role;
     @CreationTimestamp
     private LocalDateTime createdDate;
+
+    
     
     @JsonManagedReference
     @OneToMany(mappedBy = "careerUser", cascade = CascadeType.REMOVE, orphanRemoval = true)

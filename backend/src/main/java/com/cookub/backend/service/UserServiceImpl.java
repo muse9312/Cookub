@@ -67,7 +67,11 @@ public class UserServiceImpl implements UserService {
         String token = "";
         HashMap<String, Object> map = new HashMap<>();
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
+        // userEntity = null => 
+        if(userEntity == null){
+            return null;
+        }
+        else if (userEntity != null && passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
             System.out.println("3. ID 확인 후 token 발급");
             token = "Bearer " + jwtUtil.generateToken(userEntity);
             System.out.println("6. 토큰 완성:" + token);
@@ -113,8 +117,6 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
-
-
     }
 
     @Override
