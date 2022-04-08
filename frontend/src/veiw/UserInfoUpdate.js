@@ -514,9 +514,11 @@ const UserInfoUpdate = () => {
   // ================================  Page location  ====================================
 
 
+
+
   function SendLogin(e) {
     e.preventDefault();
-    window.location.href = "/login"
+    window.location.href = "/profile"
 
   }
 
@@ -596,24 +598,34 @@ const UserInfoUpdate = () => {
 
     })
 
+  }
+
+  // ================================  axios userDelete  ====================================
+  function DeleteUser(e) {
+    e.preventDefault();
+
+    const userId = cookies.get("userId")
 
 
-
-
+    axios.delete(`http://localhost:8080/user/auth/${userId}`)
+      .then(function (res) {
+        cookies.remove('token')
+        cookies.remove('username')
+        cookies.remove('userId')
+        cookies.remove('profile')
+        cookies.remove('email')
+        cookies.remove('tel')
+        cookies.remove('birth')
+        cookies.remove('field')
+        cookies.remove('workNation')
+        cookies.remove('career')
+        cookies.remove('grade')
+        cookies.remove('workPlace')
+        console.log(res);
+      })
+    // window.location.href = "/"
 
   }
-  // ================================  axios userDelete  ====================================
-
-  // function DeleteUser(e) {
-  //   e.preventDefault();
-
-  //   axios.delete('http://localhost:8080/user/{userId}')
-  //     .then(() => this.setState({ status: 'Delete successful' }));
-
-
-  //   window.location.href = "/login"
-
-  // }
 
 
 
@@ -892,10 +904,16 @@ const UserInfoUpdate = () => {
             <Stack direction="row" spacing={4}>
               <Button variant="outlined" onClick={SendLogin}>Back</Button>
               <Button type="submit" variant="outlined" >Edit</Button>
-              {/* <Button variant="outlined" onClick={DeleteUser} >Withdrawal</Button> */}
             </Stack>
           </div>
         </form>
+
+
+
+
+        <Button onClick={DeleteUser} variant="outlined" >Delete</Button>
+
+
 
 
       </div >

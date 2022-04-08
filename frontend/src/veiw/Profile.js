@@ -82,6 +82,11 @@ const Profile = () => {
 
     const [dataTest, setDataTest] = useState([]);
 
+    function EditProfile(e) {
+        e.preventDefault()
+        window.location.href = "/userinfo"
+    }
+
 
     useEffect(() => {
         const userId = cookies.get('userId')
@@ -166,7 +171,7 @@ const Profile = () => {
                             <AddIcon />
                         </Fab>
                         <Fab size="small" color="secondary" aria-label="edit">
-                            <EditIcon />
+                            <EditIcon onClick={EditProfile} />
                         </Fab>
 
                     </Box>
@@ -209,7 +214,7 @@ const Profile = () => {
                 <br />
                 <hr />
 
-                <Stack direction="row" spacing={2}>
+                {/* <Stack direction="row" spacing={2}>
                     <Button variant="contained">???</Button>
                     <Button variant="contained" href="#contained-buttons">
                         ???
@@ -217,9 +222,9 @@ const Profile = () => {
                     <Button variant="contained" href="#contained-buttons">
                         Url
                     </Button>
-                </Stack>
+                </Stack> */}
 
-                <br />
+
 
 
 
