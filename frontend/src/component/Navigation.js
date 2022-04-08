@@ -91,10 +91,8 @@ function Navigation() {
     if (token == null && kakao == null) {
       return null
     } else {
-      return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
-      // return <li className={style.list_item}>
-      //   <div className={style.nav_item}>{token == null ? <PublicProfile /> : <Profile />}</div>Profile</li>
-      //  <div>{name === '리액트' ? <h1>리액트입니다.</h1> : <h1>리액트가 아닙니다</h1>}</div>
+      return <li className={style.list_item}><Link className={style.nav_item} to='/Profile' element={<Profile />}>Profile</Link></li>
+
     }
   }
 

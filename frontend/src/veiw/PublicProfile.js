@@ -1,9 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import Cookies from 'universal-cookie'
-
-// ================================  Data  ====================================
-
+import style from './BoardDetail.module.css';
 import Box from '@mui/material/Box';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -74,7 +72,9 @@ const PublicProfile = () => {
     const src = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
 
     const cookies = new Cookies();
+    const token = cookies.get('token');
 
+    const [recipe, setRecipe] = useState([]);
     const [EudmodalOpen, setEudModalOpen] = useState(false);
     const [CermodalOpen, setCerModalOpen] = useState(false);
     const [AwdmodalOpen, setAwdModalOpen] = useState(false);
@@ -82,9 +82,8 @@ const PublicProfile = () => {
 
     const [dataTest, setDataTest] = useState([]);
 
-
     useEffect(() => {
-        const userId = cookies.get('userId')
+        const userId = window.sessionStorage.getItem("id");
         const api = `http://localhost:8080/profile/${userId}`;
         axios.get(api)
             .then((res) => {
@@ -101,46 +100,6 @@ const PublicProfile = () => {
 
     }, []);
 
-    // axios
-    //     .get(`http://localhost:8080/profile/${cookies.get('userId')}`, {
-    //         headers: {
-    //             "Content-Type": `application/json`,
-    //         },
-    //     })
-    //     .then((res) => {
-    //         console.log(res);
-
-
-    //         // window.location = '/login';
-    //     });
-
-    function result() {
-        dataTest.map((data) => {
-            for (let i = 0; i < data[i].length; i++) {
-                return <div>
-                    {data[i].education}
-                    <br />
-                    {data[i].major}
-                    <br />
-                    {data[i].graduation}
-
-
-                </div>
-
-            }
-            // if(data.role !== "leader"){
-            //     return <div>{data.name}</div>;
-            // }
-
-        }
-        )
-    }
-
-    // const result = dataTest.map(data => {
-    //     if(data.role !== "leader")
-    //             return <div>{data.name}</div>;
-    //     }
-    // );
 
 
 
@@ -155,25 +114,6 @@ const PublicProfile = () => {
                     <p className="subtitle">Happy Cooking!!</p>
                 </div>
 
-
-
-
-
-
-                <div className="iconPosition">
-                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                        <Fab size="small" color="primary" aria-label="add">
-                            <AddIcon />
-                        </Fab>
-                        <Fab size="small" color="secondary" aria-label="edit">
-                            <EditIcon />
-                        </Fab>
-
-                    </Box>
-                </div>
-
-
-
                 {/* 프로필 이미지 */}
                 <div className="proBox">
                     <img className="profilePic" src={src + cookies.get("profile")} alt="Black dog with red scarf" />
@@ -182,7 +122,9 @@ const PublicProfile = () => {
                     <div className="profileInfo">
 
                         <Typography variant="h4" component="div">
-                            <AccountCircleIcon sx={{ fontSize: 30 }} />  {cookies.get('username')}
+                            <AccountCircleIcon sx={{ fontSize: 30 }} />
+                            {recipe.user === undefined ? "" : recipe.user.username}
+
                         </Typography>
 
                         <Typography variant="h8" component="div">
