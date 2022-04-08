@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import About from '../veiw/About';
 import Board from '../veiw/Board';
 import MyPage from '../veiw/MyPage';
+import Profile from '../veiw/Profile';
+import PublicProfile from '../veiw/PublicProfile';
 import UserInfo from '../veiw/UserInfoUpdate';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
@@ -71,8 +73,8 @@ function Navigation() {
       return <div>
         <div  >
           {cookies.get('img')
-            ?<img className="cat" src={cookies.get('img')} alt="profile"/>
-            :<img className="cat" src={noImg} alt="profile"/>
+            ? <img className="cat" src={cookies.get('img')} alt="profile" />
+            : <img className="cat" src={noImg} alt="profile" />
           }
         </div>
         <h2>
@@ -90,6 +92,9 @@ function Navigation() {
       return null
     } else {
       return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
+      // return <li className={style.list_item}>
+      //   <div className={style.nav_item}>{token == null ? <PublicProfile /> : <Profile />}</div>Profile</li>
+      //  <div>{name === '리액트' ? <h1>리액트입니다.</h1> : <h1>리액트가 아닙니다</h1>}</div>
     }
   }
 
@@ -123,7 +128,7 @@ function Navigation() {
           한국표준협회 클라우드 기반<br />
           풀스택 개발자 양성과정 교육생<br />
           프로젝트 입니다.
-        </p> 
+        </p>
       </section>
     </div>
 
