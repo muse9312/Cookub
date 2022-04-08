@@ -27,6 +27,7 @@ public class Url {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastDate;
     private String privateKey;
+    private String purpose;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

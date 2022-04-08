@@ -75,7 +75,9 @@
   font-size: 20px;
 }
 
-
+.container{
+  background-color: rgb(237, 238, 238);
+}
 
 /* 레시피 카드 스타일 */
 .container2{
@@ -192,4 +194,23 @@
 
 
 
+
+/* 프라이빗페이지 헤더 스타일 */
+.private_header{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 5%;
+  padding-left: 5%;
+}
+.private_header_title{
+  display: block;
+  width: 80%;
+  padding-top: 5%;
+  text-align: center;
+}
+
+.private_logo{
+  display: flex;
+}
 

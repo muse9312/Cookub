@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from 'universal-cookie';
 import Navigation from '../component/Navigation'
 import PrivateURL from "../component/PrivateURL.jsx";
+import LoadingBar from "../component/LodingBar";
 
 
 function MyPage() {
@@ -27,7 +28,8 @@ function MyPage() {
 function CreateRecipe({ closeModal }) {
 
   const [dataTest, setDataTest] = useState([]);
-  const [tabSwitch, setTabSwitch] = useState(true);
+  const [tabSwitch, setTabSwitch] = useState(false);
+  const [anySwitch, setAnySwitch] = useState(false);
 
   const cookies = new Cookies();
   const token = cookies.get('token');
@@ -36,6 +38,7 @@ function CreateRecipe({ closeModal }) {
 
 
   useEffect(() => {
+    setAnySwitch(true)
     const userId = cookies.get('userId')
     const api = `http://localhost:8080/mypage/recipe/list/${userId}`;
     // const api=`http://localhost:8080/mypage/recipe/list/2`;
@@ -44,6 +47,7 @@ function CreateRecipe({ closeModal }) {
         console.log(res);
         console.log(res.data);
         setDataTest(res.data)
+        setAnySwitch(false)
       })
   }, []);
 
@@ -93,6 +97,7 @@ function CreateRecipe({ closeModal }) {
             </ul>
             {tabSwitch === true?( //탭 선택에 따른 2가지 ui보여줌
               <div className={style.public_recipes}>
+                {anySwitch && <LoadingBar/>}
               {dataTest.map((data, index) => (
                 <>{/* 레시피데이터 반복문 돌리면서 바인딩 */}
                   <div className={style.recipe}>
@@ -127,7 +132,11 @@ function CreateRecipe({ closeModal }) {
                 </>
               ))}
             </div>
-            ):(<PrivateURL/>)}
+            ):(
+            <>
+              <PrivateURL />
+            </>
+            )}
             
           </div>
 

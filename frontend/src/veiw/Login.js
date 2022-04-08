@@ -101,7 +101,7 @@ function Login() {
 
             setTimeout(function () {
               window.location = '/';
-            }, 3000);
+            }, 1000);
 
 
           } else if (res.status === 400) {
@@ -163,13 +163,13 @@ function Login() {
 
               <br />
               <div id="Btn-1">
-                <Stack direction="row" spacing={4}>
+                <Stack direction="row" spacing={3}>
                   <Button variant="outlined" type="submit" >Login</Button>
                   <Button variant="outlined" onClick={SendSignUp}>SignUp</Button>
-                  <button src="../assets/icons/kakao_login_small.png" onClick={KakaoClick}>
+                  <Button variant="outlined" onClick={KakaoClick}>
 
 
-                    Kakao</button>
+                    Kakao</Button>
                 </Stack>
 
               </div>

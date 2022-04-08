@@ -1,7 +1,10 @@
 package com.cookub.backend.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,7 +133,7 @@ public class RecipeServiceImpl implements RecipeService {
         return list;
     }
 
-    // 레시피 목록 조회
+    // private 레시피 조회
     @Override
     public List<Recipe> myPrivate(String key) {
         Url url = urlRepository.findByPrivateKey(key);
@@ -148,6 +151,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     }
 
+    // 유효성 검사
     public boolean checkEnable(Url url) {
         Date currentDate = new Date();
         if (currentDate.getTime() > url.getLastDate().getTime())
@@ -163,27 +167,6 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(recipeId);
         return "del";
 
-        // Recipe recipeEntity = Recipe.builder()
-        // .cookMethods(recipeDto.getCookMethods())
-        // .keywordList(recipeDto.getKeywordList())
-        // .ingredients(recipeDto.getIngredients())
-        // .build();
-
-        // for (CookMethod cookMethod : recipeDto.getCookMethods()) {
-        // cookMethod.setMethodRecipe(recipeEntity);
-        // cookMethodRepository.delete(cookMethod);
-        // }
-
-        // for (Keyword keyword : recipeDto.getKeywordList()) {
-        // keyword.setKeywordRecipe(recipeEntity);
-        // keywordRepository.delete(keyword);
-        // }
-
-        // for (Ingredient ingredient : recipeDto.getIngredients()) {
-        // ingredient.setIngredientRecipe(recipeEntity);
-        // ingredientRepository.delete(ingredient);
-        // }
-
     }
 
     // 내 레시피 상세 정보 조회
@@ -191,6 +174,41 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findRecipe(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).get();
         return recipe;
+    }
+
+    // 레시피 검색
+    @Override
+    public List<Recipe> searchRecipe(String searchingName) {
+        List<Recipe> searchRecipe = recipeRepository.findByisOpenable(1);
+        List<Ingredient> searchIngredient = ingredientRepository.findByingredientName(searchingName);
+
+        List<Recipe> recipeList1 = new ArrayList<Recipe>();
+        List<Recipe> recipeList2 = new ArrayList<Recipe>();
+        
+        int u = 0;
+        // searching the openable recipe
+        for (int i = 0; i < searchRecipe.size(); i++) {
+
+            int o = 0;
+            
+            // same Ingredient Test in recipeList
+            for (o = 0; o < searchRecipe.get(i).getIngredients().size(); o++) {
+                if (searchRecipe.get(i).getIngredients().get(o).getIngredientName().equals(searchingName)) {
+                    recipeList1.add(searchRecipe.get(i));
+                }
+            }
+        }
+        // remove overlap
+
+        // set in HashSet
+        HashSet<Recipe> set = new HashSet<>();
+        for (u=0; u < recipeList1.size() ; u++){
+            set.addAll(recipeList1);
+        }
+        // set in Array
+        recipeList2.addAll(set);
+
+        return recipeList2;
     }
 
 }

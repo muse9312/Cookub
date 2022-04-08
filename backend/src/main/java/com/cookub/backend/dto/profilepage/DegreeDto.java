@@ -13,6 +13,6 @@ public class DegreeDto {
     private String education;
     private String major;
     private String graduation;
-  
+
     private Long userId;
 }

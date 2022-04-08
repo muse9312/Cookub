@@ -7,6 +7,7 @@ import UserInfo from '../veiw/UserInfoUpdate';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
 import Swal from 'sweetalert2'
+import noImg from '../assets/img/noimg.PNG'
 
 import Cookies from 'universal-cookie';
 
@@ -18,27 +19,22 @@ function Navigation() {
   const cookies = new Cookies();
   const token = cookies.get('token');
 
-  const [user_id, setUserId] = useState();
-  const [nickName, setNickName] = useState();
-  const [profileImage, setProfileImage] = useState();
 
-  console.log(token);
+
 
   function SendLogin(e) {
     e.preventDefault();
-    window.location.href = "/login"
-
-  }
-
-  function SendProfile(e) {
-    e.preventDefault();
-    window.location.href = "/userInfo"
+    window.location.href = "login"
 
   }
 
   function Logout(e) {
     e.preventDefault();
     console.log(token);
+
+    window.sessionStorage.clear();
+
+
 
 
     cookies.remove('token')
@@ -62,53 +58,35 @@ function Navigation() {
 
   }
 
-  function getProfile() {
-    try {
-      // Kakao SDK API를 이용해 사용자 정보 획득
-      let data = window.Kakao.API.request({
-        url: "/v2/user/me",
-      });
-      // 사용자 정보 변수에 저장
-      setUserId(data.id);
-      setNickName(data.properties.nickname);
-      setProfileImage(data.properties.profile_image);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
 
   function BtnHendler() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-    if (token == null) {
+
+
+    if (kakao == null && token == null) {
       return <button className={style.login_button} onClick={SendLogin}>Login</button>;
     } else {
-      return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
+      return <div>
+        <div  >
+          {cookies.get('img')
+            ?<img className="cat" src={cookies.get('img')} alt="profile"/>
+            :<img className="cat" src={noImg} alt="profile"/>
+          }
+        </div>
+        <h2>
+          {cookies.get('nickname')}{cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
     }
-
-    // if (token == null) {
-    //   return <button className={style.login_button} onClick={SendLogin}>Login</button>;
-    // } else if (token !== null) {
-    //   return <div> <h2> {cookies.get('username')} 님 어서오세요</h2> <button className={style.login_button} onClick={Logout}>Logout</button> </div>;
-    // } else {
-    //   return <div>
-    //     <h2>{user_id}</h2>
-    //     <h2>{nickName}</h2>
-    //     <img src={profileImage}></img>
-    //   </div>
-    // }
 
   }
 
+
   function BtnUserInfo() {
     const token = cookies.get('token');
+    const kakao = cookies.get('kakao_id')
 
-    if (token == null) {
+    if (token == null && kakao == null) {
       return null
     } else {
       return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
@@ -119,35 +97,34 @@ function Navigation() {
 
   return (
     <div className={style.nav}>
-      <a className="imgbtn" href={'/'}>
-        <img className={style.logo_img} src={logo} alt="COOKUB" />
-      </a>
-      <div>
-        {BtnHendler()}
-      </div>
+      <section>
+        <a className="imgbtn" href={'/'}>
+          <img className={style.logo_img} src={logo} alt="COOKUB" />
+        </a>
+        <div>
+          {BtnHendler()}
+        </div>
 
-      <br />
-      <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
-      <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
-      <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
-      <div>
-        {BtnUserInfo()}
-      </div>
-      <br /><br /><br /><br />
-      <p className={style.ceo_pm}>대표번호 :  02 - 9575 - 4323</p>
-      <p className={style.footer}>
-        주식회사  레인보우<br />
-        owner 김남현<br />
-        서울특별시 금천구 가산디지털1로(가산동)<br />
-        우림라이온스밸리 8층<br />
-        budiness licence 740-99-1053<br />
-        online business licence 2022-서울서초구-1532<br />
-        개인정보 관리 책임자 : 레인보우(skagns@gmail.com)<br /><br />
+        <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
+        <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
+        <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
+        <div>
+          {BtnUserInfo()}
+        </div>
+      </section>
+      <section>
+        <p className={style.footer}><br />
+          서울 가산디지털단지 한가람 IT <br />
+          우림라이온스밸리 8층<br />
+          budiness licence 740-99-1053<br />
+          online business licence 2022-서울서초구-1532<br />
+          관리 책임자 : 정남훈(skagns@gmail.com)<br /><br />
 
-        이용약관 <br />
-        개인정보취급방침<br />
-        이용안내<br />
-      </p>
+          한국표준협회 클라우드 기반<br />
+          풀스택 개발자 양성과정 교육생<br />
+          프로젝트 입니다.
+        </p> 
+      </section>
     </div>
 
   );

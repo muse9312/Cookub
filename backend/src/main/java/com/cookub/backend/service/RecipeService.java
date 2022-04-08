@@ -22,13 +22,16 @@ public interface RecipeService {
     // 레시피 목록 조회
     List<Recipe> myRecipe(Long userId);
 
-        // 레시피 목록 조회
-        List<Recipe> myPrivate(String key);
+    // Private recipe Url
+    List<Recipe> myPrivate(String key);
 
     // 레시피 상세 정보 조회
     Recipe findRecipe(Long recipeId);
 
     // 레시피 삭제
     String delRecipe(Long recipeId);
+
+    // 레시피 검색 
+    List<Recipe> searchRecipe(String searchingName);
 
 }

@@ -27,8 +27,11 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
 
   const ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
   const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
+  // const RESION = 'us-east-2';
+  // const S3_BUCKET = 's3-bucket-react-file-upload-test-5jo';
   const RESION = 'us-east-2';
-  const S3_BUCKET = 's3-bucket-react-file-upload-test-5jo';
+  const S3_BUCKET = '5jo-test';
+
 
   AWS.config.update({
     accessKeyId: ACCESS_KEY,
@@ -68,7 +71,7 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
     .send((err)=>{
       if(err)console.log(err)
     })
-}
+  }
 
     const uploadFile2 = (file,i) => { //챕터3!의 사진들을 업로드하는 코드
       //아래 4줄의 코드는 챕터3에서 저장한 세션데이터준 DB에 저장될 사진이름을 고치는 코드임.
@@ -267,8 +270,8 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                                 console.log(res);
                                 closeModal(false) 
                                 console.log(val);
-                                window.location.href = 'http://localhost:3000/mypage';
-                                window.sessionStorage.clear()
+                                // window.location.href = 'http://localhost:3000/mypage';
+                                // window.sessionStorage.clear()
                               })
 
                             

@@ -3,15 +3,10 @@ package com.cookub.backend.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cookub.backend.dto.profilepage.AwardsCareerDto;
-import com.cookub.backend.dto.profilepage.CertificationDto;
-import com.cookub.backend.dto.profilepage.DegreeDto;
-import com.cookub.backend.dto.profilepage.WorkCareerDto;
 import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
 import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
-import com.cookub.backend.entity.profilepage.AwardsCareer.AwardsCareerBuilder;
 import com.cookub.backend.entity.user.User;
 import com.cookub.backend.repository.AwardsCareerRepository;
 import com.cookub.backend.repository.CertificationRepository;
@@ -19,12 +14,13 @@ import com.cookub.backend.repository.DegreeRepository;
 import com.cookub.backend.repository.UserRepository;
 import com.cookub.backend.repository.WorkCareerRepository;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@Service
-public class ProfileServiceImpl implements ProfileService {
-    
+@SpringBootTest
+public class ProfileServiceImplTest {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -40,8 +36,21 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private WorkCareerRepository workRepository;
     
-    // get profile Info 
-    public ArrayList<List> profile(Long userId){
+    // Tip! RED->GREEN->Refactoring
+
+    // given : 무언가가 주어졌을 때,
+
+    // when : 이 상황에
+
+    // then : 이 결과가 나와야한다.
+    // assertThat("결과값").isEqualTo("예상결과값");
+    // assertTrue() assertEquals()
+
+    // get profileInfo 
+    @Test
+    ArrayList<List> profile(){
+
+        Long userId = 2L;
         User user = userRepository.findById(userId).get();
         List<Certification> cert = certRepository.findByCertificationUser(user);
         List<AwardsCareer> awd = awdRepository.findBycareerUser(user);
@@ -53,69 +62,78 @@ public class ProfileServiceImpl implements ProfileService {
         profile.add(awd);
         profile.add(degree);
         profile.add(work);
+        System.out.println(profile);
 
         return profile;
-
     }
 
 
-    // update Awd
-    public void setAwd(AwardsCareerDto careerDto, Long userId){
+
+    // update awd
+    @Test
+    void updateAwd(){
+        Long userId = 2L;
         User user = userRepository.findById(userId).get();
         AwardsCareer careerEntity = AwardsCareer.builder()
-            .awardsCareerId(careerDto.getAwardsCareerId())
-            .getAwdDate(careerDto.getGetAwdDate())
-            .compName(careerDto.getCompName())
-            .awdName(careerDto.getAwdName())
-            .issuedAwd(careerDto.getIssedAwd())
+            .awardsCareerId(1L)
+            .compName("careerDto.getCompName()")
+            .awdName("careerDto.getAwdName()")
+            .issuedAwd("careerDto.getIssedAwd()")
+            .getAwdDate("getAwdDate")
             .careerUser(user)
             .build();
 
         awdRepository.save(careerEntity);
- 
     }
 
-    // upadate Certification
-    public void setCert(CertificationDto certDto, Long userId){
+    // update work
+    @Test
+    void updateWork(){
+        Long userId = 2L;
         User user = userRepository.findById(userId).get();
-        Certification certEntity = Certification.builder()
-            .certificationId(certDto.getCertificationId())
-            .certName(certDto.getCertName())
-            .getCertDate(certDto.getGetCertDate())
-            .issuedCert(certDto.getIssuedCert())
-            .certificationUser(user)
+        WorkCareer workEntity = WorkCareer.builder()
+            .workPlaceId(1L)
+            .compName("workDto.getCompName()")
+            .location("workDto.getLocation()")
+            .jobPosition("workDto.getJobPosition()")
+            .period("workDto.getPeriod()")
+            .workPlaceUser(user)
             .build();
 
-            certRepository.save(certEntity);
-
+        workRepository.save(workEntity);
     }
 
-    // update Degree 
-    public void setDegree(DegreeDto degreeDto, Long userId){
+    // update degree
+    @Test
+    void updateDegree(){
+        Long userId = 2L;
         User user = userRepository.findById(userId).get();
         Degree degreeEntity = Degree.builder()
-            .degreeId(degreeDto.getDegreeId())
-            .education(degreeDto.getEducation())
-            .major(degreeDto.getMajor())
-            .graduation(degreeDto.getGraduation())
+            .degreeId(1L)
+            .education("degreeDto.getEducation()")
+            .major("degreeDto.getMajor()")
+            .graduation("degreeDto.getGraduation()")
             .degreeUser(user)
             .build();
 
             degreeRepository.save(degreeEntity);
     }
 
-    // update WorkCareer 
-    public void setWork(WorkCareerDto workDto, Long userId){
+    // update cert
+    @Test
+    void updateCert(){
+        Long userId = 2L;
         User user = userRepository.findById(userId).get();
-        WorkCareer workEntity = WorkCareer.builder()
-            .workPlaceId(workDto.getWorkPlaceId())
-            .compName(workDto.getCompName())
-            .location(workDto.getLocation())
-            .jobPosition(workDto.getJobPosition())
-            .period(workDto.getPeriod())
-            .workPlaceUser(user)
+        Certification certEntity = Certification.builder()
+            .certificationId(1L)
+            .certName("certDto.getCertName()")
+            .getCertDate("certDto.getGetCertDate()")
+            .issuedCert("certDto.getIssuedCert()")
+            .certificationUser(user)
             .build();
 
-        workRepository.save(workEntity);
+            certRepository.save(certEntity);
     }
+
+
 }

@@ -1,13 +1,18 @@
 .container{
   display: flex;
   justify-content: space-between;
-  background-color: rgb(228, 225, 231);
+  background-color: rgb(237, 238, 238);
+}
+
+.userurl{
+  text-align: right;
+  
 }
 .empty{
   display: block;
   width: 20%;
   height: 450px;
-  background-color: rgb(228, 225, 231);
+  background-color: rgb(237, 238, 238);
 }
 .contents{
   display: flex;
@@ -24,7 +29,7 @@
 .empty2{
   width: 12%;
   height: 450px;
-  background-color: rgb(228, 225, 231);
+  background-color: rgb(237, 238, 238);
 }
 .editAndDelete{
   display: flex;
@@ -170,7 +175,7 @@
 .step_list{
   background-size: 36px;
   padding: 6px 0 60px 96px;
-  width:850px;
+  width:70%;
   font-size: 22px;
   display: flex;
   justify-content: space-between;
@@ -190,10 +195,13 @@
   vertical-align: top;
 }
 .step_img{
+  vertical-align: middle;
   border:0;
   margin: 0;
-  max-width: 300px;
-  max-height: 280px;
+  max-width: 400px;
+  max-height: 400px;
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
 }
 

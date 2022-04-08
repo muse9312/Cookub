@@ -22,9 +22,10 @@ public class AwardsCareer {
     private String awdName;
     private String getAwdDate;
     private String issuedAwd;
+    private String compName;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User CareerUser;
+    private User careerUser;
 
 }

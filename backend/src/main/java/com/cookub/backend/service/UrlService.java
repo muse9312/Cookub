@@ -13,7 +13,13 @@ import org.springframework.stereotype.Service;
 @Transactional
 public interface UrlService {
 
-    // url 발급( 등록 ) 
-    String setUrl(Long userId);
+    // Make Url
+    public String setUrl(Long userId, UrlDto urlDto);
+
+    // Delete Url
+    public String delUrl(Long urlId);
+
+    // list Url
+    public List<Url> myUrl(Long userId);
 
 }   

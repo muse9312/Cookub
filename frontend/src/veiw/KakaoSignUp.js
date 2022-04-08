@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+import Cookies from 'universal-cookie'
 
 // ================================  Data  ====================================
 
@@ -18,6 +20,8 @@ import AvatarInput from "../component/FileUpload/AvatarInput"
 
 import '../assets/css/SignUp.css'
 
+import Navigation from "../component/Navigation";
+
 // import Nation from '../component/data/Nation'
 
 // Fileupload component
@@ -26,6 +30,56 @@ import '../assets/css/SignUp.css'
 import axios from 'axios'
 
 const KakaoSignUp = () => {
+
+  const cookies = new Cookies();
+
+  const [user_id, setUserId] = useState();
+  const [nickName, setNickName] = useState();
+  const [profileImage, setProfileImage] = useState();
+  // const [show, setShow] = useState(false);
+
+  // setShow(false);
+  const getProfile = async () => {
+    try {
+      // Kakao SDK API를 이용해 사용자 정보 획득
+      let data = await window.Kakao.API.request({
+        url: "/v2/user/me",
+      });
+
+      // 사용자 정보 변수에 저장
+
+      // 카카오 id
+      cookies.set('kakao_id', data.id)
+      console.log(cookies.get('kakao_id'));
+
+      // 카카오 닉네임
+      cookies.set('nickname', data.properties.nickname)
+      console.log(data.properties.nickname);
+
+      // 카카오 프로필 사진
+      cookies.set('img', data.properties.profile_image)
+      console.log(data.properties.profile_image);
+
+      // 카카오 이메일
+      cookies.set('email', data.kakao_account.email)
+      console.log(data.kakao_account.email);
+
+      // 카카오 생일
+      cookies.set('birth', data.kakao_account.birthday)
+      console.log(data.kakao_account.birthday);
+
+
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
 
   const [file, setFiles] = useState("https://i.imgur.com/t1xXavI.png");
 
@@ -518,19 +572,97 @@ const KakaoSignUp = () => {
     e.preventDefault(e);
     console.log(e);
 
+    // try {
+    //   let data = {
 
-    // 프로필
-    const file = document.querySelector('[name=file]').files[0];
-    console.log(document.querySelector('[name=file]').value);
-    // 이메일
-    const email = document.querySelector('[name=useremail]').value;
-    console.log(document.querySelector('[name=useremail]').value);
+    //     // 프로필이미지
+    //     file: cookies.get('img'),
+
+    //     // 페스워드
+    //     password: document.querySelector('[name=password]').value,
+
+    //     // 이메일
+    //     email: cookies.get('email'),
+
+    //     // 이름
+    //     username: cookies.get('nickname'),
+
+    //     // 전화번호
+    //     tel: document.querySelector('[name=tel]').value,
+
+    //     // 생일
+    //     birth: cookies.get('birth'),
+
+    //     // 전문분야
+    //     field: document.querySelector('[name=field]').value,
+
+    //     // 거주국가
+    //     workNation: document.querySelector('[name=work_nation]').value,
+
+    //     // 수준
+    //     grade: document.querySelector('[name=grade]').value,
+
+    //     // 경력
+    //     career: document.querySelector('[name=career]').value,
+
+    //     // 현재 근무지
+    //     workPlace: document.querySelector('[name=work_place]').value
+
+
+    //   }
+    //   console.log(data);
+    //   // axios
+    //   //   .post('http://localhost:8080/user/auth/signUp', JSON.stringify(data), {
+    //   //     headers: {
+    //   //       "Content-Type": `application/json`,
+    //   //     },
+    //   //   })
+    //   //   .then((res) => {
+
+    //   //     console.log(res);
+    //   //     console.log(res.data);
+    //   //     console.log("==========================")
+    //   //     console.log("token = " + res.data.token);
+    //   //     console.log("userId = " + res.data.user.userId);
+    //   //     console.log("email = " + res.data.user.email);
+    //   //     console.log("username = " + res.data.user.username);
+    //   //     console.log("tel = " + res.data.user.tel);
+    //   //     console.log("birth = " + res.data.user.birth);
+    //   //     console.log("field = " + res.data.user.field);
+    //   //     console.log("workNation = " + res.data.user.workNation);
+    //   //     console.log("grade = " + res.data.user.grade);
+    //   //     console.log("career = " + res.data.user.career);
+    //   //     console.log("workPlace = " + res.data.user.workPlace);
+    //   //     console.log(res.status);
+
+
+
+
+
+
+
+
+
+    //   //   });
+
+    // } catch (error) {
+
+
+    // }
+
+
+    // 프로필이미지
+    const file = cookies.get('img')
+    console.log(file);
     // 페스워드
     const password = document.querySelector('[name=password]').value;
     console.log(document.querySelector('[name=password]').value);
+    // 이메일
+    const email = cookies.get('email')
+    console.log(email);
     // 이름
-    const username = document.querySelector('[name=username]').value;
-    console.log(document.querySelector('[name=username]').value);
+    const username = cookies.get('nickname')
+    console.log(username);
     // 전화번호
     const tel = document.querySelector('[name=tel]').value;
     console.log(document.querySelector('[name=tel]').value);
@@ -554,8 +686,6 @@ const KakaoSignUp = () => {
     console.log(document.querySelector('[name=work_place]').value);
 
 
-
-
     const formData = new FormData();
 
     formData.append('file', file);
@@ -570,6 +700,7 @@ const KakaoSignUp = () => {
     formData.append('career', career);
     formData.append('workPlace', workPlace);
     console.log(formData);
+
 
 
     axios({
@@ -591,138 +722,177 @@ const KakaoSignUp = () => {
 
 
   return (
-    <div className="reg-inner">
-      <div class="regbackground">
-        <h1 className="title2">Kakao authentication Complete!</h1>
-        <p className="subtitle">Please enter additional information!!</p>
-      </div>
-      <br />
-      <br />
-      <form onSubmit={RegData}>
-
+    <>
+      <Navigation />
+      <div className="reg-inner">
+        <div class="regbackground">
+          <h1 className="title2">Kakao authentication Complete!</h1>
+          <p className="subtitle">Please enter additional information!!</p>
+        </div>
         <br />
         <br />
-        <br />
-        <br />
+        <form onSubmit={RegData}>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap'
-          }}>
-          <div>
+          <br />
+          <br />
+          <br />
+          <br />
 
-            {/* 전문 분야 */}
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={field}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Field" name="field" />}
-              />
-              <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-              {/* 거주국가 */}
-              <Autocomplete
-                id="country-select-demo"
-                sx={{ width: 300 }}
-                options={countries}
-                autoHighlight
-                getOptionLabel={(option) => option.label}
-                renderOption={(props, option) => (
-                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    <img
-                      loading="lazy"
-                      width="20"
-                      src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                      alt=""
-                    />
-                    {option.label} ({option.code}) +{option.phone}
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    name="work_nation"
-                    {...params}
-                    label="Choose a country"
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: 'new-password', // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}>
+            <div>
 
+              {/* 비밀번호 */}
 
-            </Grid >
-            <br />
-
-            {/* 수준 */}
-            <Grid id="field"
-            >
-              <Autocomplete
-                disablePortal
-
-                options={grade}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
-              />
-
-
-
-            </Grid >
-            <br />
-
-            {/* 경력 */}
-            <Grid >
               <TextField
-                label="Career"
-                name="career"
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                name="password"
+                autoComplete="current-password"
                 sx={{
                   m: 1,
                   width: '30ch'
-                }} />
+                }}
+              />
 
-              {/* 현재 근무지 */}
-              <TextField
-                label="Work_place"
-                name="work_place"
+              {/* 전화,생일 */}
+              <Grid >
+                <TextField
+                  label="Tel"
+                  name="tel"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
+                <TextField
+                  id="standard-helperText"
+                  type="date"
+                  name="birth"
+                  helperText="Birth"
 
-                sx={{
-                  m: 1,
-                  width: '25ch'
-                }} />
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }} />
 
-            </Grid>
+              </Grid>
+
+              {/* 전문 분야 */}
+              <Grid container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={field}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Field" name="field" />}
+                />
+                <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+                {/* 거주국가 */}
+                <Autocomplete
+                  id="country-select-demo"
+                  sx={{ width: 300 }}
+                  options={countries}
+                  autoHighlight
+                  getOptionLabel={(option) => option.label}
+                  renderOption={(props, option) => (
+                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <img
+                        loading="lazy"
+                        width="20"
+                        src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                        alt=""
+                      />
+                      {option.label} ({option.code}) +{option.phone}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      name="work_nation"
+                      {...params}
+                      label="Choose a country"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
+                />
+
+
+              </Grid >
+              <br />
+
+              {/* 수준 */}
+              <Grid id="field"
+              >
+                <Autocomplete
+                  disablePortal
+
+                  options={grade}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Grade" name="grade" />}
+                />
+
+
+
+              </Grid >
+              <br />
+
+              {/* 경력 */}
+              <Grid >
+                <TextField
+                  label="Career"
+                  name="career"
+                  sx={{
+                    m: 1,
+                    width: '30ch'
+                  }} />
+
+                {/* 현재 근무지 */}
+                <TextField
+                  label="Work_place"
+                  name="work_place"
+
+                  sx={{
+                    m: 1,
+                    width: '25ch'
+                  }} />
+
+              </Grid>
 
 
 
 
 
-            <br />
+              <br />
 
 
+            </div>
+
+          </Box>
+
+          <br />
+          <br />
+          <div id="Btn-2">
+            <Stack direction="row" spacing={4}>
+              <Button variant="outlined" onClick={SendLogin}>Back</Button>
+              <Button type="submit" variant="outlined" >SignUp</Button>
+            </Stack>
           </div>
-
-        </Box>
-
-        <br />
-        <br />
-        <div id="Btn-2">
-          <Stack direction="row" spacing={4}>
-            <Button variant="outlined" onClick={SendLogin}>Back</Button>
-            <Button type="submit" variant="outlined" >SignUp</Button>
-          </Stack>
-        </div>
-      </form>
+        </form>
 
 
-    </div >
+      </div >
+    </>
   );
 };
 
