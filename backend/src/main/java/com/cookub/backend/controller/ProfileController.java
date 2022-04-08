@@ -11,6 +11,7 @@ import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
 import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
+import com.cookub.backend.entity.user.User;
 import com.cookub.backend.service.ProfileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ProfileController {
 
     // get Profile Info ( useEffect )
     @GetMapping(value = "/{userId}")
-    public ArrayList<List> profile(@PathVariable("userId") Long userId) {
+    public User profile(@PathVariable("userId") Long userId) {
         return profileService.profile(userId);
     }
 
