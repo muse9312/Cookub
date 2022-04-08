@@ -41,6 +41,21 @@ function Board() {
     return string
   }
 
+  const searchEvent = (value) => {
+    setAnySwitch(true)
+    const val = {"ingredientName":value}
+    const api = "http://localhost:8080/mypage/search";
+    axios.post(api, JSON.stringify(val), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    }).then((res)=>{
+      console.log(res);
+      setDataTest(res.data)
+      setAnySwitch(false)
+    })
+  }
+
   return (
     <>
       <Navigation />
@@ -57,14 +72,11 @@ function Board() {
                 className={style.proc_input}></input> 
 
               <button type='submit' className={style.proc_button}
-              //  onClick={(e)=>{
-              //   e.preventDefault();
-              //   let copy = [...ingreList]
-              //   copy.push({ingredientName:document.querySelector('[name=ingre_list]').value, amount:"재료량미기입"})
-              //   setIngreList(copy);
-              //   document.querySelector('[name=ingre_list]').value=""; 
-              //   } } 
-                >검색</button>
+                onClick={(e)=>{
+                  e.preventDefault();
+                  let value = document.querySelector('[name=ingre_list]').value
+                  searchEvent(value)
+                }}>검색</button>
             </form>
           </div>
           {anySwitch && <LoadingBar/>}

@@ -15,7 +15,7 @@ function BoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
   const [pdfMode, setPdfMode] = useState(false);
-  const [anySwitch, setAnySwitch] = useState(false)
+  const [anySwitch, setAnySwitch] = useState(false);
 
   const cookie = new Cookies();
   const token = cookie.get('token');
@@ -70,9 +70,6 @@ function BoardDetail() {
             <div className={style.empty} />
             <div className={style.contents}>
               <div className={style.editAndDelete}>
-                {/* <Pdf targetRef={ref} filename="testfile.pdf">
-                  {({toPdf})=><button className={style.delete_btn} onClick={toPdf}>PDF 다운로드</button>}
-                </Pdf> */}
                 <button className={style.delete_btn} onClick={()=>{setPdfMode(true)}}>PDF 다운로드</button>
                 <Link to='/board/detail/Edit'><button className={style.delete_btn}><TiEdit/> 수정</button></Link>
                 <button className={style.delete_btn} onClick={deleteAlert}><TiTrash/> 삭제</button>
@@ -178,8 +175,7 @@ function BoardDetail() {
   
                         </div>
                       </div>
-                    ))
-                  }
+                    ))}
                 </div>
               </div>
             </div>

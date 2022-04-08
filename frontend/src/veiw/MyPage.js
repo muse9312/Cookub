@@ -28,7 +28,7 @@ function MyPage() {
 function CreateRecipe({ closeModal }) {
 
   const [dataTest, setDataTest] = useState([]);
-  const [tabSwitch, setTabSwitch] = useState(true);
+  const [tabSwitch, setTabSwitch] = useState(false);
   const [anySwitch, setAnySwitch] = useState(false);
 
   const cookies = new Cookies();
