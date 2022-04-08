@@ -18,6 +18,7 @@ function Navigation() {
 
   const cookies = new Cookies();
   const token = cookies.get('token');
+  const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/" // --> 리사이징 안된 이미지 저장하는곳
 
 
 
@@ -62,16 +63,17 @@ function Navigation() {
   function BtnHendler() {
     const token = cookies.get('token');
     const kakao = cookies.get('kakao_id')
+    const profileFile = cookies.get('profile')
 
-
+    console.log(imgUrl + profileFile);
 
     if (kakao == null && token == null) {
       return <button className={style.login_button} onClick={SendLogin}>Login</button>;
     } else {
       return <div>
         <div  >
-          {cookies.get('img')
-            ?<img className="cat" src={cookies.get('img')} alt="profile"/>
+          {cookies.get('profile')
+            ?<img className="cat" src={imgUrl + profileFile} alt="profile"/>
             :<img className="cat" src={noImg} alt="profile"/>
           }
         </div>
@@ -93,6 +95,14 @@ function Navigation() {
     }
   }
 
+  const tokenFix =()=>{
+    if(token != null){
+      return "/mypage"
+    }else{
+      return "/login"
+    }
+  }
+
 
 
   return (
@@ -107,7 +117,7 @@ function Navigation() {
 
         <li className={style.list_item}><Link className={style.nav_item} to='/about' element={<About />}>ABOUT</Link></li>
         <li className={style.list_item}><Link className={style.nav_item} to='/board' element={<Board />}>PUBLIC RECIPE</Link></li>
-        <li className={style.list_item}><Link className={style.nav_item} to='/mypage' element={<MyPage />}>REPOSITORY</Link></li>
+        <li className={style.list_item}><Link className={style.nav_item} to={tokenFix()} element={<MyPage />}>REPOSITORY</Link></li>
         <div>
           {BtnUserInfo()}
         </div>

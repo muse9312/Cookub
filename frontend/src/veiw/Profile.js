@@ -15,25 +15,13 @@ import Typography from '@mui/material/Typography';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import NavigationIcon from '@mui/icons-material/Navigation';
-import IconButton from '@mui/material/IconButton';
-import Grid from "@mui/material/Grid";
-import Input from '@mui/material/Input';
-import Autocomplete from '@mui/material/Autocomplete';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-
-import ReactFileReader from "react-file-reader";
-
-import AvatarInput from "../component/FileUpload/AvatarInput"
-
 import '../assets/css/Profile.css'
 import EudModal from './ProfileModal/EudModal'
 import WorkModal from './ProfileModal/WorkModal'
 import AwdModal from './ProfileModal/AwdModal'
 import CerModal from './ProfileModal/CerModal'
 
-import Cook from "../assets/img/sebastian-coman-photography-eBmyH7oO5wY-unsplash.jpg"
+
 
 import Navigation from "../component/Navigation";
 
@@ -83,6 +71,8 @@ import axios from 'axios'
 
 const Profile = () => {
 
+    const src = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
+
     const cookies = new Cookies();
 
     const [EudmodalOpen, setEudModalOpen] = useState(false);
@@ -90,25 +80,67 @@ const Profile = () => {
     const [AwdmodalOpen, setAwdModalOpen] = useState(false);
     const [WorkmodalOpen, setWorkModalOpen] = useState(false);
 
-    // function RegData(e) {
-    //     e.preventDefault(e);
-    //     console.log(e);
+    const [dataTest, setDataTest] = useState([]);
 
 
-    //     axios({
-    //         url: 'http://localhost:8080/user/auth/signUp',
+    useEffect(() => {
+        const userId = cookies.get('userId')
+        const api = `http://localhost:8080/profile/${userId}`;
+        axios.get(api)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+                console.log(res.data[0][0]);
+                setDataTest(res.data)
+            })
+
+
+
+
+
+
+    }, []);
+
+    // axios
+    //     .get(`http://localhost:8080/profile/${cookies.get('userId')}`, {
     //         headers: {
-    //             'content-type': 'multipart/form-data'
+    //             "Content-Type": `application/json`,
     //         },
-    //         method: 'post',
-    //         data: formData
-    //     }).then(function (res) {
-    //         console.log(res.data);
-
-    //         window.location = '/login';
-
     //     })
-    // }
+    //     .then((res) => {
+    //         console.log(res);
+
+
+    //         // window.location = '/login';
+    //     });
+
+    function result() {
+        dataTest.map((data) => {
+            for (let i = 0; i < data[i].length; i++) {
+                return <div>
+                    {data[i].education}
+                    <br />
+                    {data[i].major}
+                    <br />
+                    {data[i].graduation}
+
+
+                </div>
+
+            }
+            // if(data.role !== "leader"){
+            //     return <div>{data.name}</div>;
+            // }
+
+        }
+        )
+    }
+
+    // const result = dataTest.map(data => {
+    //     if(data.role !== "leader")
+    //             return <div>{data.name}</div>;
+    //     }
+    // );
 
 
 
@@ -144,7 +176,7 @@ const Profile = () => {
 
                 {/* 프로필 이미지 */}
                 <div className="proBox">
-                    <img className="profilePic" src={Cook} alt="Black dog with red scarf" />
+                    <img className="profilePic" src={src + cookies.get("profile")} alt="Black dog with red scarf" />
                     <br />
                     <br />
                     <div className="profileInfo">
@@ -201,9 +233,22 @@ const Profile = () => {
                 <Typography variant="h4" component="div">
                     Education
                 </Typography>
-                <br />
-                <br />
 
+                {/* {result} */}
+                {/* <div className="dataMap">
+                    {dataTest.map((data, index) => (
+                        <div className="dataMap">
+                            <h2>{data.title == null ? "제목이 없습니다." : data.title}</h2>
+                            {data[index].education}
+                            <br />
+                            {data[index].major}
+                            <br />
+                            {data[index].graduation}
+
+                        </div>
+                    ))}
+
+                </div> */}
 
 
                 {EudmodalOpen && <EudModal setOpenModal={setEudModalOpen} />}
@@ -215,8 +260,6 @@ const Profile = () => {
 
 
                         </Fab>
-
-
                     </Box>
                 </div>
 

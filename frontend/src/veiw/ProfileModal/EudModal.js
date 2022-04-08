@@ -23,7 +23,7 @@ function EudModal({ setOpenModal }) {
             "major": document.querySelector('[name=Major]').value,
 
             // 졸업연도
-            "grduation": document.querySelector('[name=Grduation]').value,
+            "graduation": document.querySelector('[name=Grduation]').value,
 
 
 

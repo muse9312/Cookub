@@ -4,7 +4,7 @@ import axios from 'axios';
 import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import {TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag } from 'react-icons/ti';
+import {TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, TiHeartOutline, TiHeart } from 'react-icons/ti';
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
 import { Link } from 'react-router-dom';
@@ -15,7 +15,8 @@ import LoadingBar from '../component/LodingBar';
 function PublicBoardDetail() {
 
   const [recipe, setRecipe] = useState([]);
-  const [anySwitch, setAnySwitch] = useState(false)
+  const [anySwitch, setAnySwitch] = useState(false);
+  const [likeSwitch, setLikeSwitch] = useState(false);
 
   const cookie = new Cookies();
   const token = cookie.get('token');
@@ -60,6 +61,12 @@ function PublicBoardDetail() {
         <div className={style.container}>
           <div className={style.empty} />
           <div className={style.contents}>
+            <div className={style.editAndDelete}>
+              {likeSwitch === true
+              ?<div className={style.like_btn} onClick={()=>{setLikeSwitch(false)}}><TiHeart/></div>
+              :<div className={style.like_btn} onClick={()=>{setLikeSwitch(true)}}><TiHeartOutline/></div>}
+              
+            </div>
             <div className={style.container2}>
               <div className={style.step_top}>
                 {/* 제목 */}

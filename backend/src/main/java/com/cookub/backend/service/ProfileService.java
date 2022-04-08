@@ -9,6 +9,10 @@ import com.cookub.backend.dto.profilepage.AwardsCareerDto;
 import com.cookub.backend.dto.profilepage.CertificationDto;
 import com.cookub.backend.dto.profilepage.DegreeDto;
 import com.cookub.backend.dto.profilepage.WorkCareerDto;
+import com.cookub.backend.entity.profilepage.AwardsCareer;
+import com.cookub.backend.entity.profilepage.Certification;
+import com.cookub.backend.entity.profilepage.Degree;
+import com.cookub.backend.entity.profilepage.WorkCareer;
 
 import org.springframework.stereotype.Service;
 
@@ -16,19 +20,47 @@ import org.springframework.stereotype.Service;
 @Transactional
 public interface ProfileService {
 
-    // get profile info 
+    // get profile info
     ArrayList<List> profile(Long userId);
 
-    // update AwardsCareer
+    /////@@@@@@@@@@ Awards Career @@@@@@@@@@/////
+    // Post AwardsCareer
     void setAwd(AwardsCareerDto AwdDto, Long userId);
+    // Get AwardsCareer
+    List<AwardsCareer> getAwd(Long userId);
+    // Delete AwardsCareer
+    void delAwd(Long awdId);
+    // upadate AwardsCareer
+    void updateAwd(AwardsCareerDto awdDto);
 
-    // upadate Certification
+    /////@@@@@@@@@@ Certification @@@@@@@@@@/////
+    // post Certification
     void setCert(CertificationDto certDto, Long userId);
+    // Get Certification
+    List<Certification> getCert(Long userId);
+    // Delete Certification
+    void delCert(Long certId);
+    // upadate Certification
+    void updateCert(CertificationDto certDto);
 
-    // update Degree 
+    /////@@@@@@@@@@ Degree @@@@@@@@@@/////
+    // post Degree
     void setDegree(DegreeDto degreeDto, Long userId);
+    // Get Degree
+    List<Degree> getDegree(Long userId);
+    // Delete Degree
+    void delDegree(Long degreeId);
+    // upadate Degree
+    void updateDegree(DegreeDto degreeDto);
 
-    // update WorkCareer 
+    /////@@@@@@@@@@ WorkCareer @@@@@@@@@@/////
+    // post WorkCareer
     void setWork(WorkCareerDto workDto, Long userId);
+    // Get WorkCareer
+    List<WorkCareer> getWork(Long userId);
+    // Delete WorkCareer
+    void delWork(Long workId);
+    // upadate WorkCareer
+    void updateWork(WorkCareerDto workDto);
 
 }

@@ -33,7 +33,17 @@ public class UserController {
     private StorageService storageService;
 
     @PostMapping("/auth/signUp")
-    public ResponseEntity<User> signUp(UserDto userDto, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<User> signUp(@RequestBody UserDto userDto){
+        Response response = new Response();
+        User user = userService.signUp(userDto);
+        if (user==null){
+            new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/auth/signUp/multiPartFile")
+    public ResponseEntity<User> signUpFile(UserDto userDto, @RequestParam("file") MultipartFile file){
         Response response = new Response();
         System.out.println(userDto.getBirth());
         userDto.setProfile(file.getOriginalFilename());

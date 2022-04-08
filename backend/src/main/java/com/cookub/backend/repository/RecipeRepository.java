@@ -14,4 +14,6 @@ public interface RecipeRepository extends JpaRepository<Recipe,Long> {
     List<Recipe> findByisOpenable(Integer isOpenablelist);
 //    List<Recipe> findById(Long recipeId); // 레시피 상세정보 조회[]
 
+
+
 }
