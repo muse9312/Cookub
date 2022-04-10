@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import Cookies from 'universal-cookie'
 
 // ================================  Data  ====================================
-
+import { Paper, makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment } from '@material-ui/core';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -15,8 +18,10 @@ import Typography from '@mui/material/Typography';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Controls from "../component/controls/Controls"
 import '../assets/css/Profile.css'
 import EudModal from './ProfileModal/EudModal'
+import EditEudModal from './ProfileModal/EditEudModal'
 import WorkModal from './ProfileModal/WorkModal'
 import AwdModal from './ProfileModal/AwdModal'
 import CerModal from './ProfileModal/CerModal'
@@ -32,43 +37,6 @@ import Navigation from "../component/Navigation";
 
 import axios from 'axios'
 
-
-// function Modal({ setOpenModal }) {
-//     return (
-//         <div className="modalBackground">
-//             <div className="modalContainer">
-//                 <div className="titleCloseBtn">
-//                     <button
-//                         onClick={() => {
-//                             setOpenModal(false);
-//                         }}
-//                     >
-//                         X
-//                     </button>
-//                 </div>
-//                 <div className="title">
-//                     <h1>Are You Sure You Want to Continue?</h1>
-//                 </div>
-//                 <div className="body">
-//                     <p>The next page looks amazing. Hope you want to go there!</p>
-//                 </div>
-//                 <div className="footer">
-//                     <button
-//                         onClick={() => {
-//                             setOpenModal(false);
-//                         }}
-//                         id="cancelBtn"
-//                     >
-//                         Cancel
-//                     </button>
-//                     <button>Continue</button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
-
 const Profile = () => {
 
     const src = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/"
@@ -76,9 +44,12 @@ const Profile = () => {
     const cookies = new Cookies();
 
     const [EudmodalOpen, setEudModalOpen] = useState(false);
+    const [editEudmodalOpen, seteditEudModalOpen] = useState(false);
     const [CermodalOpen, setCerModalOpen] = useState(false);
     const [AwdmodalOpen, setAwdModalOpen] = useState(false);
     const [WorkmodalOpen, setWorkModalOpen] = useState(false);
+
+
 
     const [ResData, setResData] = useState([]);
 
@@ -96,6 +67,7 @@ const Profile = () => {
                 console.log(res);
                 console.log(res.data);
                 setResData(res.data)
+
             })
 
 
@@ -104,45 +76,6 @@ const Profile = () => {
 
 
     }, []);
-
-    // axios
-    //     .get(`http://localhost:8080/profile/${cookies.get('userId')}`, {
-    //         headers: {
-    //             "Content-Type": `application/json`,
-    //         },
-    //     })
-    //     .then((res) => {
-    //         console.log(res);
-
-
-    //         // window.location = '/login';
-    //     });
-
-    // function Eudresult() {
-    //     data.map((data) => {
-    //         for (let i = 0; i < data.degress[i].length; i++) {
-    //             return <div>
-    //                 {data.degress[i].education}
-    //                 <br />
-    //                 {data.degress[i].major}
-    //                 <br />
-    //                 {data.degress[i].graduation}
-
-
-    //             </div>
-
-    //         }
-    //     }
-    //     )
-    // }
-
-    // const result = dataTest.map(data => {
-    //     if(data.role !== "leader")
-    //             return <div>{data.name}</div>;
-    //     }
-    // );
-
-
 
 
     return (
@@ -224,19 +157,43 @@ const Profile = () => {
                 </Typography>
                 <br />
 
-                <div className="dataMap">
-                    {ResData.degrees && ResData.degrees.map((data) => (
-                        <div className="dataMap">
+                <TableBody>
+                    {
+                        ResData.degrees && ResData.degrees.map(data =>
+                        (<TableRow  >
+                            <TableCell size="medium" >{data.education}</TableCell>
+                            <TableCell>{data.major}</TableCell>
+                            <TableCell>{data.graduation}</TableCell>
 
-                            {data.education} &nbsp; {data.major} &nbsp; {data.graduation}
+                            <TableCell>
+                                <Controls.ActionButton
+                                    color="primary">
+                                    <EditOutlinedIcon fontSize="small"
+                                        onClick={seteditEudModalOpen}
+                                    />
 
+                                </Controls.ActionButton>
+                                <Controls.ActionButton
+                                    color="secondary">
+                                    <CloseIcon fontSize="small" onClick={() => {
+                                        const degreeId = data.degreeId
+                                        console.log(degreeId);
+                                        const api = `http://localhost:8080/profile/degree/delete/${degreeId}`;
+                                        axios.delete(api)
+                                            .then((res) => {
+                                                console.log(res);
 
+                                                window.location.reload()
+                                            })
+                                    }} />
+                                </Controls.ActionButton>
+                            </TableCell>
+                        </TableRow>)
+                        )
+                    }
 
-                        </div>
-                    ))}
-
-                </div>
-
+                </TableBody>
+                {editEudmodalOpen && <EditEudModal seteditOpenModal={seteditEudModalOpen} />}
                 <br />
                 {EudmodalOpen && <EudModal setOpenModal={setEudModalOpen} />}
 
@@ -262,20 +219,33 @@ const Profile = () => {
                 <Typography variant="h4" component="div">
                     AwardsCareer
                 </Typography>
+                <hr />
                 <br />
 
-                <div className="dataMap">
-                    {ResData.awardsCareers && ResData.awardsCareers.map((data) => (
-                        <div className="dataMap">
+                <TableBody>
+                    {
+                        ResData.awardsCareers && ResData.awardsCareers.map(data =>
+                        (<TableRow  >
+                            <TableCell size="medium" >{data.compName}</TableCell>
+                            <TableCell>{data.issuedAwd}</TableCell>
+                            <TableCell>{data.awdName}</TableCell>
+                            <TableCell>{data.getAwdDate}</TableCell>
 
-                            {data.compName} &nbsp; {data.issuedAwd} &nbsp; {data.awdName} &nbsp; {data.getAwdDate}
+                            <TableCell>
+                                <Controls.ActionButton
+                                    color="primary">
+                                    <EditOutlinedIcon fontSize="small" />
+                                </Controls.ActionButton>
+                                <Controls.ActionButton
+                                    color="secondary">
+                                    <CloseIcon fontSize="small" />
+                                </Controls.ActionButton>
+                            </TableCell>
+                        </TableRow>)
+                        )
+                    }
+                </TableBody>
 
-
-
-                        </div>
-                    ))}
-
-                </div>
 
                 <br />
                 {AwdmodalOpen && <AwdModal setOpenModal={setAwdModalOpen} />}
@@ -304,20 +274,33 @@ const Profile = () => {
                 <Typography variant="h4" component="div">
                     WorkCareer
                 </Typography>
+                <hr />
                 <br />
 
-                <div className="dataMap">
-                    {ResData.workCareers && ResData.workCareers.map((data) => (
-                        <div className="dataMap">
+                <TableBody>
+                    {
+                        ResData.workCareers && ResData.workCareers.map(data =>
+                        (<TableRow  >
+                            <TableCell size="medium" >{data.compName}</TableCell>
+                            <TableCell>{data.jobPosition}</TableCell>
+                            <TableCell>{data.location}</TableCell>
+                            <TableCell>{data.period}</TableCell>
 
-                            {data.compName} &nbsp; {data.jobPosition} &nbsp; {data.location} &nbsp; {data.period}
+                            <TableCell>
+                                <Controls.ActionButton
+                                    color="primary">
+                                    <EditOutlinedIcon fontSize="small" />
+                                </Controls.ActionButton>
+                                <Controls.ActionButton
+                                    color="secondary">
+                                    <CloseIcon fontSize="small" />
+                                </Controls.ActionButton>
+                            </TableCell>
+                        </TableRow>)
+                        )
+                    }
+                </TableBody>
 
-
-
-                        </div>
-                    ))}
-
-                </div>
 
                 <br />
                 {WorkmodalOpen && <WorkModal setOpenModal={setWorkModalOpen} />}
@@ -346,20 +329,33 @@ const Profile = () => {
                 <Typography variant="h4" component="div">
                     Certification
                 </Typography>
+                <hr />
                 <br />
 
-                <div className="dataMap">
-                    {ResData.certifications && ResData.certifications.map((data) => (
-                        <div className="dataMap">
+                <TableBody>
+                    {
+                        ResData.certifications && ResData.certifications.map(data =>
+                        (<TableRow  >
+                            <TableCell size="medium" >{data.certName}</TableCell>
+                            <TableCell>{data.issuedCert}</TableCell>
+                            <TableCell>{data.getCertDate}</TableCell>
 
-                            {data.certName} &nbsp; {data.issuedCert} &nbsp; {data.getCertDate}
 
+                            <TableCell>
+                                <Controls.ActionButton
+                                    color="primary">
+                                    <EditOutlinedIcon fontSize="small" />
+                                </Controls.ActionButton>
+                                <Controls.ActionButton
+                                    color="secondary">
+                                    <CloseIcon fontSize="small" />
+                                </Controls.ActionButton>
+                            </TableCell>
+                        </TableRow>)
+                        )
+                    }
+                </TableBody>
 
-
-                        </div>
-                    ))}
-
-                </div>
 
                 <br />
                 {CermodalOpen && <CerModal setOpenModal={setCerModalOpen} />}

@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Cookies from 'universal-cookie';
 
 
-function EudModal({ setOpenModal }) {
+function EditEudModal({ seteditOpenModal }, ResData) {
     const cookies = new Cookies();
 
     function EudData(e) {
@@ -40,7 +40,7 @@ function EudModal({ setOpenModal }) {
             })
             .then((res) => {
                 console.log(res);
-                setOpenModal(false);
+                seteditOpenModal(false);
 
                 window.location.reload()
             });
@@ -57,14 +57,14 @@ function EudModal({ setOpenModal }) {
                     <div className="titleCloseBtn">
                         <button className="close"
                             onClick={() => {
-                                setOpenModal(false);
+                                seteditOpenModal(false);
                             }}
                         >
                             X
                         </button>
                     </div>
                     <div className="title">
-                        <h1>Add education</h1>
+                        <h1>Edit education</h1>
                     </div>
                     <div className="body">
                         <p>The next page looks amazing. Hope you want to go there!</p>
@@ -89,6 +89,7 @@ function EudModal({ setOpenModal }) {
                                             m: 1,
                                             width: '80ch'
                                         }}
+
                                     />
                                     {/* 전공 */}
                                     <TextField
@@ -122,7 +123,7 @@ function EudModal({ setOpenModal }) {
                         <div className="footer">
                             <button
                                 onClick={() => {
-                                    setOpenModal(false);
+                                    seteditOpenModal(false);
                                 }}
                                 id="cancelBtn"
                             >
@@ -142,4 +143,4 @@ function EudModal({ setOpenModal }) {
     );
 }
 
-export default EudModal;
+export default EditEudModal;
