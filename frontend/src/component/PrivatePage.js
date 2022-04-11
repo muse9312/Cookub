@@ -19,7 +19,7 @@ const PrivatePage = ()=>{
   useEffect(()=>{
     setAnySwitch(true)
     axios
-    .get(`http://localhost:8080/mypage/private/${key}`)
+    .get(`http://${process.env.REACT_APP_HOST}/mypage/private/${key}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);

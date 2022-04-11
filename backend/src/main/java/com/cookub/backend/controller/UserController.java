@@ -56,7 +56,7 @@ public class UserController {
         response.add("data",userService.signUp(userDto));
 
         User user = userService.signUp(userDto);
-        if (user==null){
+        if (user==null){  
             new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.CREATED);
