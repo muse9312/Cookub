@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import About from '../veiw/About';
 import Board from '../veiw/Board';
 import MyPage from '../veiw/MyPage';
+import Profile from '../veiw/Profile';
+import PublicProfile from '../veiw/PublicProfile';
 import UserInfo from '../veiw/UserInfoUpdate';
 import logo from '../assets/img/CookubLogo.png'
 import style from './Navigation.module.css';
@@ -91,7 +93,8 @@ function Navigation() {
     if (token == null && kakao == null) {
       return null
     } else {
-      return <li className={style.list_item}><Link className={style.nav_item} to='/userInfo' element={<UserInfo />}>Account</Link></li>
+      return <li className={style.list_item}><Link className={style.nav_item} to='/Profile' element={<Profile />}>Profile</Link></li>
+
     }
   }
 
@@ -133,7 +136,7 @@ function Navigation() {
           한국표준협회 클라우드 기반<br />
           풀스택 개발자 양성과정 교육생<br />
           프로젝트 입니다.
-        </p> 
+        </p>
       </section>
     </div>
 

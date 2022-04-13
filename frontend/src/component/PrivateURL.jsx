@@ -16,7 +16,7 @@ const PrivateURL = ()=>{
     const userId = cookies.get('userId')
     //렌더링시 DB의 회원URL 리스트 가져오기
     axios
-    .get(`http://localhost:8080/url/list/${userId}`)
+    .get(`http://${process.env.REACT_APP_HOST}/url/list/${userId}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);
@@ -29,7 +29,7 @@ const PrivateURL = ()=>{
     if (window.confirm("종료하시면 더 이상 주소가 유효하지 않습니다.")) {
       alert("주소가 제거 됐습니다.")
       //여기에 DB에 주소를 지우는 기능구현
-      axios.delete(`http://localhost:8080/url/${dataTest[index].urlId}`)
+      axios.delete(`http://${process.env.REACT_APP_HOST}/url/${dataTest[index].urlId}`)
       .then((res) => { console.log(res.data); })
       window.location.reload();
     }
@@ -38,7 +38,7 @@ const PrivateURL = ()=>{
   const createURL = () => { //url 생성 이벤트
     const userId = cookies.get('userId')
     const val = {"purpose":document.querySelector('[name=create_URL_name]').value}
-    axios.post(`http://localhost:8080/url/${userId}`,JSON.stringify(val),{
+    axios.post(`http://${process.env.REACT_APP_HOST}/url/${userId}`,JSON.stringify(val),{
       headers: {
         "Content-Type": `application/json`,
       },

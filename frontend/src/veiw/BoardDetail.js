@@ -27,7 +27,7 @@ function BoardDetail() {
     const id = window.sessionStorage.getItem("detail_recipeId")
 
     axios
-      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+      .get(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`, {
         headers: {
           Authorization: `${token}`
         }
@@ -48,9 +48,9 @@ function BoardDetail() {
     if (window.confirm("정말로 삭제 하시겠습니까?")) {
       alert("레시피가 삭제 됐습니다.")
       const id = window.sessionStorage.getItem("detail_recipeId");
-      axios.delete(`http://localhost:8080/mypage/recipe/${id}`)
+      axios.delete(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`)
         .then((res) => { console.log(res.data); })
-      window.location.href = 'http://localhost:3000/mypage';
+      window.location.href = '/mypage';
     } else {
       alert("취소 되었습니다.")
     }

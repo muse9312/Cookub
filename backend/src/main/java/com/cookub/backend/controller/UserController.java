@@ -56,7 +56,7 @@ public class UserController {
         response.add("data",userService.signUp(userDto));
 
         User user = userService.signUp(userDto);
-        if (user==null){
+        if (user==null){  
             new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(userService.signUp(userDto),null,HttpStatus.CREATED);
@@ -72,12 +72,10 @@ public class UserController {
             return new ResponseEntity<>(null,headers, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(userService.signIn(userDto),headers, HttpStatus.OK);
-
-
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<User> userEdit(UserDto userDto){
+    @PostMapping("/auth/edit")
+    public ResponseEntity<User> userEdit(@RequestBody UserDto userDto){
         Response response = new Response();
         User user = userService.editUser(userDto);
         if (user==null){
@@ -85,11 +83,9 @@ public class UserController {
         }else{
             return new ResponseEntity<>(user,null,HttpStatus.OK);
         }
-
-
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/auth/{userId}")
     public ResponseEntity userDelete(@PathVariable Long userId){
         String result = userService.deleteUser(userId);
         if (result.equals("success")){

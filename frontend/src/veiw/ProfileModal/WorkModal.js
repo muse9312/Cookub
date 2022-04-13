@@ -35,7 +35,7 @@ function WorkModal({ setOpenModal }) {
 
 
         axios
-            .post(`http://localhost:8080/profile/work/${cookies.get('userId')}`, JSON.stringify(data), {
+            .post(`http://${process.env.REACT_APP_HOST}/profile/work/${cookies.get('userId')}`, JSON.stringify(data), {
                 headers: {
                     "Content-Type": `application/json`,
                 },

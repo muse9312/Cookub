@@ -27,7 +27,7 @@ function PrivateBoardDetail() {
     const id = window.sessionStorage.getItem("detail_recipeId")
 
     axios
-      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+      .get(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`, {
         headers: {
           Authorization: `${token}`
         }

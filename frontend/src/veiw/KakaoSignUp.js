@@ -612,7 +612,7 @@ const KakaoSignUp = () => {
     //   }
     //   console.log(data);
     //   // axios
-    //   //   .post('http://localhost:8080/user/auth/signUp', JSON.stringify(data), {
+    //   //   .post('http://${process.env.REACT_APP_HOST}/user/auth/signUp', JSON.stringify(data), {
     //   //     headers: {
     //   //       "Content-Type": `application/json`,
     //   //     },
@@ -704,7 +704,7 @@ const KakaoSignUp = () => {
 
 
     axios({
-      url: 'http://localhost:8080/user/auth/signUp',
+      url: `http://${process.env.REACT_APP_HOST}/user/auth/signUp`,
       headers: {
         'content-type': 'multipart/form-data'
       },

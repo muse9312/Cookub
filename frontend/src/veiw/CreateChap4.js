@@ -261,7 +261,7 @@ function CreateChap4({ closeModal, setCreateMod, chapter4List,chapter1List,chapt
                             }
                            
                             axios //로그인된 사용자의 userId를 우선 하드코딩해서 넣어놨다. 
-                              .post(`http://localhost:8080/mypage/recipe/${cookies.get('userId')}`, JSON.stringify(val), {
+                              .post(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${cookies.get('userId')}`, JSON.stringify(val), {
                                 headers: {
                                   "Content-Type": `application/json`,
                                 },

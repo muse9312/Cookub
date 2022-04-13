@@ -26,7 +26,7 @@ function BoardDetailEdit() {
     const id = window.sessionStorage.getItem("detail_recipeId")
 
     axios
-      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+      .get(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`, {
         headers: {
           Authorization: `${token}`
         }
@@ -148,7 +148,7 @@ function BoardDetailEdit() {
 
     console.log(result)
 
-    axios.post(`http://localhost:8080/mypage/recipe/edit/${window.sessionStorage.getItem("detail_recipeId")}`, JSON.stringify(result[0]), {
+    axios.post(`http://${process.env.REACT_APP_HOST}/mypage/recipe/edit/${window.sessionStorage.getItem("detail_recipeId")}`, JSON.stringify(result[0]), {
         headers: {
           "Content-Type": `application/json`,
         },

@@ -13,6 +13,7 @@ import com.cookub.backend.entity.profilepage.AwardsCareer;
 import com.cookub.backend.entity.profilepage.Certification;
 import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
+import com.cookub.backend.entity.user.User;
 
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Service;
 public interface ProfileService {
 
     // get profile info
-    ArrayList<List> profile(Long userId);
+    User profile(Long userId);
 
     /////@@@@@@@@@@ Awards Career @@@@@@@@@@/////
     // Post AwardsCareer

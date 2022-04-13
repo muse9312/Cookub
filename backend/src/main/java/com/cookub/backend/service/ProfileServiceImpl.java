@@ -13,10 +13,12 @@ import com.cookub.backend.entity.profilepage.Certification;
 import com.cookub.backend.entity.profilepage.Degree;
 import com.cookub.backend.entity.profilepage.WorkCareer;
 import com.cookub.backend.entity.profilepage.AwardsCareer.AwardsCareerBuilder;
+import com.cookub.backend.entity.recipeE.Recipe;
 import com.cookub.backend.entity.user.User;
 import com.cookub.backend.repository.AwardsCareerRepository;
 import com.cookub.backend.repository.CertificationRepository;
 import com.cookub.backend.repository.DegreeRepository;
+import com.cookub.backend.repository.RecipeRepository;
 import com.cookub.backend.repository.UserRepository;
 import com.cookub.backend.repository.WorkCareerRepository;
 
@@ -41,9 +43,14 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private WorkCareerRepository workRepository;
 
+    @Autowired
+    private RecipeRepository recipeRepository;
+
     // get profile Info
-    public ArrayList<List> profile(Long userId) {
+    public User profile(Long userId) {
         User user = userRepository.findById(userId).get();
+        user.getUrls().clear();
+
         List<Certification> cert = certRepository.findByCertificationUser(user);
         List<AwardsCareer> awd = awdRepository.findBycareerUser(user);
         List<Degree> degree = degreeRepository.findByDegreeUser(user);
@@ -55,7 +62,7 @@ public class ProfileServiceImpl implements ProfileService {
         profile.add(degree);
         profile.add(work);
 
-        return profile;
+        return user;
     }
 
     ///// @@@@@@@@@@ Awards Career @@@@@@@@@@/////

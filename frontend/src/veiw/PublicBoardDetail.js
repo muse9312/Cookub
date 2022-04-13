@@ -4,7 +4,7 @@ import axios from 'axios';
 import style from './BoardDetail.module.css';
 import Cookies from 'universal-cookie';
 import img from '../assets/img/testfood.jpg';
-import {TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, TiHeartOutline, TiHeart } from 'react-icons/ti';
+import { TiLockClosed, TiPuzzle, TiStarFullOutline, TiStopwatch, TiTag, TiHeartOutline, TiHeart } from 'react-icons/ti';
 import noImg from '../assets/img/noimg.PNG';
 import Navigation from '../component/Navigation'
 import { Link } from 'react-router-dom';
@@ -23,19 +23,27 @@ function PublicBoardDetail() {
   const imgUrl = "https://s3-bucket-react-file-upload-test-5jo.s3.us-east-2.amazonaws.com/upload/" // --> 리사이징 안된 이미지 저장하는곳
   // const imgUrl = "https://s3-bucket-react-file-upload-test-5jo-resized.s3.us-east-2.amazonaws.com/upload/"   //리사이징된 이미지 저장하는곳
 
-  function SendLogin(e) {
+  function BtnProfile(e) {
     e.preventDefault();
+    if (token == null) {
+      alert('Please login')
+      window.location.href = "/login"
+    } else {
+      window.sessionStorage.setItem("id", recipe.user.userId);
+      console.log(recipe.user.userId);
+      window.location.href = "/Publicprofile"
+    }
 
-    alert('Please login')
-    window.location.href = "/login"
+
   }
 
   useEffect(() => {
     setAnySwitch(true)
     const id = window.sessionStorage.getItem("detail_recipeId")
 
+
     axios
-      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+      .get(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`, {
         headers: {
           Authorization: `${token}`
         }
@@ -63,18 +71,18 @@ function PublicBoardDetail() {
           <div className={style.contents}>
             <div className={style.editAndDelete}>
               {likeSwitch === true
-              ?<div className={style.like_btn} onClick={()=>{setLikeSwitch(false)}}><TiHeart/></div>
-              :<div className={style.like_btn} onClick={()=>{setLikeSwitch(true)}}><TiHeartOutline/></div>}
-              
+                ? <div className={style.like_btn} onClick={() => { setLikeSwitch(false) }}><TiHeart /></div>
+                : <div className={style.like_btn} onClick={() => { setLikeSwitch(true) }}><TiHeartOutline /></div>}
+
             </div>
             <div className={style.container2}>
               <div className={style.step_top}>
                 {/* 제목 */}
                 <h1 className={style.title}>
-                  {anySwitch && <LoadingBar/>}
+                  {anySwitch && <LoadingBar />}
                   {recipe.title == null ? "제목이 없습니다." : recipe.title}
                 </h1>
-                <div className={style.userurl} onClick={SendLogin}>
+                <div className={style.userurl} onClick={BtnProfile}>
                   <h2>
                     {recipe.user === undefined ? "" : recipe.user.username}
                   </h2>
