@@ -43,7 +43,7 @@ function PublicBoardDetail() {
 
 
     axios
-      .get(`http://localhost:8080/mypage/recipe/${id}`, {
+      .get(`http://${process.env.REACT_APP_HOST}/mypage/recipe/${id}`, {
         headers: {
           Authorization: `${token}`
         }

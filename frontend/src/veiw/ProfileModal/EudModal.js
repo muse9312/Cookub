@@ -33,7 +33,7 @@ function EudModal({ setOpenModal }) {
 
 
         axios
-            .post(`http://localhost:8080/profile/degree/${cookies.get('userId')}`, JSON.stringify(data), {
+            .post(`http://${process.env.REACT_APP_HOST}/profile/degree/${cookies.get('userId')}`, JSON.stringify(data), {
                 headers: {
                     "Content-Type": `application/json`,
                 },
@@ -100,7 +100,7 @@ function EudModal({ setOpenModal }) {
 
 
         // axios({
-        //   url: 'http://localhost:8080/user/auth/signUp',
+        //   url: 'http://${process.env.REACT_APP_HOST}/user/auth/signUp',
         //   headers: {
         //     'content-type': 'multipart/form-data'
         //   },

@@ -584,7 +584,7 @@ const UserInfoUpdate = () => {
 
 
     axios({
-      url: 'http://localhost:8080/user/edit',
+      url: `http://${process.env.REACT_APP_HOST}/user/edit`,
       headers: {
         'content-type': 'multipart/form-data'
 
@@ -607,7 +607,7 @@ const UserInfoUpdate = () => {
     const userId = cookies.get("userId")
 
 
-    axios.delete(`http://localhost:8080/user/auth/${userId}`)
+    axios.delete(`http://${process.env.REACT_APP_HOST}/user/auth/${userId}`)
       .then(function (res) {
         cookies.remove('token')
         cookies.remove('username')

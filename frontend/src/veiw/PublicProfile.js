@@ -84,7 +84,7 @@ const PublicProfile = () => {
 
     useEffect(() => {
         const userId = window.sessionStorage.getItem("id");
-        const api = `http://localhost:8080/profile/${userId}`;
+        const api = `http://${process.env.REACT_APP_HOST}/profile/${userId}`;
         axios.get(api)
             .then((res) => {
                 console.log(res);

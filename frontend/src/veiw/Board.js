@@ -19,7 +19,7 @@ function Board() {
 
   useEffect(() => {
     setAnySwitch(true)
-    const api = `http://localhost:8080/open/list`;
+    const api = `http://${process.env.REACT_APP_HOST}/open/list`;
     axios.get(api)
       .then((res) => {
         console.log(res);
@@ -44,7 +44,7 @@ function Board() {
   const searchEvent = (value) => {
     setAnySwitch(true)
     const val = {"ingredientName":value}
-    const api = "http://localhost:8080/mypage/search";
+    const api = `http://${process.env.REACT_APP_HOST}/mypage/search`;
     axios.post(api, JSON.stringify(val), {
       headers: {
         "Content-Type": `application/json`,
