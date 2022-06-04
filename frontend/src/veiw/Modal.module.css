@@ -1,0 +1,255 @@
+.modalBackground {
+  /* 모달 배경 스타일 */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  opacity: 1;
+  transition: opacity 0.5s;
+  background-color: rgb(192, 194, 197);
+}
+
+.madalContainer {
+  /* 모달 알맹이 스타일 */
+  max-width: 800px;
+  max-height: 700px;
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0px 0px 0px 3px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  z-index: 10;
+  text-align: center;
+}
+
+.title{
+  color:rgb(139, 137, 134);
+  margin-top:10%;
+  margin-bottom: 10%;
+}
+.title2{
+  color:rgb(139, 137, 134);
+  margin-top:10%;
+  margin-bottom: 1%;
+}
+
+.input{
+  width: 400px;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid rgb(139, 137, 134) ;
+  margin-bottom: 20%;
+  caret-color :rgb(139, 137, 134);
+  font-size: 20px;
+}
+.input:focus{
+  outline: none;
+}
+
+.modalBody{
+  height: 230px;
+}
+
+
+.closeBt{
+  float: right;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(139, 137, 134);
+  font-size: 15px;
+}
+.closeBt:hover{
+  background-color: rgb(182, 179, 179);
+}
+
+.footerBt{
+  margin-top: 30px;
+  width: 200px;
+  height: 40px;
+  border:none;
+  border-radius: 5px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  float: left;
+}
+.footerBt:hover{
+  background-color: rgb(182, 179, 179);
+}
+
+.footerBt2{
+  margin-top: 30px;
+  float: right;
+  width: 200px;
+  height: 40px;
+  border:none;
+  border-radius: 5px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+.footerBt2:hover{
+  background-color: rgb(182, 179, 179);
+}
+
+
+/* //////////// 챕터3 Todo 스타일  //////////// */
+.proc_row {
+  /* 생성되는 목록 스타일 */
+  display: flex;
+  max-width: 600px;
+  justify-content: space-between;
+  align-items: left;
+  margin: 4px auto;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgb(139, 138, 137) 0%,
+    rgb(194, 191, 190) 100%
+  );
+
+  padding: 16px;
+  border-radius: 5px;
+}
+
+.proc_input {
+  /* 목록입력란 스타일 */
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid rgb(88, 85, 85);
+  outline: none;
+  width: 320px;
+  background: transparent;
+  color: rgb(88, 85, 85);
+}
+.proc_input::placeholder {
+  color: #ccc5c5;
+}
+.proc_button { 
+  /* 추가버튼 */
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgb(218, 216, 221) 0%,
+    rgb(207, 201, 211) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+}
+.lists{
+  margin-top: 7px;
+  height: 190px;
+  overflow: auto;
+}
+.list_item{
+  /* 입력을 받은 text 스타일 */
+  font-size: 20px;
+  color: #fff;
+}
+.inputAndDelete{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5%;
+}
+.amount_input{
+  
+}
+.amount_textInput{
+  width:100px;
+  height: 20px;
+  border-radius: 11px;
+}
+.delete_icon {
+  color: #fff;
+  margin-left: 90%;
+}
+.edit_icon {
+  color: #fff;
+  margin-left: 90%;
+}
+
+.fileAndIcon{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5%;
+}
+.image_fileInput{
+  width:200px;
+}
+
+
+
+/* //////////// 챕터4 스타일  //////////// */
+.container{
+  display: grid;
+  grid:'. .';
+  row-gap: 20px;
+  column-gap: 50px;
+  border:none;
+  margin-top: 60px;
+  margin-bottom: 40px;
+  /* background-color: rgb(219, 135, 135); */
+}
+
+.item{
+  margin-top: 10px;
+  padding: 12px;
+  background-color: white;
+}
+
+.keypoint{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid rgb(139, 137, 134) ;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  caret-color :rgb(139, 137, 134);
+  font-size: 18px;
+}
+.keypoint:focus{
+  outline: none;
+}
+
+.keyword{
+  border:none;
+}
+
+.dropbox1{
+  margin-left: 20%;
+}
+.dropbox2{
+  margin-left: 27%;
+}
+
+
+.hashtag{
+  
+  padding: 4px 10px;
+  background: #e6e2e1;
+  border-radius: 56px;
+  color: #817e7d;
+  font-weight:bold;
+  font-size:1.1rem;
+  line-height:20px;
+  cursor:pointer;
+}

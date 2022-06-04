@@ -1,0 +1,217 @@
+/* 상단 레시피작성 시작영역 스타일 */
+.container1{
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  background-color: rgb(237, 238, 238);
+  padding: 60px 300px 20px 420px;
+}
+
+.My_recipes{
+  padding: 40px; 
+  width: 78%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  display: block;
+  text-align: center;
+  justify-content: right;
+  border: 1px solid;
+  border-radius: 50px;
+  background-color:rgb(248, 248, 248) ;
+}
+
+.create_recipe_bt{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 40px;
+  border:none;
+  border-radius: 5px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  
+}
+.create_recipe_bt:hover{
+  background-color: rgb(182, 179, 179);
+}
+
+
+/* 탭 스타일 */
+.tabType{
+  list-style: none;
+  padding-top: 50px;
+}
+.tabItem{
+  list-style: none;
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+.tabText{
+  padding: 15px;
+  border-bottom: 2px solid #aaa;
+  text-align: center;
+  color: #aaa;
+  font-weight: 300;
+  font-size: 20px;
+}
+.tabText:hover{
+  color: #2c2c2c;
+  border-bottom: 3px solid #2c2c2c;
+  font-weight: bold;
+}
+
+.pickTabText{
+  padding: 15px;
+  border-bottom: 3px solid #2c2c2c;
+  text-align: center;
+  color: #2c2c2c;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.container{
+  background-color: rgb(237, 238, 238);
+}
+
+/* 레시피 카드 스타일 */
+.container2{
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  background-color: rgb(237, 238, 238);
+}
+.container3{
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.public_recipes{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, auto));
+  grid-gap: 50px;
+  padding: 40px; 
+  width: 92%;
+  padding-top: 100px;
+}
+
+@media screen and (max-width: 1500px) {
+  .public_recipes {
+    grid-template-columns: repeat(3, minmax(200px, auto));
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1150px) {
+  .public_recipes {
+    grid-template-columns: repeat(2, minmax(200px, auto));
+    width: 65%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .public_recipes {
+    grid-template-columns: repeat(1, minmax(200px, auto));
+    width: 50%;
+  }
+}
+
+
+
+.recipe{
+  background-color: white;
+  margin-bottom: 70px;
+  font-weight: 300;
+  padding: 20px;
+  border-radius: 3px;
+  color: #adaeb9;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  max-width: 100%;
+  max-height: 100%;
+  width: 300px;
+  height: 530px;
+}
+
+.recipe:hover{ 
+  padding: 25px; 
+  
+}
+
+
+.recipe_img{
+  position: relative;
+  top: -50px;
+  max-width: 300px;
+  max-height: 350px;
+  width: 100%;
+  height: 100%;
+  margin-right: 30px;
+  box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+    0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  
+}
+
+.recipe a{
+  /* display: grid; */
+  grid-template-columns: minmax(150px, 1fr) 2fr;
+  grid-gap: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe_title,
+.recipe_title2 {
+  margin: 0;
+  font-weight: 300;
+}
+
+.recipe_title{
+  margin-bottom: 5px;
+  font-size: 24px;
+  color: #2c2c2c;
+}
+
+.recipe_genres {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 0px;
+}
+
+.recipe_genres li,
+.recipe_title2 {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+
+
+
+/* 프라이빗페이지 헤더 스타일 */
+.private_header{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 5%;
+  padding-left: 5%;
+  background-color: #fff;
+}
+.private_header_title{
+  display: block;
+  width: 80%;
+  padding-top: 5%;
+  text-align: center;
+}
+
+.private_logo{
+  display: flex;
+}
+

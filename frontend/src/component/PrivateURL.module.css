@@ -1,0 +1,85 @@
+.section{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  margin-top: 5%;
+}
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.cardSection{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+.URLcard{
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px;
+  margin-right: 10%;
+}
+
+
+.textAndBtn{
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(248, 248, 248);
+  border: 2px solid rgb(200, 199, 199);
+  border-radius: 15px;
+}
+.cardText{
+  padding: 0% 2%;
+}
+
+.cardBtn{
+  height: 30%;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  margin: 10px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  padding: 9px;
+  cursor: pointer;
+  border-radius: 5px;  
+  transition-duration: 0.1s;
+}
+.cardBtn:hover{
+  background-color: rgb(182, 179, 179);
+}
+
+
+
+
+.textAndBtn2{
+  width: 75%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(248, 248, 248);
+  border: 2px solid rgb(200, 199, 199);
+  border-radius: 15px;
+}
+.cardBtn2{
+  height: 50%;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  margin: 10px;
+  background-color: rgb(139, 137, 134);
+  color: white;
+  padding: 9px;
+  cursor: pointer;
+  border-radius: 5px;  
+  transition-duration: 0.1s;
+}
+.cardBtn2:hover{
+  background-color: rgb(182, 179, 179);
+}
