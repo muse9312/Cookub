@@ -480,8 +480,8 @@ const SignUp = () => {
   const RESION = 'us-east-2';
   const S3_BUCKET = 's3-bucket-react-file-upload-test-5jo';
 
-  const[foodImg, setFoodImg] = useState(""); //DB에 저장될 파일의 고유한 이름 담는 state
-  const[selectedFile, setSelectedFile] = useState([]); //사진 파일을 잠시 담아두는 state
+  const [foodImg, setFoodImg] = useState(""); //DB에 저장될 파일의 고유한 이름 담는 state
+  const [selectedFile, setSelectedFile] = useState([]); //사진 파일을 잠시 담아두는 state
 
   AWS.config.update({
     accessKeyId: ACCESS_KEY,
@@ -489,18 +489,18 @@ const SignUp = () => {
   });
 
   const myBucket = new AWS.S3({
-    params : {Bucket: S3_BUCKET},
-    region : RESION,
+    params: { Bucket: S3_BUCKET },
+    region: RESION,
   })
 
-  const handleFileInput = e =>{ //사용자가 입력한 파일을 선택하면 state에 파일이 저장!
+  const handleFileInput = e => { //사용자가 입력한 파일을 선택하면 state에 파일이 저장!
     const file = e.target.files[0];
-    const randomName = Math.random().toString(36).substr(2,11);
-    const imgName = randomName +"_"+ file.name  //파일 랜덤이름 생성 후 state에 저장!
+    const randomName = Math.random().toString(36).substr(2, 11);
+    const imgName = randomName + "_" + file.name  //파일 랜덤이름 생성 후 state에 저장!
     console.log(imgName);
     setFoodImg(imgName)
     const fileExt = file.name.split('.').pop();  //파일익스텐션값 가져오기
-    if(file.type !== 'image/jpeg' || fileExt !=='jpg'){ //파일타입과 익스텐션이 jpg인것만
+    if (file.type !== 'image/jpeg' || fileExt !== 'jpg') { //파일타입과 익스텐션이 jpg인것만
       alert('jpg 파일만 업로드 가능합니다.');
       return;
     }
@@ -514,14 +514,14 @@ const SignUp = () => {
       Body: file
     };
     myBucket.putObject(params)
-    .on('httpUploadProgress',(evt)=>{
-      setTimeout(()=>{
-        setSelectedFile(null);
-      }, 3000)
-    })
-    .send((err)=>{
-      if(err)console.log(err)
-    })
+      .on('httpUploadProgress', (evt) => {
+        setTimeout(() => {
+          setSelectedFile(null);
+        }, 3000)
+      })
+      .send((err) => {
+        if (err) console.log(err)
+      })
   }
 
   // ================================  password change notifications  ====================================
@@ -620,74 +620,6 @@ const SignUp = () => {
 
     }
 
-
-
-
-
-
-    // // 프로필
-    // const file = document.querySelector('[name=file]').files[0];
-    // console.log(document.querySelector('[name=file]').value);
-    // // 이메일
-    // const email = document.querySelector('[name=useremail]').value;
-    // console.log(document.querySelector('[name=useremail]').value);
-    // // 페스워드
-    // const password = document.querySelector('[name=password]').value;
-    // console.log(document.querySelector('[name=password]').value);
-    // // 이름
-    // const username = document.querySelector('[name=username]').value;
-    // console.log(document.querySelector('[name=username]').value);
-    // // 전화번호
-    // const tel = document.querySelector('[name=tel]').value;
-    // console.log(document.querySelector('[name=tel]').value);
-    // // 생일
-    // const birth = document.querySelector('[name=birth]').value;
-    // console.log(document.querySelector('[name=birth]').value);
-    // // 전문분야
-    // const field = document.querySelector('[name=field]').value;
-    // console.log(document.querySelector('[name=field]').value);
-    // // 거주국가
-    // const workNation = document.querySelector('[name=work_nation]').value;
-    // console.log(document.querySelector('[name=work_nation]').value);
-    // // 수준
-    // const grade = document.querySelector('[name=grade]').value;
-    // console.log(document.querySelector('[name=grade]').value);
-    // // 경력
-    // const career = document.querySelector('[name=career]').value;
-    // console.log(document.querySelector('[name=career]').value);
-    // // 현재 근무지
-    // const workPlace = document.querySelector('[name=work_place]').value;
-    // console.log(document.querySelector('[name=work_place]').value);
-
-    // const formData = new FormData();
-
-    // formData.append('file', file);
-    // formData.append('email', email);
-    // formData.append('password', password);
-    // formData.append('username', username);
-    // formData.append('tel', tel);
-    // formData.append('birth', birth);
-    // formData.append('field', field);
-    // formData.append('workNation', workNation);
-    // formData.append('grade', grade);
-    // formData.append('career', career);
-    // formData.append('workPlace', workPlace);
-    // console.log(formData);
-
-
-    // axios({
-    //   url: 'http://localhost:8080/user/auth/signUp',
-    //   headers: {
-    //     'content-type': 'multipart/form-data'
-    //   },
-    //   method: 'post',
-    //   data: formData
-    // }).then(function (res) {
-    //   console.log(res.data);
-
-    //   // window.location = '/login';
-
-    // })
   }
 
 
@@ -713,7 +645,7 @@ const SignUp = () => {
             }}
           >
             <label htmlFor="icon-button-file">
-              <Input accept="image/*" id="icon-button-file" name="file" type="file" onChange={handleFileInput}/>
+              <Input accept="image/*" id="icon-button-file" name="file" type="file" onChange={handleFileInput} />
               <IconButton color="primary" aria-label="upload picture" component="span">
                 <PhotoCamera />
               </IconButton>
@@ -725,16 +657,6 @@ const SignUp = () => {
           </Box>
 
 
-          {/* <ReactFileReader
-          fileTypes={[".png", ".jpg"]}
-          base64={true}
-          handleFiles={handleFiles}
-
-        >
-          <IconButton color="primary" aria-label="upload picture" component="span">
-            <PhotoCamera />
-          </IconButton>
-        </ReactFileReader> */}
 
 
           <br />
